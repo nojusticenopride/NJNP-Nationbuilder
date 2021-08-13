@@ -1,0 +1,75 @@
+{% unless child.name contains "tatement"  or child.name contains 'website' %}
+
+
+{% assign hlCount = child.headline | split:' ' %}
+
+    
+{% capture daHeadline %}
+{% if hlCount.size > 12 %}
+{% if child.excerpt.size > 0 %}
+<h3 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.name }}</a>
+</h3>
+<p class="small-text"><small> {{ child.excerpt |  truncatewords:35 }}</small></p>
+{% else %}
+<h5 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+</h5>
+{% endif %}
+{% elsif hlCount.size > 9  %}
+{% if child.excerpt.size > 0 %}
+<h5 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+</h5>
+<p class="small-text"><small> {{ child.excerpt |  truncatewords:16 }}</small></p>
+{% else %}
+<h3 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+</h3>
+{% endif %}
+{% elsif hlCount.size > 6 %}
+<h3 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+
+</h3>
+{% if child.excerpt.size > 0 %}
+<p class="small-text"><small> {{ child.excerpt |  truncatewords:16 }}</small></p>
+{% endif %}
+{% elsif hlCount.size > 3 %}
+<h3 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+
+</h3>
+{% if child.excerpt.size > 0 %}
+<p class="small-text"><small> {{ child.excerpt |  truncatewords:50 }}</small></p>
+{% endif %}
+{% else %}
+<h3 class="excerpt-title center">
+  <a href="{{ child.url }}">{{ child.headline }}</a>
+
+</h3>
+{% if child.excerpt.size > 0 %}
+<p class="small-text"><small> {{ child.excerpt |  truncatewords:70 }}</small></p>
+{% endif %}
+{% endif %}
+{% endcapture %}
+{% assign flop = forloop.index %}
+{% assign maxprep = %3N | divided_by: 100 %}
+
+{% assign max1 = maxprep | ceil %}
+{% assign rnnm = max1| divided_by: flop %}
+{% cycle '<li class="row-fluid">', '','' %}  
+<article class="span4 {% cycle 'mobile-visible', '','' %}desktop-visible tablet-visible">
+  <a href="{{ child.url }} "  class="petition-image center" style="background-image:url('{% if child.meta_image_url contains 'missing' %}{{ split_images[rnnm] | strip }}{% else %}{{ child.meta_image_url }}{% endif %}')">
+  <span class="gradient">
+  <h6 class="submit-button center" href="{{ child.url }}">Take Action</h6>
+    </span>
+  </a>
+
+  <section class="intro well smallpad">          
+    {{ daHeadline }}
+  </section>
+
+</article>
+{% cycle '', '','</li>' %}  
+{% endunless %}

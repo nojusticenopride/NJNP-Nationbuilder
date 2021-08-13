@@ -1,0 +1,85 @@
+
+<h6>    {{ page.excerpt }}</h6>
+{% if request.logged_in? %}
+
+{% elsif request.sorta_logged_in? %}
+
+<div class="box">
+  Hi <strong>{{ request.current_signup.name_or_email }}.</strong><br/>
+  <div class="social">
+    Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a>.<br/>
+    Not {{ request.current_signup.name_or_email }}? <a href="{{ request.current_signup.logout_url }}">click here</a>.
+  </div>
+</div>
+
+{% else %}
+
+<div class="email-signup form">
+  {% form_for petition_signature %}
+
+  {% hidden_field_tag "page_id", page.id %} 
+
+  <div class="form-errors">{% error_messages_for petition_signatures %}</div>
+  {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+  <div class="row-fluid">
+
+    <div class="span12">
+      {% text_field "first_name", class:"text", placeholder:"First Name" %}
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      {% text_field "last_name", class:"text", placeholder:"Last Name" %}
+    </div>
+
+  </div>
+  {% endif %}
+    <div class="row-fluid">
+
+    <div class="span12">
+      {% email_field "email", class:"text", placeholder:"Email address", required: "required" %}
+    </div>
+  </div>
+  {% if page.petition.is_address? %}
+  {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+  <div class="row-fluid">
+
+    <div class="span12">
+      {% if page.petition.require_address? %}
+      {% text_field "submitted_address", class:"text", required: "required", placeholder:""ZIP (99999 for INTL)" %}
+      {% else %}
+      {% text_field "submitted_address", class:"text", placeholder:"ZIP (99999 for INTL)" %}
+      {% endif %}
+    </div>
+
+  </div>
+
+  {% endif %}
+  {% endif %}
+  {% unless page.show_consent_form? %}
+  <div class="row-fluid" style="display:none;">
+
+    <div class="span6">
+      <label class="checkbox" for="petition_signature_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+    </div>
+    {% if site.ask_for_mobiles? %}
+    <div class="span6">
+      <label class="checkbox" for="petition_signature_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text message updates</label>
+    </div>
+    {% endif %}
+
+  </div>
+  {% endunless %}
+
+  <div class="row-fluid">
+
+    <div class="span12">
+      {% submit_tag "Take action", class:"submit-button" %}
+
+      <div class="form-submit"></div>
+    </div>
+  </div>
+  {% endform_for %}
+</div>
+
+{% endif %}

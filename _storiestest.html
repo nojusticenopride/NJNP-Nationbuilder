@@ -1,0 +1,341 @@
+
+{% include 'experiences'%}
+<article id="content" role="main" class="story-container padtop w-100 px-0 py-5 m-0">
+
+  {{ basic_page }}
+
+  <header class="padbottommore stamp center">
+    <div class="input-group w-75 center input-group-lg h2 mx-auto">
+      <div class="input-group-prepend">
+
+        <span class="input-group-text"><i class="fas fa-filter"></i></span>
+
+        <span class="input-group-text">Showing: </span>
+      </div>
+      <label class="sr-only" for="experience-select">Filter by the issue written about</label>
+      <select id="experience-select" class="filters-select user-success select mdb-select form-control-sm form-control">
+        <option value="" selected="selected">All Stories</option>
+
+ 
+          <option value=".wellness">Wellness</option>
+          <option value=".housing">Housing</option>
+          <option value=".city_council,.DC">City Council and DC Gov</option>    
+          <option value=".sex_work,.Sex">Sex Work</option>
+          <option value=".street_or_public_harassment, .Har">Street or Public Harassment</option>
+      </select>
+    </div>
+  </header>
+  <div class="container-mix container-fluid p-0 m-0 minw-100 grid card-columns  story-list">
+    <div class="card card-cascade w-20 h-33 my-2  mix">
+
+      <!-- Card image -->
+      <div class="view view-cascade overlay">
+        <img  class="card-img-top" src="//d3n8a8pro7vhmx.cloudfront.net/nojusticenopride/pages/139/attachments/original/1535412038/Untitled_design_%283%29.png?1535412038" alt="Card image cap">
+        <a target="_blank" href="//d3n8a8pro7vhmx.cloudfront.net/nojusticenopride/pages/139/attachments/original/1536510478/Community_Safety_Storytelling_Project_-_%28Phase_1%29_Summary_final.pdf?1536510478">
+          <div class="mask flex-center waves-effect waves-light rgba-dark-light">
+            <span class="d-inline-block dark-text px-3">
+              <span class="d-inline-block orange p-3 text-dark rounded text-uppercase center">Read our 1st phase summary!</span></span></div>
+        </a>
+      </div>
+    </div>
+
+    {% for activity in page.activities %}
+    {% for signature in page.petition.signatures_with_images limit:50 %}
+    {% if signature.has_image? %}
+    {% assign ifHasImage = signature.signup.id %} 
+
+    {% endif %}
+    {% endfor %}
+    {% unless activity.signup.id == ifHasImage %}
+
+    {% assign activity_base = activity.data.content %}
+
+    {% assign signature = activity %}
+    {% assign act = activity_base | replace:'kbd','span' %}
+    {% assign ivity = act | replace:'samp','label' %}
+
+    {% assign nnquestions = content_base | split:'<label>' %}
+    {% assign match_ID = activity.signup.id %}
+    
+    {% assign content_basepre = ivity | replace: 'd-none', 'd-inline' %}
+    {% assign content_base1 = content_basepre | replace: '</label><label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign content_base2 = content_base1 | replace: '</label> <label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign content_base3 = content_base2 | replace: '</label>  <label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign content_base4 = content_base3 | replace: '</label>   <label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign content_base5 = content_base4 | replace: '</label>    <label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign content_base = content_base5 | replace: '</label>     <label class="d-inline"', '</label><label class="d-none"' %}
+    {% assign questions = content_base | split:'</label>' %}
+    {% assign activity_size = content_base %}
+    {% if activity_size.size >= 2800 %}{% assign activity_class = 'w-75' %}
+    {% elsif activity_size.size > 2180 %}{% assign activity_class = 'w-66' %}
+    {% elsif activity_size.size > 1600 %}{% assign activity_class = 'w-50' %}
+    {% elsif activity_size.size > 900 %}{% assign activity_class = 'w-33' %}
+    {% else %}{% assign activity_class = 'w-25' %}
+    {% endif %}
+    {% assign atype = signature.signup.custom_values_for_display['select_an_experience_to_write_about_'] %}
+    {% assign experience_slug = atype | replace ' ', '_' %}
+    {% assign atclass = '' %}
+    {% assign title = atype | replace: '_', ' ' %}
+    {% capture atclass %}{% if atype contains 'Sex' %}pink{% elsif atype contains 'Harassment' %}light-blue{% elsif atype contains 'Fare' %}orange{% elsif atype contains 'evasion' %}orange{% elsif atype contains 'Housing' %}purple{% elsif atype contains 'Wellness' %}pink{% elsif atype contains 'Council' %}pink{% elsif atype contains 'Access' %}orange{% else %}dark{% endif %}{% endcapture %}
+    {% assign mixClass = atclass | strip %}
+
+    <div class="card border-{{ mixClass }} story  mix {{ activity_class }} {{ experience_slug | truncatechars:3,"" }}">
+
+      <div class="card-body p-3">
+        <div class="card-headline mt-md-4 mt-2 headline-{{mixClass}} headline">
+
+          <p class="d-flex justify-content-between mb-2 mb-md-3">
+            <span class="h4 card-title pb-0 mb-0 txt-{{ mixClass }} txt-darken-4">{{ atype }}</span>
+            <span class="card-text small strong submitted-date"><label>Submitted: </label><date class="publish-date-day">{{ signature.signup.custom_values_for_display['signature_submitted_date'] }}</date></span>
+          </p>
+        </div>
+        <div class="page-excerpt text-filled pb-0 mb-0">
+          {% assign story = content_base | remove: '<br>' %}
+          {% capture labelClass %}d-inline txt-{{ mixClass }} txt-darken-4{% endcapture %}
+          {% assign label_class = labelClass | strip %}
+          {{ story | replace: 'd-inline', label_class }}
+
+        </div>
+      </div>
+
+      <div class="single-news d-flex row notices mb-3 justify-content-between">
+
+        <!-- Title -->
+        <div class="mb-2 notice notice-sm notice-warning pt-1 pb-1">
+          <div class="col-12 text-truncate pl-0">
+            <strong>Lives in:</strong> {{ signature.signup.address.state }}
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-2 notice notice-sm notice-primary pt-1 pb-1">
+          <div class="col-12 text-truncate pl-0">
+            <strong>Age:</strong> {{ signature.signup.custom_values_for_display['age'] }}
+          </div>
+        </div>
+
+
+        <!-- Title -->
+        <div class="d-flex mb-2 notice-sm notice notice-purple pt-1 pb-1">
+          <div class="col-12 pl-0"><strong>Where did this experience happen?</strong> {{ signature.signup.custom_values_for_display['experience_as_you_feel_comfortable_list_the_location_of_where_this_happened'] }}
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <div class="meta-id card-text center">
+          <span class="badge badge-secondary pr-2 d-none">{% assign identys = signature.signup.custom_values_for_display['how_do_you_identify_enter_all_that_appl'] | remove:'["' %}
+            {% assign identy = identys | remove:'"]' %}
+            {% capture tagcon %}</span><span class="badge badge-secondary pb-1 mr-1 mb-1">{% endcapture %}{{ identy  | replace: '","', tagcon }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    {% endunless %}
+    {% endfor %}
+    {% for signature in page.petition.signatures_with_images limit:50 %}
+    {% assign activity_base = signature.content %}
+    {% assign act = activity_base | replace:'kbd','span' %}
+    {% assign ivity = act | replace:'samp','label' %}
+
+    {% assign nnquestions = content_base | split:'<label>' %}
+    {% assign match_ID = activity.signup.id %}
+    {% assign content_base = ivity | replace: 'd-none', 'd-inline' %}
+    {% assign questions = content_base | split:'</label>' %}
+    {% assign activity_size = content_base %}
+
+    {% if activity_size.size >= 3200 %}{% assign activity_class = 'w-75' %}
+    {% elsif activity_size.size > 1400 %}{% assign activity_class = 'w-66' %}
+    {% elsif activity_size.size > 720 %}{% assign activity_class = 'w-50' %}
+    {% elsif activity_size.size > 380 %}{% assign activity_class = 'w-33' %}
+    {% else %}{% assign activity_class = 'w-25' %}
+    {% endif %}
+    {% assign atype = signature.signup.custom_values_for_display['select_an_experience_to_write_about_'] %}
+    {% assign experience_slug = atype | replace ' ', '_' %}
+    {% assign atclass = '' %}
+    {% assign title = atype | replace: '_', ' ' %}
+    {% capture atclass %}{% if atype contains 'Sex' %}pink{% elsif atype contains 'Harassment' %}light-blue{% elsif atype contains 'Fare' %}orange{% elsif atype contains 'evasion' %}orange{% elsif atype contains 'Housing' %}purple{% elsif atype contains 'Wellness' %}pink{% elsif atype contains 'Council' %}pink{% elsif atype contains 'Access' %}orange{% else %}dark{% endif %}{% endcapture %}
+    {% assign mixClass = atclass | strip %}
+
+    <div class="card border-{{ mixClass }} story  pl-0 mix {{ activity_class }} {{ atype  | truncatechars:3,"" }}">
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-xl-3 col-md-4 mb-lg-0 col-sm-5 col-12 mb-5">
+
+          <!-- Featupink news -->
+          <div class="single-news mb-3">
+
+            <!-- Image --><div class="view rounded z-depth-2 mb-4">
+
+            <img class="img-fluid" src="{{ signature.image_url }}" alt="Sample image">
+            <a href="#!">
+              <div class="mask rgba-{{ mixClass }}-light">
+                <div class="small meta-id h-100 p-2 d-flex align-content-end flex-wrap justify-content-between center">
+                  <span class="badge badge-{{ mixClass }} small mb-1 pb-1">{% assign identys = signature.signup.custom_values_for_display['how_do_you_identify_enter_all_that_appl'] | remove:'["' %}
+                    {% assign identy = identys | remove:'"]' %}
+                    {% capture tagcon %}</span><span class="badge small badge-{{ mixClass }} pb-1 mb-1">{% endcapture %}
+                  {{ identy  | replace: '","', tagcon }}</span>
+                </div>
+              </div>
+            </a>
+            </div>
+
+            <!-- Grid row -->
+            <div class="row mb-2 px-2">
+
+              <!-- Grid column -->
+              <div class="col-12">
+                <h5>
+                  <a href="#" class="title-badge"  data-filter=".{{ experience_slug }}">
+                    <span class="badge badge-{{ mixClass }}">
+                      {{ atype }} 
+                    </span>
+                  </a>
+                </h5>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+            <!-- Title -->
+
+
+          </div>
+          <!-- Featupink news -->
+
+          <!-- Small news -->
+          <div class="single-news pl-2 notices mb-3 pr-2 pr-md-0">
+
+            <!-- Title -->
+            <div class="d-flex mb-2 justify-content-between notice notice-sm notice-warning pt-1 pb-1">
+              <div class="col-12 text-truncate pl-0">
+                <strong>Lives in:</strong> {{ signature.signup.address.state }}
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div class="d-flex mb-2 justify-content-between notice notice-sm notice-primary pt-1 pb-1">
+              <div class="col-12 text-truncate pl-0">
+                <strong>Age:</strong> {{ signature.signup.custom_values_for_display['age'] }}
+              </div>
+            </div>
+
+
+            <!-- Title -->
+            <div class="d-flex mb-3 justify-content-between notice-sm notice notice-purple pt-1 pb-1">
+              <div class="col-12 pl-0"><strong>Where did this experience happen?</strong> {{ signature.signup.custom_values_for_display['experience_as_you_feel_comfortable_list_the_location_of_where_this_happened'] }}
+              </div>
+            </div>
+
+          </div>
+          <!-- Small news -->
+
+          <!-- Small news -->
+          <!-- Small news -->
+
+        </div>
+
+        <div class="col-md-8 col-xl-9 col-sm-7 col-12">
+          <div class="card-body p-2">
+            <div class="card-headline mt-md-4 mt-2 headline-{{mixClass}} headline">
+
+              <p class="d-flex justify-content-between mb-2 mb-md-3">
+                <span class="h4 card-title pb-0 mb-0 txt-{{ mixClass }} txt-darken-4">{{ atype }}</span>
+                <span class="card-text small strong submitted-date"><label>Submitted: </label><date class="publish-date-day">{{ signature.signup.custom_values_for_display['signature_submitted_date'] }}</date></span>
+              </p>
+            </div>
+            <div class="page-excerpt text-filled pb-0 mb-0">
+              {% assign story = content_base | remove: '<br>' %}
+              {% capture labelClass %}d-inline txt-{{ mixClass }} txt-darken-4{% endcapture %}
+              {% assign label_class = labelClass | strip %}
+              {{ story | replace: 'd-inline', label_class }}
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    
+    {% for experience in manual_experiences %}
+    {% assign SUposted_date = posted_date[forloop.index0] %}
+    {% assign SUcurrent_location = current_location[forloop.index0] %}
+    {% assign SUage = age[forloop.index0] %}
+    {% assign SUidentity_tags = identity_tags[forloop.index0] %}
+    {% assign mix_order = forloop.index0 %}
+    {% assign issues = experience_type[forloop.index0] | split:',' %}
+    {% assign experiences = experience | split:'-endexperience-' %}
+
+    {% for post in experiences %}
+    {% assign issue_slug = issues[forloop.index0] | strip %}
+    {% assign issue_label = issue_slug | replace: '_', ' ' %}
+    {% assign atype = issue_slug %}
+ {% capture atclass %}{% if atype contains 'sex' %}pink{% elsif atype contains 'harassment' %}light-blue{% elsif atype contains 'fare' %}orange{% elsif atype contains 'evasion' %}orange{% elsif atype contains 'housing' %}purple{% elsif atype contains 'wellness' %}pink{% elsif atype contains 'council' %}pink{% elsif atype contains 'access' %}orange{% else %}dark{% endif %}{% endcapture %}
+    {% assign mixClass = atclass | strip %}
+    {% assign activity_size = post %}
+    {% if activity_size.size > 2100 %}{% assign activity_class = 'w-75' %}
+    {% elsif activity_size.size > 900 %}{% assign activity_class = 'w-66' %}
+    {% elsif activity_size.size > 240 %}{% assign activity_class = 'w-33' %}
+    {% else %}{% assign activity_class = 'w-25' %}
+    {% endif %}
+    
+    {% assign mix_dates = SUposted_date | remove: '<date class="publish-date-day">' %}
+    {% assign mix_date = mix_date | remove: '</date>' %}
+
+    <div class="card border-{{ mixClass }}  mix story {{ activity_class }} {{ issue_slug}}">
+
+      <div class="card-body p-3">
+        <div class="card-headline mt-md-4 mt-2 headline-{{mixClass}} headline">
+
+          <p class="d-flex justify-content-between mb-2 mb-md-3">
+            <span class="h4 card-title pb-0 mb-0 txt-{{ mixClass }} txt-darken-4">{{ issue_label }}</span>
+            <span class="card-text small strong submitted-date"><label>Submitted: </label>{{ SUposted_date | strip }}</span>
+          </p>
+        </div>
+        <div class="page-excerpt text-filled pb-0 mb-0">
+          {% assign story = content_base | remove: '<br>' %}
+          {% capture labelClass %}d-inline txt-{{ mixClass }} txt-darken-4{% endcapture %}
+          {% assign label_class = labelClass | strip %}
+          {{ post | strip }}
+
+        </div>
+      </div>
+
+      <div class="single-news d-flex row notices mb-3 justify-content-between">
+
+        <!-- Title -->
+        <div class="mb-2 notice notice-sm notice-warning pt-1 pb-1">
+          <div class="col-12 text-truncate pl-0">
+           {{ SUcurrent_location }}
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-2 notice notice-sm notice-primary pt-1 pb-1">
+          <div class="col-12 text-truncate pl-0">
+             {{ SUage }}
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <div class="meta-id card-text center">
+                    {% capture tagcon %}<span class="badge small  badge-secondary  pb-1 mb-1"{% endcapture %}
+                  {{SUidentity_tags   | replace: '<span class', tagcon }}
+
+        </div>
+      </div>
+
+    </div>
+    
+    {% endfor %}
+    
+    {% endfor %}
+  </div>
+</article>

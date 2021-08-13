@@ -1,0 +1,103 @@
+{% if page.is_homepage? == true and site.page_tags contains "homepage" %}
+{% assign headerimage = site.header_image_url_980 %}
+
+<div class="header-image-wrap"  style="background-image:url('{{ headerimage }}')">
+  <div class="header-image-gradient center"> 
+    <div class="container">
+
+      <div class="col">
+
+        <header style="padding-bottom:0;" class="padtopmore">
+          <img src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1532964023/NJNP_White.png?1532964023" class="header-image" border="0" width="250"/>
+
+          <div id="content">
+
+            <div id="intro" class="intro truncate-500 text-white" data-truncate="500"><small>{{ page.basic.content}}</small></div>
+
+          </div>
+        </header>
+        {% subpage 'join' with "small_signup" %}
+      </div>
+    </div>
+  </div>
+</div>
+    {% tag "homepage" with "homepage_widget" %}
+<script src="https://assets.juicer.io/embed.js" type="text/javascript"></script>
+<link href="https://assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />
+<style>juicer-feed .j-title {
+  font-size: 32px;
+}</style>
+<ul class="juicer-feed" data-feed-id="nojusticenopride"><h1 class="referral"><a href="https://www.juicer.io">Powered by Juicer</a></h1></ul>
+<div class="container">
+  <h3 class="center">Take Action and Get Involved!</h3>
+
+  <div class="homepage_excerpt-list list-unstyled row">
+    {% for page in site.most_recent_petition_pages %}
+
+    {% subpage page with "actionfeed" %}
+    {% endfor %}
+  </div>
+  <div class="homepage_excerpt-list list-unstyled row">
+    {% for page in site.most_recent_pages limit:50 %}
+
+    {% subpage page with "actionfeed" %}
+    {% endfor %}
+  </div>
+</div>
+{% elsif page.is_supporter_nav?  %}
+<div class="container">
+  <div class="jumbotron bg-white "  id="content">
+
+    <!-- Title -->
+    <h1 class="display-1 card-title text-center h2 pb-2"><strong>{{ page.name}}</strong><small> — {{ page.headline }}</small></h1>
+
+    <!-- Card image -->
+    <div class="view my-4">
+      <img src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}" class="img-fluid" alt="">
+      <a href="#">
+        <div class="mask rgba-pink-slight"></div>
+      </a>
+    </div>
+    <div id="intro" class="intro left">
+      <p class="card-text text-content left">{{ page.basic.content }}</p>
+
+    </div>
+
+  </div>
+</div>
+  {% include "supporter_nav" %}
+
+
+<div class="container-fluid px-3">
+{% subpage page with "homepage_widget" %}
+</div>
+{% else %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"> 
+
+      {% if page.headline.size > 0 %}
+      <h2 class="headline">{{ page.headline }}</h2>
+      {% endif %}
+
+      <div id="content">
+
+        <div id="intro" class="intro">
+          <div class="text-content">
+            {{ page.basic.content }}
+          </div>
+        </div>
+
+        {% unless page.is_homepage? == true and site.page_tags contains "homepage" %}
+
+        {% include "like_page" %}
+
+        {% endunless %}
+
+      </div>
+
+    </div>
+  </div>
+</div> 
+{% endif %}

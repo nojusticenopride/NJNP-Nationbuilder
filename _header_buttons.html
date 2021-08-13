@@ -1,0 +1,10 @@
+  <form  class="ml-1 pl-0 pr-0 mr-0 form-inline pt-1 w-50 text-right header-buttons col justify-content-end">
+{% if site.has_donation_page? %}
+	<a class="btn btn-danger  lead px-lg-5 px-md-4 strong mx-2" href="{{ site.donation_page.url }}" title="{{ site.donation_page.headline}}" style="font-weight: 900; font-size: 16px;">{{ site.donation_page.name }}</a>
+{% endif %}
+{% if site.has_volunteer_page? %}
+		<a class="btn btn-warning bg-orange lead  px-lg-5 px-md-4 strong ml-5" href="{{ site.volunteer_page.url }}" title="Get Involved" style="
+    font-weight: 900; font-size: 16px;">{{ site.volunteer_page.name }}</a>
+
+{% endif %}
+</form>

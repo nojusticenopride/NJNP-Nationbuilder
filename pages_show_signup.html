@@ -1,0 +1,245 @@
+{% if page.meta_image_url contains 'missing' %}
+{% if page.attachments.size > 0 %}
+{% for attachment in page.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign headerimage = attachment.url %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% assign headerimage = site.meta_image_url %}
+{% endif %}{% else %}
+{% assign headerimage = page.meta_image_url %}
+{% endif %}
+<style>
+
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+
+  @media (min-width: 851px) and (max-width: 1440px) {
+    html,
+    body,
+    header,
+    .view {
+      height: 850px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+    html,
+    body,
+    header,
+    .view {
+      height: 1000px;
+    }
+  }
+
+  @media (min-width: 451px) and (max-width: 740px) {
+    html,
+    body,
+    header,
+    .view {
+      height: 1200px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    html,
+    body,
+    header,
+    .view {
+      height: 1400px;
+    }
+  }
+
+  .intro-2 {
+    background: url("{{ headerimage }}")no-repeat center center;
+    background-size: cover;
+  }
+
+
+  .rgba-gradient {
+    background: -webkit-linear-gradient(98deg, rgba(22, 91, 231, 0.5), rgba(255, 32, 32, 0.5) 100%);
+    background: -webkit-gradient(linear, 98deg, from(rgba(22, 91, 231, 0.5)), to(rgba(255, 32, 32, 0.5)));
+    background: linear-gradient(to 98deg, rgba(22, 91, 231, 0.5), rgba(255, 32, 32, 0.5) 100%);
+  }
+
+  .card {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  h6 {
+    line-height: 1.7;
+  }
+</style>
+<section class="view intro-2">
+  <div class="mask rgba-gradient position-relative">
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+
+      <!--Grid row-->
+      <div class="row  pt-5 mt-3">
+
+        <!--Grid column-->
+        <div class="col-sm-10 col-md-6 col-lg-5 offset-sm-1 ">
+
+
+          {% if page.headline.size > 0 %}
+          <h2 class="font-weight-bold my-4 text-center mb-5 mt-4 font-weight-bold ">
+            {{ page.headline }}
+          </h2>
+          <hr>
+          {% endif %}
+
+          <!--Grid row-->
+          <div class="p-4" id="content">
+
+            {% if page.signup.content.size > 0 %}
+            <div id="intro" class="intro">
+              {{ page.signup.content }}
+            </div>
+            {% endif %}
+
+            {% if page.show_social_slider? and page.public_activities_count > 0 %}
+            {% include "social_slider" %}
+            {% endif %}
+
+          </div>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-sm-10 col-md-4 col-lg-5  offset-sm-1">
+
+          <div class="card mb-5" id="formAirjax">
+            <div class="card-body">
+              <!--Grid column-->
+            <div class="form-wrap">
+
+                <div class="form">
+
+                  {% form_for signup %}
+
+                  {% if request.sorta_logged_in? %}
+                  <h4>Hi {{ request.current_signup.name_or_email }}, thanks for joining!</h4>
+
+                  {% if request.logged_in? == false %}
+                  <div class="padbottommore"><small>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here to signup</a>.</small></div>
+                  {% endif %}
+
+                  {% endif %}
+
+                  <div class="form-errors">{% error_messages_for signup %}</div>
+                  {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+                  <div class="md-form">
+                    <i class="fa fa-user prefix"></i>
+                    {% text_field "first_name", class:"text form-control" %}<label for="signup_first_name">First Name</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-user prefix"></i>
+                    {% text_field "last_name", class:"text form-control" %}<label for="signup_last_name">Last Name</label>
+                  </div>
+                  {% endif %}
+
+
+                  {% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+                  <div class="md-form">
+                    <i class="fa fa-envelope prefix"></i>{% email_field "email", class:"text form-control" %}<label for="signup_email">Email</label></div>
+                  {% if site.ask_for_mobiles? %}
+                  <div class="md-form">
+                    <i class="fa fa-phone prefix"></i>{% phone_field "mobile_number", class:"text form-control" %}<label for="signup_mobile_number">Mobile phone</label>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+
+                  {% if page.signup.is_phone? %}
+                  <div class="md-form">
+                    <i class="fa fa-phone prefix"></i>{% phone_field "phone_number", class:"text form-control" %}<label for="signup_phone_number">Phone</label>
+                  </div>
+                  {% endif %}
+
+                  {% if page.signup.is_address? %}
+
+                  {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+                  <div class="md-form">
+                    <i class="fa fa-address prefix"></i>{% text_field "submitted_address", class:"text form-control" %}<label for="signup_submitted_address">Address (Street, City, State, Zip)</label>
+                  </div>
+                  {% endif %}
+
+                  {% endif %}
+
+                  {% if page.signup.has_labeled_tags? %}
+                  {% include "labeled_tags" %}
+                  {% endif %}
+
+                  {% if page.signup.is_volunteers? and site.ask_for_volunteers? %}
+                  {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+                  <div class="md-form"><div class="form-check">{% check_box "is_volunteer", class:"form-check-input" %}<label for="signup_is_volunteer" class="form-check-label">I want to volunteer</label>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+
+
+
+                  {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+                  <div class="text-center">
+                    {% if page.signup.is_all_info_collected? == false %}
+                    {% if request.sorta_logged_in? %}
+                    {% submit_tag "Update info", class:"btn btn-indigo btn-rounded mt-5 submit-button" %}
+                    {% else %}
+                    {% submit_tag "Signup", class:"btn btn-indigo btn-rounded mt-5 submit-button" %}
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                  {% unless page.show_consent_form? %}
+                  {% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+                  <div class="md-form"><div class="form-check">{% check_box "email_opt_in", class:"form-check-input" %}<label for="signup_email_opt_in" class="form-check-label">Send me email updates</label>
+                    </div></div>
+
+
+                  {% if site.ask_for_mobiles? %}
+                  <div class="md-form">
+                    <div class="form-check">{% check_box "mobile_opt_in", class:"form-check-input" %}<label for="signup_mobile_opt_in" class="form-check-label">Send me text message updates</label>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+                  {% endunless %}
+
+                  <div class="form-submit"></div>
+
+                  {% endform_for %}
+
+                  {% if page.text_keyword_instructions.size > 0 %}
+                  <div class="row padbottom padtopmore">
+                    <div class="col-md-12">
+                      or {{ page.text_keyword_instructions }}
+                    </div>
+                  </div>
+                  {% endif %}
+
+
+
+                </div>
+
+              </div>
+              <!--Grid column-->
+            </div>
+            <div class="card-footer">
+              {% include "like_page" %}
+            </div>
+
+          </div>
+          <!--Grid row-->
+
+        </div>
+      </div>
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+</section>

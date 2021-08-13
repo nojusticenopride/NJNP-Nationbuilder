@@ -1,0 +1,181 @@
+<div class="container-fluid bg-warning py-3 text-white">
+  
+  <div class="row">
+    <div class="center col-sm-12">
+      <h2 class="display-1 center mb-4 mt-5 text-dark">SHARE YOUR STORY ❤</h2>
+    </div>
+    <div class="w-100"></div>
+    <div class="d-none d-md-block col-md-6 col-xl-7 full-feature my-5" id="story-feature">
+      
+      <div class="px-2 siema w-100" style="height:75vh; max-height:600px; overflow:hidden;">
+        {% capture loopid %}{{ forloop.index }}{% endcapture %}
+        {% capture slidez %}
+        {% for activity in page.activities | limit:8 %}
+        {% assign activity_base = activity.data.content %}
+        {% assign signature = activity %}
+        {% assign act = activity_base | replace:'kbd','span' %}
+        {% assign ivity = act | replace:'samp','label' %}
+        {% assign content_basepre = ivity | replace: 'd-none', 'd-inline' %}
+        {% assign content_base1 = content_basepre | replace: '</label><label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                               {% assign content_base2 = content_base1 | replace: '</label> <label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                                                                                                                                                     {% assign content_base3 = content_base2 | replace: '</label>  <label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                                                                                                                                                                                                                                                                            {% assign content_base4 = content_base3 | replace: '</label>   <label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {% assign content_base5 = content_base4 | replace: '</label>    <label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             {% assign content_base = content_base5 | replace: '</label>     <label class="d-inline"', '</label><label class="d-none"' %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {% assign questions = content_base | split: '</label>' %}
+      {% assign questions = content_base | split:'</span>' %}
+    {% assign activity_size = content_base %}
+    {% assign atype = activity.signup.custom_values_for_display['select_an_experience_to_write_about_'] %}
+    {% capture atclass %}{% if atype contains 'Sex' %}pink{% elsif atype contains 'Harassment' %}light-blue{% elsif atype contains 'DC' %}orange{% elsif atype contains 'Fare' %}orange{% elsif atype contains 'evasion' %}orange{% elsif atype contains 'Housing' %}purple{% elsif atype contains 'Wellness' %}pink{% elsif atype contains 'Council' %}pink{% elsif atype contains 'Access' %}orange{% else %}dark text-light{% endif %}{% endcapture %}
+    {% assign mixClass = atclass | strip %}  
+    {% capture defaultClass %} card pl-4 pr-5 text-dark mb-3 {% endcapture %}
+    {% capture cardBody %}card-body py-4 small pr-5{% endcapture %}
+    {% capture cardText %}card-text pl-1 pr-3{% endcapture %}
+    {% if atype contains 'Sex' %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% for question in questions %} 
+          {% if question contains "ave you ever been" %} 
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}
+          {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    </blockquote> 
+    //endcapture//
+    {% for question in questions %} 
+    {% if question contains "biggest concern regarding your experiences participating in sex wo" %} 
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass | strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "engaging in sex work would change if sex work" %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass | strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% unless atype contains 'Sex' %}
+    {% for question in questions %} 
+    {% if question contains 'If you are comfortable, can you share what happened during the incident?' %}
+    {% assign labelClass= question | replace: 'd-inline', 'd-none' %}
+    {% assign nothing = "<span>" %}
+    {% capture contentz %}{{ labelClass  | strip | truncatewords:75,'...</span>' }}{% endcapture %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass | strip }}">
+      <div class="{{ cardBody | strip }}">
+        <cite class="font-weight-bold text-uppercase card-title display-1 pr-3">..on Street or Public Harassment</cite>
+        <p class="{{ cardText | strip }}">{{ contentz | strip }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "n your current housing situat" %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "ccess to medical care that meets all of your physic" %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "arding your immigration status, do you feel those needs are cur" %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "services would be beneficial to you that are not currently o" %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ question | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    //endcapture//
+    {% elsif question contains "one thing about your experience" %}  
+    {% assign labelClass= question | replace: 'd-inline', 'd-none' %}
+    <blockquote class="quote-card {{ mixClass }} {{ defaultClass |strip }}">
+      <div class="{{ cardBody | strip }}">
+
+        <cite class="font-weight-bold text-uppercase card-title display-1 pr-3">If you could tell DC elected leaders one thing about your experiences...</cite>
+        <p class="{{ cardText | strip }}">
+          {% assign nothing = "<span>" %}
+          {{ labelClass  | strip | truncatewords:65,'...</span>' }}</p>
+      </div>
+    </blockquote>
+    {% endif %}
+    {% endfor %}
+    {% endunless %}
+    {% endfor %}
+    {% endcapture %}
+    {% assign contentSlidez = slidez | strip %}
+    {% assign contentSlides = contentSlidez | split: '//endcapture//' %}
+    <div class="item w-75 mx-auto px-1 px-lg-2 mb-5">
+      {% for content in contentSlides | limit:2 %}
+      {{ content | strip }}
+      {% endfor %}
+    </div>
+    {% if contentSlides.size > 2 %}
+    <div class="item w-75 mx-auto px-1 px-lg-2 mb-5">
+      {% for content in contentSlides | offset:2 | limit:2 %}
+      {{ content | strip }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if contentSlides.size > 4 %}
+    <div class="item w-75 mx-auto px-1 px-lg-2 mb-5">
+      {% for content in contentSlides | offset:4 | limit:2 %}
+      {{ content | strip }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if contentSlides.size > 6 %}
+    <div class="item w-75 mx-auto px-1 px-lg-2 mb-5">
+      {% for content in contentSlides | offset:6 | limit:2 %}
+      {{ content | strip }}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+<div class="col-xl-5 col-md-6 pt-3">
+  <div class="my-5">
+    <div class="story-content p-1 text-dark">
+      <h2 class="mb-5">NJNP is playing a <span class="sp-1">critical role</span> organizing city wide
+        <br>outreach and storytelling to generate public support for <span class="font-weight-bold text-deep-orange">TGNC Community Safety!</span>
+      </h2>
+      <a href="/story" class="genric-btn btn btn-primary circle arrow">Get Started<span class="lnr lnr-arrow-right"></span></a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

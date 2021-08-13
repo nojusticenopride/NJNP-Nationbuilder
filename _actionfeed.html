@@ -1,0 +1,342 @@
+
+{% case page.type_name %}
+
+<!-- Card -->
+
+
+
+{% when 'Redirect' %}
+{% if page.excerpt.size > 0 %}
+<div class="col-sm-4 exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+  <div class="card" style="overflow:hidden">
+
+    <!-- Card image -->
+    <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+    <!-- Card content -->
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <p class="card-text">{{ page.excerpt }}</p>
+      <!-- Button -->
+      <a class="btn btn-primary btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        Read More</a>
+
+    </div>
+
+  </div>
+
+</div>
+{% endif %}
+<!-- Donation v2 page -->
+{% when 'Donation (v2)' %}
+
+
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-success" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-success-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-success lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+
+
+      <p class="card-text">{{ page.endorsement.content | truncatewords:40 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-danger text-dark btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        DONATE TODAY!</a>
+
+
+    </div>
+    <div class="rounded-bottom bg-success lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark text-dark text-dark"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<!-- Endorsement page -->
+{% when 'Endorsement' %}
+
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-warning" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-warning-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-warning lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+ {% if page.endorsement.has_goal? %}
+              {% assign thermo_width = 100 %}
+              <div class="clearfix">
+                {% if page.endorsement.endorsements_count < 2 %}
+                <div class="bar-text"><h2 class="strong">0</h2> of a {{ page.endorsement.goal | number_with_commas }} endorsements</div>
+                {% else %}
+                <div class="bar-text"><h2 class="strong">{{ page.endorsement.endorsements_count | number_with_commas }}</h2> of a goal of {{ page.endorsement.goal | number_with_commas }} endorsement goal</div>
+                {% endif %}
+                <div class="progress" style="width: {{ thermo_width }}%;">
+                  <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ page.endorsement.percent_of_goal | times:100 }}%;">
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+      <p class="card-text">{{ page.endorsement.content | truncatewords:60 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-warning-outline btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        ENDORSE!</a>
+
+
+    </div>
+    <div class="rounded-bottom bg-warning lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark text-dark text-dark"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<!-- Petition page -->
+{% when 'Petition' %}
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-primary" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-red-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-primary lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+
+      {% if page.petition.has_goal? %}
+      {% assign thermo_width = 100 %}
+      <div class="clearfix">
+        {% if page.petition.signatures_count < 2 %}
+        <div class="bar-text"><h2 class="strong">0</h2> of a {{ page.petition.goal | number_with_commas }} {{ page.petition.signature_name | downcase }} goal</div>
+        {% else %}
+        <div class="bar-text"><h2 class="strong">{{ page.petition.signatures_count | number_with_commas }}</h2> of a {{ page.petition.goal | number_with_commas }} {{ page.petition.signature_name | downcase }} goal</div>
+        {% endif %}
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ page.petition.percent_of_goal | times:100 }}%;">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <p class="card-text">{{ page.excerpt | truncatewords:40 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-warning btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        TAKE ACTION </a>
+
+
+    </div>
+    <div class="rounded-bottom bg-danger lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark white-text"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- * Signup page -->
+{% when 'Signup' %}
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-warning" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-warning-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-warning lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+
+
+      <p class="card-text">{{ page.signup.content | truncatewords:60 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-warning-outline btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        SIGN UP! </a>
+
+
+    </div>
+    <div class="rounded-bottom bg-warning lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark text-dark text-dark"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- * Survey page -->
+{% when 'Survey' %}
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-purple" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-purple-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-purple lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+
+
+      <p class="card-text">{{ page.survey.content | truncatewords:40 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-purple-outline btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        Take The Survey! </a>
+
+
+    </div>
+    <div class="rounded-bottom bg-purple lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark text-dark -text"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Volunteer signup page -->
+{% when 'Volunteer Signup' %}
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-danger" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-red-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-danger lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h4 class="card-title"><a  href="{{ page.url }}" title="{{ page.name }}">{{ page.headline }}</a></h4>
+      <!-- Text -->
+      <div class="widget-fill"></div>
+
+      <p class="card-text">{{ page.signup.content | truncatewords:60 }}
+      </p>
+      <!-- Button -->
+      <a class="btn btn-danger-outline btn-lg-tablet margintopmore" href="{{ page.url }}" title="{{ page.name }}">
+        Get Plugged In </a>
+
+
+    </div>
+    <div class="rounded-bottom bg-danger lighten-3 text-center pt-3">
+      <ul class="list-unstyled list-inline font-small">
+        <li class="list-inline-item pr-2 text-dark text-dark"><i class="far fa-clock pr-1"></i>{{ page.published_at | date: '%b %d, %Y' }}</li>
+        <li class="list-inline-item pr-2 text-dark text-dark"><a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url }}" class="white-text">Share <i class="fab fa-facebook-f pr-1"> </i></a></li>
+        <li class="list-inline-item"><a href="https://twitter.com/home?status=take%20action%20-%20{{ page.name | url_encode }}%20-%20{{ page.url }}" class="white-text">Tweet <i class="fab fa-twitter pr-1"> </i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- * Vote pledge page -->
+{% when 'Vote Pledge' %}
+<div class="col-sm-4 exterior-widget widget-{{ page.page_class_name }}">
+  <div class="card border-danger" style="overflow:hidden">
+    <div class="view overlay"style="position: relative;">
+      <img class="card-img-top" src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-red-slight"></div>
+      </a>
+    </div>  <!-- Card content -->
+    <a href="{{ page.url }}" class="abnormal-icon btn-floating btn-action ml-auto mr-4 btn-danger lighten-3 waves-effect waves-light" style="font-size: inherit;"><i class="text-dark fas fa-chevron-right pl-1"></i></a>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6 left">
+
+          <h5 class="card-title excerpt-title secondary"><a href="{{ page.url }}">{{ page.headline }}</a></h5>
+          <hr class="visible-xs" />
+          {% if page.vote_pledge.has_yes_goal? %}
+          {% assign thermo_width = 100 %}
+          <div class="clearfix padtopmore">
+            {% if page.vote_pledge.yes_votes_count < 2 %}
+            <div class="bar-text"><h2 class="strong">0</h2> of a {{ page.vote_pledge.yes_goal | number_with_commas }} pledge goal</div>
+            {% else %}
+            <div class="bar-text"><h2 class="strong">{{ page.vote_pledge.yes_votes_count | number_with_commas }}</h2> of a {{ page.vote_pledge.yes_goal | number_with_commas }} pledge goal</div>
+            {% endif %}
+            <div class="progress" style="width: {{ thermo_width }}%;">
+              <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ page.vote_pledge.percent_of_yes_goal | times:100 }}%;">
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-sm-6">
+          {% include "homepage_excerpt_vote_pledge" with page.slug %}
+        </div>
+      </div>
+      <!-- Title -->
+
+
+    </div>
+  </div>
+
+</div>
+
+
+{% endcase %}

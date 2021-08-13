@@ -1,0 +1,248 @@
+<header style="margin-top:-7vh">
+ <section class="view mb-5">
+
+    <div class="row">
+
+      <div class="col-md-6 col-lg-5 col-xl-4 bg-dark  red-text px-md-3 pl-lg-5 pt-2">
+
+        <div class="d-flex flex-column justify-content-center align-items-center gray h-100 pl-sm-1 pl-xl-5">
+          <h1 class="display-2 px-lg-2 px-xl-2 h2 heading"> {{ page.name }}</h1>
+                    <h3 class="px-lg-3 px-xl-2 subheading  display-2 h4 heading"> {{ page.headline }}</h3>
+         
+        </div>
+
+      </div>
+
+      <div class="col-md-6 col-lg-7 col-xl-8">
+        <div class="view">
+          <img src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}" class="img-fluid" alt="smaple image">
+          <div class="mask flex-center hm-gradient">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- Intro -->
+    
+</header>
+<div class="container">
+  <div class="row d-flex align-items-stretch">
+    
+    <div class="col-sm-6 pr-5">  
+
+      <div id="content">
+
+        {% if page.petition.intro.size > 0 %}
+        <div id="intro" class="intro">
+          {{ page.petition.intro }}
+          
+ {% if page.petition.content.size > 0 %}
+        <div id="disabledInput" class="strong accent form-control small p-2 pb-3 d-none d-sm-block" contenteditable="true" style="background: #f1f1f1; height: 25vh; overflow: scroll; font-size: .72rem; box-shadow: inset 0 -4px 0 #ddd;">
+          {{ page.petition.content }}
+        </div>
+        {% endif %}
+        </div>
+        {% endif %}
+
+        {% if page.show_social_slider? and page.public_activities_count > 0 %}
+          {% include "social_slider" %}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="pl-5 col-sm-6 col-lg-5">
+            <div class="form-wrap" id="formAirjax">
+
+       
+        {% if page.petition.has_goal? %}
+        {% assign thermo_width = 100 %}
+          <div class="clearfix thermo-wrap">
+            {% if page.petition.signatures_count < 2 %}
+              <div class="bar-text"><h2 class="strong">0</h2> of a {{ page.petition.goal | number_with_commas }} {{ page.petition.signature_name | downcase }} goal</div>
+            {% else %}
+              <div class="bar-text"><h2 class="strong">{{ page.petition.signatures_count | number_with_commas }}</h2> of a {{ page.petition.goal | number_with_commas }} {{ page.petition.signature_name | downcase }} goal</div>
+            {% endif %}
+            <div class="progress" style="width: {{ thermo_width }}%;">
+              <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ page.petition.percent_of_goal | times:100 }}%;">  
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if page.petition.is_signed? %}
+
+          {% form_for petition_signature %}
+
+            <div class="form">
+
+              <h3>Thank you for signing!</h3>
+
+              <div class="form-errors">{% error_messages_for petition_signatures %}</div>
+
+              {% if page.is_commentable? %}
+              <div class="row">
+                <div class="col-md-12"><div class="form-group mb-0">{% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Change your comment</label></div></div>
+              </div>
+              {% endif %}
+
+              {% if page.petition.is_image? %}
+              <div class="row">
+                <div class="col-md-12"><div class="form-group mb-0">{% file_field "image", class:"file" %}<label for="petition_signature_image">Upload a picture (140x140)</label></div></div>
+              </div>
+              {% if petition_signature.has_image? %}
+              <p><img src="{{ petition_signature.large_square_image_url }}" width="140" height="140" border="0"/></p>
+              {% endif %}
+              {% endif %}
+
+              {% if page.is_commentable? %}
+              {% capture signature_name %}Update {{ page.petition.signature_name }}{% endcapture %}
+              {% submit_tag signature_name, class:"submit-button btn btn-lg btn-default margintopmore" %}
+              {% endif %}
+
+              {% capture signature_name %}Remove {{ page.petition.signature_name }}{% endcapture %}
+              {{ page.petition.current_signature | delete_link message: signature_name class_name: "btn btn-danger margintopmore"}}
+
+              <div class="form-submit"></div>
+
+            </div>
+
+          {% endform_for %}
+
+        {% else %}
+
+          {% form_for petition_signature %}
+
+            <div class="form">
+
+              {% if request.sorta_logged_in? %}
+                <h4>Hi {{ request.current_signup.name_or_email }}, will you sign?</h4>
+
+              {% if request.logged_in? == false %}
+                <p>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+              {% endif %}
+
+              {% else %}
+
+              <h4>Will you sign?</h4>
+
+              {% endif %}
+
+              <div class="form-errors">{% error_messages_for petition_signature %}</div>
+
+              {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% text_field "first_name", class:"text form-control" %}<label for="petition_signature_first_name">First Name</label></div></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% text_field "last_name", class:"text form-control" %}<label for="petition_signature_last_name">Last Name</label></div></div>
+                </div>
+              {% endif %}
+
+              {% if request.sorta_logged_in? == false %}
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% email_field "email", class:"text form-control" %}<label for="petition_signature_email">Email</label></div></div>
+                </div>
+                <div class="row">
+                  {% if site.ask_for_mobiles? %}
+                  <div class="col-md-12"><div class="form-group mb-0">{% phone_field "mobile_number", class:"text form-control" %}<label for="petition_signature_mobile_number">Mobile phone</label></div></div>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {% if page.petition.is_phone? %}
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% phone_field "phone_number", class:"text form-control" %}<label for="petition_signature_phone_number">Phone</label></div></div>
+                </div>
+              {% endif %}
+
+              {% if page.petition.is_address? %}
+                {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+                  <div class="row">
+                    <div class="col-md-12"><div class="form-group mb-0">
+                      {% if page.petition.require_address? %}
+                        {% text_field "submitted_address", class:"text form-control", required: "required" %}
+                      {% else %}
+                        {% text_field "submitted_address", class:"text form-control" %}
+                      {% endif %}
+                      <label for="petition_signature_submitted_address">Address (Street, City, State, Zip)</label>
+                    </div></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12"><div class="form-group mb-0">
+                      {% collection_select "country_code", page.petition.countries, "code", "name", class:"select form-control" %}<label for="petition_signature_country_code">Country</label> </div></div>
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {% if page.is_commentable? %}
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Comments (optional)</label></div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if page.petition.is_image? %}
+                <div class="row">
+                  <div class="col-md-12"><div class="form-group mb-0">{% file_field "image", class:"file" %}<label for="petition_signature_image">Upload a picture (140x140)</label>
+                  </div></div>
+                </div>
+              {% endif %}
+
+             
+                <input id="petition_signature_is_private" name="petition_signature[is_private]" type="hidden" value="1" />
+             
+              {% if page.petition.is_volunteer? and site.ask_for_volunteers? %}
+                {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+                  <div class="row">
+                    <div class="col-md-12"><div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %}<label for="petition_signature_is_volunteer">I want to volunteer</label></div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+
+              {% capture signature_name %}Add {{ page.petition.signature_name }}{% endcapture %}
+              {% submit_tag signature_name, class:"submit-button btn btn-lg btn-outline-warning text-dark  margintopmore" %}
+
+              {% unless page.show_consent_form? %}
+                {% if request.sorta_logged_in? == false %}
+                  <div class="row">
+                    <div class="col-md-12"><div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %}<label for="petition_signature_email_opt_in">Send me email updates</label></div>
+                    </div>
+                    {% if site.ask_for_mobiles? %}
+                      <div class="col-md-12"><div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %}<label for="petition_signature_mobile_opt_in">Send me text message updates</label></div>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endunless %}
+
+              <div class="form-submit"></div>
+
+            </div>
+
+          {% endform_for %}
+
+            {% if page.text_keyword_instructions.size > 0 %}
+            <div class="padbottom padtopmore">
+              or {{ page.text_keyword_instructions }}
+            </div>
+            {% endif %}
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  {% include "like_page" %}
+</div>
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

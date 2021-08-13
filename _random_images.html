@@ -1,0 +1,45 @@
+<!-- Random images built by NJNP Web Dev Team -->
+{% assign attachment_r = "" %}
+{% for attachment in page.attachments %}
+{% capture filename %}{{ attachment.url }}{% endcapture %}
+{% assign attachment_r = filename | append: ", " | append: attachment_r %}
+{% endfor %}
+{% for page in nav.children %}
+{% for attachment in page.attachments %}
+{% capture filename %}{{ attachment.url }}{% endcapture %}
+{% assign attachment_r = filename | append: ", " | append: attachment_r %}
+{% endfor %}
+{% for child in page.children%}
+{% capture filename %}{{ attachment.url }}{% endcapture %}
+{% assign attachment_r = filename | append: ", " | append: attachment_r %}
+{% endfor %}
+{% endfor %}
+{% assign split_images = attachment_r | split: ", " %}
+
+{% assign min = 1 %}
+{% assign max = 5 %}
+{% assign min1 = 5 %}
+{% assign maxprep = %3N | divided_by: 100 %}
+
+{% assign max1 = maxprep | ceil %}
+
+{% assign diff1 = max | minus: min %}
+{% assign diff2 = max1 | minus: min1 %}
+{% assign inc = diff2 | minus: min1 %}
+{% assign diff = diff1 | minus: diff2 %}
+
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: inc %}
+{{ floop }}
+
+
+{% capture random_image_url %}
+{{ split_images[randomNumber]  | strip }}
+{% endcapture %}
+
+<!-- example #1 
+{% if page.meta_image_url contains 'missing' %}
+    {{ split_images[randomNumber]  | strip }} 
+{% endif %}
+-->
+
+

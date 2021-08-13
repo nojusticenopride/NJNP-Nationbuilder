@@ -1,0 +1,92 @@
+{% if page.features_count > 0 %}
+
+{% if page.features.size > 0 %}
+<div id="carousel-generic" class="carousel slide" data-pause="none" data-ride="carousel" data-interval="false">
+  <div class="carousel-inner" role="listbox"  style="height:calc(100vh - 7rem); max-height:800px;">
+    {% for feature in page.features %}
+    <div class="carousel-item  h-100 {% if forloop.first == true %}active bg-dark{% endif %}" id='feature-item{{ forloop.index }}'>
+      <div class="row h-100">
+        {% if forloop.first == true %}
+        <div class="col-sm-12 full-feature story-content  h-100">
+          <div class="carousel-loading-image ci fade show p-5 mt-3 center position-relative justify-content-between">
+          <img class="w-25 p-1 mx-auto" src="https://d3n8a8pro7vhmx.cloudfront.net/themes/5ba68cc84764e828e9fa2b6c/attachments/original/1536770682/NJNP-Black-loading.gif?1536770682" />
+          </div>
+          <div class="carousel-image ci pt-5 h-100" data-src="https://d3n8a8pro7vhmx.cloudfront.net/themes/5ba68cc84764e828e9fa2b6c/attachments/original/1541037211/Copy_of_Untitled_%282%29.png?1541037211"></div>  
+          <div class="carousel-instance ci pt-5 h-100 pb-5 px-md-4 fade position-relative justify-content-between">
+            <div class="w-100 mt-5 mx-auto px-md-5"> 
+              <h2 class="center fade mb-5"><span class="d-inline-block text-white"  id="itemText{{ forloop.index }}"></span></h2>
+              <div class="center clearfix text-white mt-3 w-75 mx-auto form-container{{ forloop.index }}" style="right:12.5%; left:12.5%;">
+                <h4 id="formText{{ forloop.index }}" class="text-deep-orange d-none d-sm-block"></h4>
+                <div class="form fade pl-md-5 ml-md-3" id="featureSignup">
+                  {% form_for signup %}
+                  <div class="form-row align-items-center px-md-5">
+                    <div class="col-md">
+                      <label class="sr-only" for="inlineFormInput">Name</label>
+                      {% text_field "first_name", class:"text form-control text-white mb-2", placeholder:"First Name", required: "required" %}
+                    </div>
+                    <div class="col-md">
+                      <label class="sr-only" for="inlineFormInputGroup">Email</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text text-white">@</div>
+                        </div>
+                        {% email_field "email", class:"text text-white form-control", placeholder:"Email", required: "required" %}
+                      </div>
+                    </div>
+                    <div class="form-check col-md">
+
+                      {% submit_tag "Get Involved", class:"btn btn-outline-warning submit-button" %}
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+              {% endform_for %}
+            </div>
+          </div>
+        </div>
+
+
+        {% else %}
+        <div class="{% if feature.headline.size > 0 %}col-sm-7 col-md-8{% else %}col-sm-12 full-feature{% endif %}">
+          {% if page.slug != feature.page.slug %}
+          <a href="{{ feature.page.url }}" class="carousel-image" data-src="{{ feature.image_url }}"></a>
+          {% else %}
+          <div class="carousel-image" data-src="{{ feature.image_url }}"></div>
+          {% endif %}
+        </div>
+
+        {% if feature.headline.size > 0 %}
+        <div class="col-sm-5 col-md-4">
+          <div class="carousel-caption">
+
+            <h5 class="strong">
+              {% if page.slug != feature.page.slug %}
+              <a href="{{ feature.page.url }}">{{ feature.headline }}</a>
+              {% else %}
+              <span>{{ feature.headline }}</span>
+              {% endif %}
+            </h5>
+          </div>
+        </div>
+        {% endif %}
+
+        {% endif %}
+
+      </div>
+
+    </div>
+    {% endfor %}
+
+
+
+  </div>
+
+</div>
+
+{% endif %}
+
+{% endif %}

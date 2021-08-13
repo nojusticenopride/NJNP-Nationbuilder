@@ -1,0 +1,35 @@
+<div class="container">
+
+
+  {% if page.headline.size > 0 %}
+  <h2 class="headline">{{ page.headline }}</h2>
+  {% endif %}
+
+  <div id="content">
+   
+    {% if page.rule.content.size > 0 %}
+    <div id="intro" class="intro">
+      {{ page.rule.content }}
+    </div>
+    {% endif %}
+
+    <ol class="rule-list">
+      {% for rule in page.rule.rules %}
+      <li><p><strong>{{ rule.name }}</strong></p></li>
+      {% if rule.content.size > 0 %}
+      <div class="marginbottom">{{ rule.content }}</div>
+      {% endif %}
+      {% endfor %}
+    </ol>
+
+
+    {% include "like_page" %}
+
+
+
+  </div>
+</div>
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

@@ -1,0 +1,197 @@
+
+
+
+
+{% subpage "filter_images" with "random_images" %}
+
+
+
+
+{% if child.name.size > 0 %}
+    {% assign preF = child %}
+{% elsif post.name.size > 0 %}
+    {% assign preF = post %}
+{% else %}
+	{% assign preF = page %}
+{% endif %}
+
+
+
+
+
+{% assign page-lead = false %}
+
+{% if page.has_parent? %}{% else %}
+
+{% if page.type_slug contains 'basic' and page.has_children? %}
+
+{% unless request.is_sidebar? %}
+
+{% assign page-lead = true %}
+
+{% endunless %}
+
+{% endif %}
+
+{% endif %}
+
+{% assign headerinheader = false %}
+{% unless page.is_commentable? %}
+{% if page.meta_image_url contains 'missing' or page.slug contains "back_to" %}
+
+{% assign headerinheader = true %}
+
+{% endif %}
+{% endunless %}
+
+{% assign headlinesp = false %}
+
+{% unless request.is_sidebar? %}
+{% if page.headline contains '-' %}
+{% assign headlinesp = true %}
+{% assign split_pieces = page.headline | split: '-' %}
+{% endif %}
+
+{% if page.headline contains '&mdash;' %}
+{% assign headlinesp = true %}
+{% assign split_pieces = page.headline | split: '&mdash;' %}
+{% endif %}
+
+
+
+{% if page.headline contains '&#8212;' %}
+{% assign headlinesp = true %}
+{% assign split_pieces = page.headline | split: '&#8212;' %}
+{% endif %}
+
+
+{% if page.headline contains '—' %}
+{% assign headlinesp = true %}
+{% assign split_pieces = page.headline | split: '—' %}
+{% endif %}
+
+{% endunless %}
+
+
+
+{% capture headerimage %}
+{% if page.is_commentable? %}
+{{ site.meta_image_url }} 
+{% else %}
+{% if page.meta_image_url contains 'missing' or page.slug contains "back_to" %}
+{% if request.is_sidebar? %}{{ site.meta_image_url }} {% endif %}
+{% unless request.is_sidebar? %}
+<header class="header-image"> 
+
+
+
+  {% capture headerduplicate %}{{page.headline}} &mdash; {{page.name}} {% endcapture %}
+
+  {% assign duplicateItems = headerduplicate | split: ' &mdash;' | uniq %} 
+ 
+  {% if duplicateItems.count > 1 %} <!--dup items -->
+
+  {% for duplicateItem in duplicateItems %}
+
+  {% if forloop.first %}
+  <h2>{{ duplicateItem }}</h2>
+  {% else %}
+  <h4>	{{ duplicateItem }}</h4>
+  {% endif %}
+
+
+
+  {% endfor %}
+
+  {% else %}
+
+
+  {% if headlinesp %}
+  <h2>{{ split_pieces[0] }}</h2>
+  <h4>	{{ split_pieces[1] }}	{{ split_pieces[2] }}	{{ split_pieces[3] }}</h4>
+  {% else %}
+
+  {% if page.has_parent? %}
+  <h2>{{ page.headline }}</h2>
+  <a href="/{{ page.parent.slug}}"><h4>&raquo; {{ page.parent.name }}</h4></a>
+  {% else %}
+  <h1>{{ page.headline }}</h1>
+  {% endif %}
+
+  {% endif %}
+
+
+  {% endif %} <!--dup items -->
+</header>
+<hr class="header-image marginless headline" />
+{% endunless %} <!--endsidebar-->
+{% else %}{{ page.meta_image_url }}{% endif %}{% endif %}
+{% endcapture %}     
+
+{% capture rheaderimage %}
+{% assign min = 1 %}
+{% assign max = 5 %}
+
+{% assign min1 = 5 %}
+{% assign max1 = 6 %}
+{% assign diff1 = max | minus: min %}
+{% assign diff2 = max1 | minus: min1 %}
+
+{% assign inc = diff2 | minus: min1 %}
+
+{% assign diff = diff1 | minus: diff2 %}
+
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: inc %}
+{% if page.is_commentable? %}
+{{ split_images[randomNumber]  | strip }} 
+{% else %}
+{% if page.meta_image_url contains 'missing' or page.slug contains "back_to" %}
+{% if request.is_sidebar? %}{{ split_images[randomNumber]  | strip }} {% endif %}
+{% unless request.is_sidebar? %}
+<header class="header-image"> 
+
+
+
+  {% capture rheaderduplicate %}{{page.headline}} &mdash; {{page.name}} {% endcapture %}
+
+  {% assign rduplicateItems = rheaderduplicate | split: ' &mdash;' | uniq %} 
+ 
+  {% if rduplicateItems.count > 1 %} <!--dup items -->
+
+  {% for rduplicateItem in rduplicateItems %}
+
+  {% if forloop.first %}
+  <h2>{{ rduplicateItem }}</h2>
+  {% else %}
+  <h4>	{{ rduplicateItem }}</h4>
+  {% endif %}
+
+
+
+  {% endfor %}
+
+  {% else %}
+
+
+  {% if headlinesp %}
+  <h2>{{ split_pieces[0] }}</h2>
+  <h4>	{{ split_pieces[1] }}	{{ split_pieces[2] }}	{{ split_pieces[3] }}</h4>
+  {% else %}
+
+  {% if page.has_parent? %}
+  <h2>{{ page.headline }}</h2>
+  <a href="/{{ page.parent.slug}}"><h4>&raquo; {{ page.parent.name }}</h4></a>
+  {% else %}
+  <h1>{{ page.headline }}</h1>
+  {% endif %}
+
+  {% endif %}
+
+
+  {% endif %} <!--dup items -->
+</header>
+<hr class="header-image marginless headline" />
+<!--endsidebar-->
+{% endunless %} 
+{% else %}{{ page.meta_image_url }}{% endif %}{% endif %}
+{% endcapture %}  

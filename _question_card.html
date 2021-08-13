@@ -1,0 +1,17 @@
+<div class="card question-card equal">
+	<div class="page-excerpt question-page-{{ child.id }}">
+
+    {% if child.type_name == 'Question' %}
+    	<h3><a href="{{ child.url }}">{{ child.headline }}</a></h3>
+
+      {% if child.question.content.size > 0 %}
+      	{{ child.question.content }}
+      {% endif %}
+      {% if child.question.answer.size > 0 %}
+	      <h6 class="strong accent"><a href="{{ child.url }}">Read the answer &rarr;</a></h6>
+      {% endif %}
+
+	  {% endif %}
+
+  </div>
+</div>

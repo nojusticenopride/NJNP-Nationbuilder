@@ -1,0 +1,442 @@
+// Globals
+// Full palette of colors
+@each $color_name, $color in $mdb-colors-1 {
+  @each $color_type, $color_value in $color {
+    @if $color_type == "base" {
+      .#{$color_name} {
+        background-color: $color_value !important;
+      }
+      .#{$color_name}-text {
+        color: $color-value !important;
+      }
+      .rgba-#{$color_name}-slight,
+      .rgba-#{$color_name}-slight:after {
+        background-color: rgba($color_value, .1);
+      }
+      .rgba-#{$color_name}-light,
+      .rgba-#{$color_name}-light:after {
+        background-color: rgba($color_value, .3);
+      }
+      .rgba-#{$color_name}-strong,
+      .rgba-#{$color_name}-strong:after {
+        background-color: rgba($color_value, .7);
+      }
+    }
+    @else {
+      @if $enable_full_palette {
+        .#{$color_name}.#{$color_type} {
+          background-color: $color_value !important;
+        }
+      }
+    }
+  }
+}
+@each $color_name, $color in $mdb-colors-1 {
+  @each $color_type, $color_value in $color {
+    @if $color_type == "base" {
+      .txt-#{$color_name} {
+        color: $color_value !important;
+      }
+      .txt-rgba-#{$color_name}-slight,
+      .txt-rgba-#{$color_name}-slight:after {
+        color: rgba($color_value, .1);
+      }
+      .txt-rgba-#{$color_name}-light,
+      .txt-rgba-#{$color_name}-light:after {
+        color: rgba($color_value, .3);
+      }
+      .txt-rgba-#{$color_name}-strong,
+      .txt-rgba-#{$color_name}-strong:after {
+        color: rgba($color_value, .7);
+      }
+    }
+    @else {
+      @if $enable_full_palette {
+        .txt-#{$color_name}.txt-#{$color_type} {
+          color: $color_value !important;
+        }
+      }
+    }
+  }
+}
+
+// Stylish color
+@each $color_name, $color_value in $stylish-rgba {
+  .#{$color_name} {
+    background-color: $color_value;
+  }
+}
+
+// Material colors palette
+@each $color_name, $color in $material-colors {
+  .#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+// Basic gradients
+@each $name, $val in $gradients {
+  @include make-gradient($name, $val);
+}
+@each $name, $val in $gradients-rgba {
+  @include make-gradient-rgba($name, $val);
+}
+
+.dark-grey-text {
+  color: #4f4f4f !important;
+  &:hover,
+  &:focus {
+    color: #4f4f4f !important;
+  }
+}
+
+// Shadow on hover
+.hoverable {
+  box-shadow: none;
+  transition: $transition-hoverable;
+  &:hover {
+    box-shadow: $z-depth-2;
+    transition: $transition-hoverable;
+  }
+}
+
+// Shadows
+.z-depth-0 {
+  box-shadow: none !important;
+}
+.z-depth-1 {
+  box-shadow: $z-depth-1 !important;
+}
+.z-depth-1-half {
+  box-shadow: $z-depth-1-half !important;
+}
+.z-depth-2 {
+  box-shadow: $z-depth-2 !important;
+}
+.z-depth-3 {
+  box-shadow: $z-depth-3 !important;
+}
+.z-depth-4 {
+  box-shadow: $z-depth-4 !important;
+}
+.z-depth-5 {
+  box-shadow: $z-depth-5 !important;
+}
+
+// Disabled cursor
+.disabled,
+:disabled {
+  pointer-events: none !important;
+}
+
+// Links
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $link-color;
+  transition: $transition-basic;
+  &:hover {
+    transition: $transition-basic;
+    text-decoration: none;
+  }
+  &.disabled,
+  &:disabled {
+    &:hover {
+      color: $link-color;
+    }
+  }
+}
+
+a:not([href]):not([tabindex]), a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+// Helpers
+// MDB helpers
+.img-fluid,
+.video-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  p {
+    margin: 0;
+  }
+  ul {
+    text-align: center;
+    li {
+      margin-bottom: $flex-center-ul-mb;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.hr-light {
+  border-top: 1px solid $hr-light;
+}
+
+.hr-dark {
+  border-top: 1px solid $hr-dark;
+}
+
+// Responsive width
+.w-responsive {
+  width: 75%;
+  @media (max-width: 740px) {
+    width: 100%;
+  }
+}
+
+// Collapsible body
+.collapsible-body {
+  display: none;
+}
+
+.jumbotron {
+  box-shadow: $z-depth-1;
+  border-radius: $border-radius-base;
+  background-color: $white-base;
+}
+
+@each $name, $color in $basic-mdb-colors {
+  @include bg-variant(".bg-#{$name}", $color);
+  .border-#{$name} {
+    border-color: $color !important;
+  }
+}
+
+.card-img-100 {
+  width: 100px;
+  height: 100px;
+}
+.card-img-64 {
+  width: 64px;
+  height: 64px;
+}
+
+.mml-1 {
+  margin-left: - 0.25rem !important;
+}
+
+.flex-1 {
+  flex: 1;
+}
+// Typography
+// ROBOTO FONT
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin),
+    url("#{$roboto-font-path}Roboto-Thin.eot");
+  src: url("#{$roboto-font-path}Roboto-Thin.eot?#iefix") format("embedded-opentype"),
+    url("#{$roboto-font-path}Roboto-Thin.woff2") format("woff2"),
+    url("#{$roboto-font-path}Roboto-Thin.woff") format("woff"),
+    url("#{$roboto-font-path}Roboto-Thin.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Light),
+    url("#{$roboto-font-path}Roboto-Light.eot");
+  src: url("#{$roboto-font-path}Roboto-Light.eot?#iefix") format("embedded-opentype"),
+    url("#{$roboto-font-path}Roboto-Light.woff2") format("woff2"),
+    url("#{$roboto-font-path}Roboto-Light.woff") format("woff"),
+    url("#{$roboto-font-path}Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Regular),
+    url("#{$roboto-font-path}Roboto-Regular.eot");
+  src: url("#{$roboto-font-path}Roboto-Regular.eot?#iefix") format("embedded-opentype"),
+    url("#{$roboto-font-path}Roboto-Regular.woff2") format("woff2"),
+    url("#{$roboto-font-path}Roboto-Regular.woff") format("woff"),
+    url("#{$roboto-font-path}Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("#{$roboto-font-path}Roboto-Medium.eot");
+  src: url("#{$roboto-font-path}Roboto-Medium.eot?#iefix") format("embedded-opentype"),
+    url("#{$roboto-font-path}Roboto-Medium.woff2") format("woff2"),
+    url("#{$roboto-font-path}Roboto-Medium.woff") format("woff"),
+    url("#{$roboto-font-path}Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("#{$roboto-font-path}Roboto-Bold.eot");
+  src: url("#{$roboto-font-path}Roboto-Bold.eot?#iefix") format("embedded-opentype"),
+    url("#{$roboto-font-path}Roboto-Bold.woff2") format("woff2"),
+    url("#{$roboto-font-path}Roboto-Bold.woff") format("woff"),
+    url("#{$roboto-font-path}Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+
+
+// Responsive headings
+@each $key, $val in $grid-breakpoints {
+  @include media-breakpoint-up($key) {
+    $y: map-get($responsive-headings, $key);
+    @each $name,
+      $value in $y {
+      .#{$name}-responsive {
+        font-size: $value;
+      }
+    }
+  }
+}
+
+// Divider
+.divider-new {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: $divider-margin-y;
+  margin-bottom: $divider-margin-y;
+  > h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+  }
+  &:before,
+  &:after {
+    content: "";
+    height: 1.5px;
+    flex: 1;
+    height: $divider-height;
+    background: #c6c6c6;
+  }
+  &:before {
+    margin: 0 $divider-margin-x 0 0;
+  }
+  &:after {
+    margin: 0 0 0 $divider-margin-x;
+  }
+}
+
+// Blockquote
+.blockquote {
+  padding: $blockquote-padding-y $blockquote-padding-x;
+  border-left: .25rem solid #eceeef;
+  &.text-right {
+    border-left: none;
+    border-right: .25rem solid #eceeef;
+  }
+  .bq-title {
+    margin-bottom: 0;
+    font-size: $font-size-large;
+    font-weight: 400;
+  }
+  p {
+    padding: $blockquote-p-padding-y 0;
+    font-size: $blockquote-p-font-size;
+  }
+}
+
+@each $name, $color in $basic {
+  .bq-#{$name} {
+    border-left: 3px solid $color !important;
+    .bq-title {
+      color: $color !important;
+    }
+  }
+}
+
+@each $name, $color in $basic-mdb-colors {
+  @include text-emphasis-variant(".text-#{$name}", $color);
+}
+.font-small {
+  font-size: $font-small;
+}
+
+// Masks
+// General properties
+.view {
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+  }
+  img, video {
+    position: relative;
+    display: block;
+  }
+  video {
+    &.video-intro {
+      z-index: -100;
+      top: 50%;
+      left: 50%;
+      transform: $intro-video-transform;
+      transition: $intro-video-transition opacity;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  }
+}
+
+// Overlay
+.overlay {
+  .mask {
+    opacity: 0;
+    transition: $mask-overlay-transition;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Zoom
+.zoom {
+  img, video {
+    transition: $mask-zoom-transition;
+  }
+  &:hover {
+    img, video {
+      transform: $mask-zoom-transform;
+    }
+  }
+}
+
+// Patterns
+$patterns: (
+  1: "01",
+  2: "02",
+  3: "03",
+  4: "04",
+  5: "05",
+  6: "06",
+  7: "07",
+  8: "08",
+  9: "09"
+);
+
+@each $no, $filename in $patterns {
+  .pattern-#{$no} {
+    background: url("#{$image-path}/overlays/#{$filename}.png");
+    background-attachment: fixed;
+  }
+}
+
+@import "waves";

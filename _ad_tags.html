@@ -1,0 +1,38 @@
+{% if ad_tags.tags_count > 0 %}
+
+
+{% assign petition = false %}
+{% assign signup = false %}
+{% assign donate = false %}
+
+{% for tag in ad_tags.tags %}
+{% if tag.name == 'petition' %} 
+{% assign petition = true %}
+{% endif %}
+{% if tag.name == 'signup' %}
+{% assign signup = true %}
+{% endif %}
+{% if tag.name == 'donate' %}
+{% assign donate = true %}
+{% endif %}
+{% endfor %}
+
+{% if petition %}
+<div class="advertisement ad-action">
+  {% subpage "action" with "action_form" %}
+
+</div>
+{% endif %}
+{% if signup %}
+<div class="advertisement ad-signup">
+  {% subpage "get-involved" with "volunteer-signup_form" %}
+
+</div>
+{% endif %}
+{% if donate %}
+<div class="advertisement ad-donate center">
+  <h2><a href="/donate" class="submit-button"><strong>DONATE</strong></a></h2>
+
+</div>
+{% endif %}
+{% endif %}

@@ -1,0 +1,248 @@
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+}
+
+h1, .h1 { font-size: $h1-font-size; }
+h2, .h2 { font-size: $h2-font-size; }
+h3, .h3 { font-size: $h3-font-size; }
+h4, .h4 { font-size: $h4-font-size; }
+h5, .h5 { font-size: $h5-font-size; }
+h6, .h6 { font-size: $h6-font-size; }
+
+.lead {
+  font-size: $lead-font-size;
+  font-weight: $lead-font-weight;
+}
+
+// Type display classes
+.display-1 {
+  font-size: $display1-size;
+  font-weight: $display1-weight;
+  line-height: $display-line-height;
+}
+.display-2 {
+  font-size: $display2-size;
+  font-weight: $display2-weight;
+  line-height: $display-line-height;
+}
+.display-3 {
+  font-size: $display3-size;
+  font-weight: $display3-weight;
+  line-height: $display-line-height;
+}
+.display-4 {
+  font-size: $display4-size;
+  font-weight: $display4-weight;
+  line-height: $display-line-height;
+}
+
+
+//
+// Horizontal rules
+//
+
+hr {
+  margin-top: $hr-margin-y;
+  margin-bottom: $hr-margin-y;
+  border: 0;
+  border-top: $hr-border-width solid $hr-border-color;
+}
+
+
+//
+// Emphasis
+//
+
+small,
+.small {
+  font-size: $small-font-size;
+  font-weight: $font-weight-normal;
+}
+
+mark,
+.mark {
+  padding: $mark-padding;
+  background-color: $mark-bg;
+}
+
+
+//
+// Lists
+//
+
+.list-unstyled {
+  @include list-unstyled;
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+  @include list-unstyled;
+}
+.list-inline-item {
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: $list-inline-padding;
+  }
+}
+
+
+//
+// Misc
+//
+
+// Builds on `abbr`
+.initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+// Blockquotes
+.blockquote {
+  margin-bottom: $spacer;
+  font-size: $blockquote-font-size;
+}
+
+.blockquote-footer {
+  display: block;
+  font-size: 80%; // back to default font-size
+  color: $blockquote-small-color;
+
+  &::before {
+    content: "\2014 \00A0"; // em dash, nbsp
+  }
+}
+
+
+aside {
+    background: $color_6;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: rgba($grey3,.8);
+    b, strong {
+        color: $color_3;
+    }
+    .navigation {
+        padding: 10px 5px;
+        ul {
+            li {
+                font-size: 14px;
+                list-style-position: outside;
+                padding: 0 0 5px;
+                ul {
+                    -webkit-margin-before: 8px;
+                }
+            }
+        }
+    }
+    .ad-action {
+        .form {
+            input.text {
+                width: 100%;
+            }
+        }
+    }
+}
+.ad-action {
+    text-align: center;
+    width: 100%;
+}
+.thumbnail .caption {
+    background: $footer-background;
+    padding: 5px;
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 85%;
+    font-weight: 900;
+}
+.smallpad {
+    padding: 5px;   
+}
+.medpad {   
+    padding: 15px;  
+}
+.lgpad {
+    padding: 30px;  
+}
+.center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+// basic padding
+
+.padtopless {
+    padding-top: .3em;
+}
+
+.padtop {
+    padding-top: 1em;
+}
+
+.padtopmore {
+    padding-top: 1.4em;
+}
+
+.padbottomless {
+    padding-bottom: .3em;
+}
+
+.padbottom {
+    padding-bottom: .1em;
+}
+
+.padbottommore {
+    padding-bottom: 1.4em;
+}
+
+.fb-like-box iframe {
+    display: block;
+}
+.tleft {
+    text-align:left;
+    * {
+        text-align: left;
+    }
+}
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+// wraps every page headline
+
+#headline, .headline {
+    min-height:24px;
+}
+#headline, .headline:not(header) {
+    margin-bottom: .35em;
+}
+
+
+.unstyled,
+.unstyled * {
+    list-style: none;
+    -webkit-padding-start: 0;
+}
+
+.njnplogo {
+    margin-right: 1.5em;
+}
+
+#content .headline {
+    margin-top: 1.8em;
+    margin-bottom:0.6em;
+}

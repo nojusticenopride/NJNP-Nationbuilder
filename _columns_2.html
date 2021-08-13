@@ -1,0 +1,55 @@
+<!-- Varable basics -->
+{% assign page_style = 'basic' %}
+<!-- page style varibles -->
+{% if page.is_supporter_nav? %}
+{% assign page_style = 'lead' %}
+{% endif %}
+{% if page.type_name contains 'Donation' %}
+{% assign page_style = 'minimal' %}
+{% endif %}
+{% if page.is_homepage? == true %}
+{% assign page_style = 'home' %}
+
+{% assign article_grid = 'article-grid' %}
+{% endif %}
+{% if page.type_name == 'Petition' or page.type_name == 'Sign Up' %}
+{% unless request.is_sidebar? %}
+
+{% assign page_style = 'minimal' %}
+
+{% endunless %}
+{% unless page.show_stream? %}
+
+{% assign page_style = 'minimal' %}
+
+{% endunless %}
+{% endif %}
+<div class="main {{ article_grid }} {% unless request.is_sidebar? %}container-fluid{% endunless %} content-{{ request.template  | replace: '_', '-' }} {% if page_style == 'minimal' %}has-background container-fluid" style="background-image:url('{{ headerimage }}'){% else %} container{% endif %}">
+
+ <div class="alert columns-2-flash">{{ content_for_notifications }}</div>    
+{% case page_style %}
+
+{% when 'minimal' %}  
+ {% yield %}
+
+{% when 'lead' %}
+
+    {% subpage page with "lead_page" %}
+{% when 'basic' %}
+
+
+ {% yield %}
+
+{% when 'home' %}
+  
+ 
+   {% yield %}
+
+{% endcase %}
+
+
+</div>
+
+
+
+

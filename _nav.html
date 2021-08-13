@@ -1,0 +1,223 @@
+{% if page.is_homepage? == true and site.page_tags contains "homepage" %}
+<nav class="navbar w-100 pt-2 pb-2 px-md-0 navbar-header navbar-light bg-pink d-none d-sm-flex intro-nav navbar-expand-lg squeeze-{{squeeze}}" role="navigation" style="left:0;">
+
+
+  <div class="container-fluid pr-3 align-items-end big-logo-row  bg-pink " style="height: 4rem;">
+
+
+    {% if site.has_meta_image? %}
+    <a class="navbar-brand fade show big-logo-container  pt-0 col pb-0 align-bottom px-0 mx-0" href="/" style="height: 4rem;"><img alt="No Justice No Pride (NJNP)" src="https://d3n8a8pro7vhmx.cloudfront.net/nojusticenopride/sites/1/meta_images/original/largelogo-768x249.png?1531451532" class="big-logo pr-4 pt-2" style="height: 4rem;"></a>    {% else %}
+    <a class="navbar-brand" href="/"><h3 class="strong">{{ site.long_name }}</h3></a>
+    {% endif %}
+
+    {% unless squeeze == true or request.template == "user_sessions_new_wide" %}
+    {% include "header_buttons" %}
+
+    {% endunless %}
+  </div>
+</nav>
+    {% endif %}
+<!-- Navbar -->
+<nav class="navbar top-nav navbar-dark  scrolling-navbar navbar-expand-lg bg-pink sticky-top main-nav p-md-0 squeeze-{{squeeze}}" role="navigation">
+  <a href="/" class="navbar-brand d-inline-block ml-xl-3 mr-xl-4 mr-md-3 ml-md-2 "><img alt="{{ site.long_name }}" src="https://d3n8a8pro7vhmx.cloudfront.net/themes/5c5ca4ef45de94702c38c45b/attachments/original/1549665549/NJNP_Black.png?1549665549" class=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  {% unless squeeze == true or request.template == "user_sessions_new_wide" or request.template contains "blog_post" %} 
+  <div id="menu-collapse" class="justify-content-md-end navbar-collapse nav-follow-padding collapse d-md-flex">
+
+
+    <ul class="navbar-nav mr-auto d-block d-sm-flex ">
+
+      {% for child in site.root_nav_pages %}
+      {% if child.leaf? or child.nav_children.size == 0 %}
+      <li class="nav-item  {% if child.is_or_is_ancestor_of_current_page? %}active{% endif %}">
+        <a  class="nav-link px-2 font-weight-bold text-uppercase" href="{{ child.url }}">{{ child.name }}</a>
+      </li>
+      {% else %}  
+      <li class="nav-item  dropdown mega-dropdown {% if child.is_or_is_ancestor_of_current_page? %}active{% endif %}">
+        <a href="{{ child.slug }}" class="nav-link pl-2 pr-3 font-weight-bold dropdown-toggle text-uppercase" id="DnavbarDropdownMenuLink{{forloop.index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child.name }} 
+        </a>
+        <div class="dropdown-menu mega-menu v-2 z-depth-1 bg-dark text-light pt-2 pb-5" aria-labelledby="DnavbarDropdownMenuLink{{forloop.index}}" id="DnavbarDropdownMenuContainer{{forloop.index}}">
+          <button type="button" class="close right  mr-md-2 mr-xl-5 pr-xl-5 mb-md-2 text-pink" aria-label="Close" data-target="DnavbarDropdownMenuContainer{{forloop.index}}" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+            <span aria-hidden="true" class="text-pink pink-text h1 font-weight-lighter">×</span>
+          </button>
+          <div class="container-fluid px-md-4 px-xl-5">
+            <div class="row justify-content-around">
+              {% if site.show_parent_in_nav_dropdown? %}
+                {% else %}
+              <div class="col show-parent mobile-visible d-xs-inline-block d-md-none">
+                <a class="dropdown-item" href="{{ child.url }}">{{ child.name }}</a>
+              </div>
+              {% endif %}
+              {% for child2 in child.nav_children %}
+              {% if child2.slug contains 'update' %}
+              <div class="col-md-6 col-xl-3 sub-menu mb-xl-0 mb-4">
+                <h6 class="sub-title text-uppercase font-weight-bold white-text"><a href="{{ child2.url }}">{{ child2.name }}</a></h6>
+                <ul class="list-unstyled" id="{% if child.slug contains 'ack_to_the_r' %}updates-roots{% elsif child.slug contains 'rans_justice' %}updates-transjustice{% endif %}">
+                </ul>
+                <ul class="list-unstyled">
+                  {% for child3 in child2.children %}  
+                  <li>
+                    <a class="menu-item dropdown-item pl-0" href="{{ child3.url }}">{{ child3.name }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% else %}
+
+              {% if child2.has_children? %}
+              <div class="col-md-6 col-xl-3 sub-menu mb-xl-0 mb-4">
+                <h6 class="sub-title text-uppercase font-weight-bold white-text"><a href="{{ child2.url }}">{{ child2.name }}</a></h6>
+                <ul class="list-unstyled">
+                  {% for child3 in child2.children %}  
+                  <li>
+                    <a class="menu-item dropdown-item pl-0" href="{{ child3.url }}">{{ child3.name }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              <div class="col-md-6 col-xl-3 sub-menu mb-xl-0 mb-4">
+                {% for child2 in child.nav_children %}
+                {% unless child2.has_children? %}
+                <h6 class="text-uppercase font-weight-bold"><a href="{{ child2.url }}">{{ child2.name }}</a></h6>
+                {% endunless %}
+
+
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
+      <div class="d-sm-none">
+        {% include "header_buttons" %}
+      </div>
+
+    </ul>
+    {% for child in site.root_nav_pages %}
+    {% if child.slug contains "campaigns" %} 
+    <ul class="navbar-nav campaigns navbar-light d-block d-sm-flex">
+      {% for child2 in child.nav_children %} 
+      <li class="nav-item dropdown mega-dropdown {% if child.is_or_is_ancestor_of_current_page? %}active{% endif %}">
+        <a href="{{ child.slug}}" class="nav-link pl-2 pr-3 pl-xl-3 pr-xl-4 font-weight-bold dropdown-toggle text-uppercase" id="navbarDropdownMenuLink{{forloop.index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ child2.name }} 
+        </a>
+        <div class="dropdown-menu mega-menu v-2 z-depth-1 bg-dark text-light pt-2 pb-5" style="overflow-y: scroll;height: calc(100vh - 4rem);" aria-labelledby="navbarDropdownMenuLink{{forloop.index}}" id="navbarDropdownMenuContainer{{forloop.index}}">
+          <button type="button" class="close right  mr-md-2 mr-xl-5 pr-xl-5 mb-md-2 text-pink" aria-label="Close" data-target="navbarDropdownMenuContainer{{forloop.index}}" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+            <span aria-hidden="true" class="text-pink pink-text h1 font-weight-lighter">×</span>
+          </button>
+          <div class="container-fluid px-md-4 px-xl-5">
+            <div class="row justify-content-around">
+              {% if site.show_parent_in_nav_dropdown? %}
+               <div class="d-none  show-parent d-sm-block col-sm-12">
+                
+                <a class="sub-title text-uppercase font-weight-bold  nav-link headline" href="{{ child2.url }}">{{ child2.name }}</a>
+              </div>
+              {% else %}
+              <div class="col show-parent mobile-visible d-xs-inline-block d-md-none">
+                <a class="dropdown-item" href="{{ child2.url }}">{{ child2.name }}</a>
+              </div>
+              {% endif %}
+              {% for child3 in child2.children %}
+              {% if child3.slug contains 'update' %}
+              <div class="col-md-6 col-lg-4 col-xl-5  sub-menu mb-xl-0 mb-4">
+                <h6 class="sub-title text-uppercase font-weight-bold white-text"><a href="{{ child3.url }}">{{ child3.name }}</a></h6>
+                <div class="row">
+                  
+                  <div class="col-sm-12 col-lg-6 col">
+                    <ul class="list-unstyled" id="{% if child2.slug contains 'ack_to_the_r' %}updates-roots{% elsif child2.slug contains 'rans_justice' %}updates-transjustice{% elsif child2.slug contains 'njnp' %}updates-collective{% endif %}">
+                    </ul>
+                    <ul class="list-unstyled">
+                      {% for child4 in child3.children %}  
+                      <li>
+                        <a class="menu-item dropdown-item pl-0" href="{{ child4.url }}">{{ child4.name }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+              {% endfor %}
+              <div class="col-md-6 col-lg-6 col-xl-5 sub-menu mb-xl-0 mb-4">
+                <div class="row">
+                  {% for child3 in child2.children %}
+                  {% unless child3.slug contains 'update' %}
+                  {% if child3.has_children? %}
+                  <div class="col-md-12 col-xl-6 sub-menu mb-xl-0 mb-4">
+                    <h6 class="sub-title text-uppercase font-weight-bold white-text"><a href="{{ child3.url }}">{{ child3.name }}</a></h6>
+                    <ul class="list-unstyled">
+                      {% for child4 in child3.children %}  
+                      <li>
+                        <a class="menu-item dropdown-item pl-0" href="{{ child4.url }}">{{ child4.name }}
+                        </a>
+                      </li>
+                      
+                  {% if child4.has_children? %}
+                      {% for child5 in child4.children %}  
+                      <li>
+                        <a class="menu-item dropdown-item pl-0" href="{{ child5.url }}">{{ child5.name }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                  {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                  {% endunless %}
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="col-md-12 col-xl-1 sub-menu mb-xl-0 mb-4">
+
+                {% for child3 in child2.children %}
+                {% unless child3.has_children? %}
+                <h6 class="text-uppercase font-weight-bold"><a class="dropdown-item" href="{{ child3.url }}">{{ child3.name }}</a></h6>
+                {% endunless %}
+
+
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endfor %}
+    <!-- Navbar brand -->
+    {% if site.broadcaster.has_facebook? or site.broadcaster.has_twitter? %}
+    <div class="follow-buttons lead px-1 py-1 mt-2 ml-3 mr-1 pb-2 d-none d-sm-inline-block right">
+      {% if site.broadcaster.has_facebook? %}
+      <a href="{{ site.broadcaster.facebook_page_profile_url }}"><i class="icon-facebook-squared text-dark"></i></a>
+      {% endif %}
+      {% if site.broadcaster.has_twitter? %}
+      <a href="{{ site.broadcaster.twitter_profile_url }}"><i class=" icon-twitter-squared text-dark"></i></a>
+      {% endif %}
+      <a href="https://nojusticenopride.org" class="align-top d-inline-block mx-0 py-0" target="_blank" style="margin-top: -0.15rem; width: 1.4rem;">
+        <img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/5b12ba9945de94ddbf000000/attachments/original/1529020606/NJNP_Black.png?1529020606">
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  <!-- Collapsible content -->
+
+  {% endunless %}
+</nav>
+<!-- Navbar -->
+
+
+<div class="nav-fill {% unless squeeze == true or request.template == "user_sessions_new_wide" or page.is_homepage? %} pb-md-3 pb-lg-5{% endunless %}"></div>

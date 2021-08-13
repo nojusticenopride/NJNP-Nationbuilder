@@ -1,0 +1,25 @@
+{% if request.current_signup.crawling_facebook? %}
+
+  <h5 class="strong accent facebook-followings" id="facebook_followings">
+    <img src="{{ "bert-loader-small.gif" | asset_path }}" border="0"> Checking Facebook for people who have joined...</h5>
+  {{ request.current_signup.crawling_facebook_status_url | auto_refresh }}
+  
+
+{% else %}
+
+  {% if request.current_signup.followings_count_from_facebook == 0 %}
+    <h5 class="strong accent">None of your Facebook friends have joined yet.</h5>
+  {% else %}
+    <h1 class="strong accent">{{ request.current_signup.followings_count_from_facebook }}</h1>
+    <h5 class="strong accent">of your Facebook friends have joined. You are automatically following them, and vice versa.</h5>
+  {% endif %}
+
+  {% if request.current_signup.followings_count_from_facebook > 6 %}
+    <h5 class="strong secondary marginbottommore">Including...</h5>
+  {% endif %}
+
+  {% for signup in request.current_signup.followings_from_facebook %}
+    {% include "signup_show" %}
+  {% endfor %}
+
+{% endif %}

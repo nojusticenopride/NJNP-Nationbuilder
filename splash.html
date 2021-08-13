@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+
+    <!-- Bootstrap -->
+    <link href="theme.scss" rel="stylesheet">
+
+    {{ content_for_header }}
+
+    <script type="text/javascript">
+      NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
+    </script>
+  </head>
+  <body class="aware-theme v2-theme {{ page.page_class_name }} js splash-page">
+
+    <div id="body" class="page-{{ request.template }}">
+
+      <div class="navbar clearfix">
+        <div class="container">
+          <div class="navbar-header">
+
+            {% if site.has_meta_image? %}
+              <a class="navbar-brand site-logo" href="/"><img alt="{{ site.long_name }}" src="{{ site.meta_image_url }}"></a>
+            {% else %}
+              <a class="navbar-brand" href="/"><h3 class="strong">{{ site.long_name }}</h3></a>
+            {% endif %}
+
+          </div>
+        </div>
+        <!-- .container -->
+      </div>
+      <!-- .header-container -->
+
+      <div class="main-container" id="middle">
+        <div class="main container clearfix">
+
+        	{{ content_for_notifications }}
+						
+					<div class="onecolumn-container clearfix">
+           <div class="content-{{ request.template | replace: '_', '-' }}">
+            {% yield %}
+
+            <div align="center" class="padtopmore padbottom"><a class="submit-button btn btn-primary btn-lg" id="splash-btn" href="/">Continue to {{ site.name }}</a></div>
+
+            {% if request.is_intern? and page.is_editing_available? %}
+              <div align="center" class="padtopmore padbottom"><a class="submit-button btn btn-primary btn-lg" href="{{ page.admin_edit_url }}">Edit this page</a></div>
+            {% endif %}
+           </div>
+          </div>
+
+        </div>
+        <!-- #main -->
+      </div>
+      <!-- #main-container -->
+
+        {{ content_for_footer }}
+
+      <!-- .container -->
+
+    </div>
+    <!-- #wrap -->
+
+    <script src="bootstrap.js"></script>
+    <script src="action.js" type="text/javascript"></script>
+
+  </body>
+</html>

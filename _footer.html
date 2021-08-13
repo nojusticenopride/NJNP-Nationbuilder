@@ -1,0 +1,191 @@
+<div class="footer-wrap">
+  <div class="footer-signup container-fluid">
+    <div class="row-fluid footer-form">
+      <div class="center clearfix">
+        <h4>Sign up to get involved</h4>
+        <div class="form">
+          {% form_for signup %}
+          <div class="form-row row align-items-center px-5 pt-4 pb-5">
+            <div class="col-12 ml-auto col-sm-auto">
+              <label class="sr-only" for="inlineFormInput">Name</label>
+              {% text_field "first_name", class:"text form-control mb-2", placeholder:"First Name", required: "required" %}
+            </div>
+            <div class="col-12 col-sm-auto">
+              <label class="sr-only" for="inlineFormInputGroup">Username</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">@</div>
+                </div>
+                {% email_field "email", class:"text form-control", placeholder:"Email", required: "required" %}
+              </div>
+            </div>
+            <div class="col-12 mr-auto col-sm-auto pt-3 pt-sm-0">
+              <div class="form-check mb-2">
+
+                {% submit_tag "Subscribe", class:"btn btn-primary submit-button" %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {% endform_for %}
+      </div>
+    </div>
+  </div>
+  <footer class="pb-0 container-fluid px-3 bg-dark text-light">
+
+    <div class="row">
+      <div class="col-md-12 footer-left">
+
+        <div class="footer-text">{{ site.footer_content }}</div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-between footer-nav">
+      <div class="col-md-5">
+        <dl>
+          <dt class="padbottom center">
+            <img src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1531414914/largelogo-768x249.png?1531414914" width="300">
+          </dt>
+          <dd><dl>
+            <dd class="padbottom text-dark pl-5 ml-4 text-light">
+              <address><small><i><p>
+                No Justice No Pride<br/>
+                169 Uhland Terrence NE<br/>
+                Washington DC 20002 <br/>
+                </p>
+                <p> <strong><i class="fas fa-envelope"></i>
+                  Media:</strong> &nbsp; <span class="text-light">media@nojusticenopride.org</span></p>
+                <p><strong><i class="fas fa-envelope"></i> General Contact and Fundraising:<br/></strong> &nbsp; 
+                  contact@nojusticenopride.org</p>
+
+                </i>
+                </small>
+              </address>
+            </dd>
+            </dl></dd>
+        </dl>
+        <div class="social  center">
+          <h4>Social Media</h4>
+          <ul>
+            <li><a href="http://facebook.com/nojusticenopride"><i class="fab fa-facebook-square fa-lg "></i></a></li>
+            <li><a href="http://twitter.com/njnp_dc"><i class="fab  fa-lg fa-twitter"></i></a></li>
+            <li><a href="http://instagram/nojusticenopride"><i class="fab sfa-lg fa-instagram"></i></a></li> 
+
+
+            {% if page and page.has_rss? %} <li><a href="{{ page.rss_url }}"><i class="fab  fa-lg fa-rss"></i></a></li>
+            {% elsif page and page.has_parent? and page.parent.has_rss? %}
+            <li><a href="{{ page.parent.rss_url }}"><i class="fab  fa-lg fa-rss"></i></a></li>  {% endif %}
+
+          </ul>
+        </div>
+
+      </div>
+      <div class="col-md-7">
+        <div class="d-flex row justify-content-around padtop text-dark desktop-visible tablet-visible">
+          <div class='col  text-light padtopmore padbottom'>
+            No Justice No Pride (NJNP), a collective of organizers and activists from across the District of Columbia; We exist to fight for trans justice and to end the LGBT “equality” movement’s complicity with systems of oppression that further marginalize Trans and Queer individuals. Our members are black, brown, queer, trans, gender nonconforming, bisexual, indigenous, two-spirit, formerly incarcerated, sex workers, disabled, and white allies. Together we recognize that there can be no pride for some of us without liberation for all of us.
+          </div>
+
+          <div class="w-100 py-2"></div>
+          <div class="pl-2 px-xl-2 col-sm-4 col-xs-6">
+
+            <ul class="unstyled p-0">
+              <li> <a class="text-red" href="https://nojusticenopride.org/about">About</a></li>
+              <li><a class="text-red" href="https://nojusticenopride.org/principles">principles</a></li>
+              <li><a class="text-red" href="https://nojusticenopride.org/annual_report">Annual Reports</a></li>
+              <li><a class="text-red" href="https://nojusticenopride.org/community_support_response">Community Support &amp; Response Project</a></li>
+              <li> <a class="text-red" href="https://nojusticenopride.org/programs">Programs</a></li>
+              <li><a class="text-red" href="https://nojusticenopride.org/donate">Donate</a></li>
+
+            </ul>       
+
+          </div>
+          <div class="col-sm-8 col-xs-6">
+            <div class="row">
+              <div class="col px-2 px-xl-3">
+                <ul class="unstyled p-0">
+                  <li>
+                    <a class="text-red" href="/back_to_the_roots">Back To The Roots</a>
+                  </li>
+                  <li>
+                    <a class="text-red" href="/trans_justice">Trans Justice</a>
+                  </li>
+                  <li>
+                    <a class="text-red" href="/updates">Updates</a>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="col pr-2 px-xl-2">
+                <ul class="unstyled p-0">
+                  <li><a class="text-red" class="padbottom " href="https://nojusticenopride.org/support">Support</a></li>
+                  <li><a class="text-red" href="https://nojusticenopride.org/get-involved">Get Involved</a></li>
+                  <li>  <a class="text-red" href="https://nojusticenopride.org/give">Ways To Support</a></li>
+                  <li><a class="text-red" href="https://nojusticenopride.org/donate">Donate</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <hr class="headline padbottom">
+          <div class="justify-content-around d-none d-md-flex text-light">
+
+            <div class="col">
+              <div class="footer-text desktop-visible  text-light" >
+                {% if request.logged_in? %}
+                Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. View your
+                {% if site.show_public_profiles? %}
+                <a href="{{ request.current_signup.profile_url }}">public profile</a>,
+                {% endif %}
+                <a href="{{ request.current_signup.settings_url }}">account settings</a>, or
+                <a href="{{ request.current_signup.logout_url }}">sign out</a>.
+                {% endif %}
+                <!-- The NationBuilder link below is required. If it is removed, we may add it back ourselves.
+You can style it or move it in different ways, but please leave it in the footer. -->
+                <small class=" text-light"> Created with <a href="http://nationbuilder.com/">NationBuilder</a></small>
+              </div>
+              <div class="footer-text mobile-visible  text-light">
+                {% if request.logged_in? %}
+                Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>.<br/>View your
+                {% if site.show_public_profiles? %}
+                <a href="{{ request.current_signup.profile_url }}">public profile</a>,
+                {% endif %}
+                <a href="{{ request.current_signup.settings_url }}">account settings</a>, or
+                <a href="{{ request.current_signup.logout_url }}">sign out</a>.
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-media-footer marginless d-none d-md-block desktop-visible w-100">
+
+        <div class="d-flex justify-content-between flex-row">
+
+          <div class="col-md-4"><h3>Like on Facebook</h3>
+
+            <div class="fb-page" data-href="https://www.facebook.com/nojusticenopride/" data-tabs="timeline" data-height="480" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/nojusticenopride/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/nojusticenopride/">No Justice No Pride</a></blockquote></div>
+
+          </div>
+
+
+          <div class="col"><h3>Follow on Twitter</h3>
+            <a class="twitter-timeline" data-height="480" data-link-color="#ff7bac" href="https://twitter.com/NJNP_DC?ref_src=twsrc%5Etfw">Tweets by NJNP_DC</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>   
+          </div>
+
+
+          <div class="col"><h3>Follow on Instagram</h3>
+
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/Bj0TqYhhNyc/" data-instgrm-version="9" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:558px; max-height:480px; min-width:226px; padding:0; width:96.375%; width:-webkit-calc(100% - 100px); width:100%;"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:20px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/Bj0TqYhhNyc/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">“Let Our People Go! Set our People Free! Not enough people know – i love you like you were me!” – @ms_peoples, one year ago today 💕 ・・・ 🎥 x @duxfemfac ・・・ . . . . . #pride #lgbt #lgbtq #lesbian #queer #trans #moc #blackpride #latergram #capitalpridedc #pridedc #dcpride #rainbowracism #lgbtq #pride #rainbowflag #gaydc #dcgay</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by <a href="https://www.instagram.com/nojusticenopride/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank"> No Justice No Pride</a> (@nojusticenopride) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2018-06-09T20:30:27+00:00">Jun 9, 2018 at 1:30pm PDT</time></p></div></blockquote> <script async defer src="//www.instagram.com/embed.js"></script>
+          </div>
+        </div> 
+      </div>
+
+
+    </footer>
+    <!-- Start of HubSpot Embed Code -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/5363222.js"></script>
+<!-- End of HubSpot Embed Code -->

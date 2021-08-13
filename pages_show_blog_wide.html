@@ -1,0 +1,65 @@
+<div class="container">
+
+{% if page.headline.size > 0 and page.blog.is_posting_public? %}
+<h2 class="headline">{{ page.headline }}</h2>
+{% endif %}
+
+<div id="content">
+  {% if page.blog.is_posting_public? %}
+
+    <div class="padbottommore">
+      <div class="form-wrap">
+        <div class="form">
+            {% form_for blog_post_page %}
+
+            <div class="form-errors">{% error_messages_for blog_post_page %}</div>
+
+            <div id="blog-post-page-page-headline-input" class="blog-post-page-page-headline-input">
+              <div class="form-group">
+                {% text_field "page_headline", class:"text form-control" %}<label for="blog_post_page_page_headline">{{ page.blog.public_posting_prompt }}</label>
+              </div>
+            </div>
+
+            <div id="blog-post-page-form-expanded" class="blog-post-page-form-expanded" style="display:none;">
+              <div class="padtopmore">
+                {% text_area "content_editable", class:"textarea form-control textarea-tinymce" %}
+              </div>
+              
+              {% if page.show_consent_form? %}
+                <div class="padtop">
+                  {% include "consent_form" %}
+                </div>
+              {% endif %}
+              
+              <div class="padtop">
+                {% submit_tag "Post", class:"submit-button btn btn-primary" %}
+                <div class="form-submit"></div>
+              </div>
+            </div>
+
+            {% endform_for %}
+        </div>
+        {% unless request.logged_in? %}
+        <div class="user-session-form-container hide">
+          {% include "user_session_form" %}
+        </div>
+        {% endunless %}
+      </div>
+    </div>
+
+  {% endif %}
+
+  <div class="blog" id="blog-page-{{ page.id }}">
+    <div class="row">
+      {% for post in page.blog.most_recent_blog_posts %}
+        <div class="col-sm-6 col-md-4">
+          {% include "blog_card" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {{ page.blog.most_recent_blog_posts | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+</div>
+
+</div>

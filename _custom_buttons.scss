@@ -1,0 +1,252 @@
+// buttons
+
+@mixin fill-styles($color) {
+    @each $color, $value in $theme-colors {
+
+        @include button-outline-variant($value);
+    }
+}
+
+@mixin color-styles($color){
+    @each $color, $value in $theme-colors {
+
+        @include button-variant($value, $value);
+
+    }
+}
+
+@mixin button-color($color, $fill:false){
+    @if $fill {
+        @include fill-styles($color); 
+    } @else {   
+        @include color-styles($color);
+    }
+
+
+}
+
+
+
+@mixin button($color:false, $fill:false){
+    display: inline-block;
+    font-weight: $btn-font-weight;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: $btn-border-width solid transparent;
+    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius);
+    @include transition($btn-transition);
+
+    // Share hover and focus styles
+    @include hover-focus {
+        text-decoration: none;
+    }
+
+    &:focus,
+    &.focus {
+        outline: 0;
+        box-shadow: $btn-focus-box-shadow;
+    }
+
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        opacity: $btn-disabled-opacity;
+        @include box-shadow(none);
+    }
+
+    // Opinionated: add "hand" cursor to non-disabled .btn elements
+    &:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        @include box-shadow($btn-active-box-shadow);
+
+        &:focus {
+            @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+        }
+    }
+    &:not(.fill) {
+        @include button-color($color, $fill:false);
+    }
+    &.fill {
+        @include button-color($color, $fill:true);
+    }
+    a {
+
+        @include button-color($color, $fill:false);
+        text-decoration: none;
+    }
+
+}
+
+.button, 
+.small_button {
+    @include button($theme-color-1);
+    margin: .5em 0 0 0;
+    & + .button {
+    }
+}
+
+.tiny-button {
+    font-size: 1em;
+    min-height: 100%;
+    padding: .25em .5em;
+}
+
+.submit-button, .success-button {
+
+
+    @include button(danger);
+    margin: .5em 0 0 0;
+
+}
+
+
+.connect-button {
+    @include button($theme-color-1);
+    border: 0;
+    font-size: .8em;
+    font-weight: 700;
+    height: 3em;
+    line-height: 2.1em;
+    margin-bottom: 1em;
+    margin-right: 0;
+    max-width: 300px;
+    overflow: hidden;
+    padding-left: 62px;
+    position: relative;
+    text-align: left;
+    &:last-of-type {
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+    &:hover, &:active {
+        border: 0;
+    }
+
+    &:before {
+        content: "";
+        display: block;
+        font-family: 'responsive';
+        font-size: 1.5em;
+        font-weight: 400;
+        height: 100%;
+        left: 0;
+        line-height: 2em;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 50px;
+    }
+}
+
+a.connect-button-facebook {
+    background-color: $facebook-color;
+    color: #fff;
+    &:hover, &:active {
+        background-color: lighten($facebook-color,15);
+        color: #fff;
+    }
+
+    &:before {
+        background: lighten($facebook-color,15);
+        content: "\e601";
+    }
+}
+
+a.connect-button-twitter {
+    background-color: $twitter-color;
+    color: #fff;
+    &:hover, &:active {
+        background-color: lighten($twitter-color,15);
+        color: #fff;
+    }
+    &:before, &:active {
+        background: lighten($twitter-color,15);
+        content: "\e602";
+    }
+}
+
+.wrap-overlay, .content-user-sessions-new-wide .form, .content-user-sessions-new .form {
+    .connect-button {
+        min-width: 250px;
+    }
+}
+
+// red button, commonly used to cancel actions
+
+.destroy-link {
+    background: transparent;
+    border-color: $red;
+    color: $red;
+    &:hover {
+        border-color: lighten($red, 5);
+        color: lighten($red, 5);
+    }
+
+    &:active {
+        background: rgba($red,.6);
+        border-color: $red;
+        color: $red;
+    }
+}
+
+.submit-link {
+    @include button;
+    margin-top: 1em;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+// button to close share box
+
+.share-close {
+    @include border-radius(0);
+    float: right;
+    font-size: 2em; 
+    line-height: 1;
+    margin: -.6em -.35em 0 .8em;
+    min-height: auto;
+}
+
+.share-container {
+    .small-button {
+        font-size: .8em;
+        margin-right: .5em;
+        min-height: 24px;
+        padding: .2em .4em;
+    }
+
+    .button.share-close {
+        border: 0;
+        padding: 0;
+        &:hover, &:active {
+            border: 0;
+            padding: 0;
+        }
+    }
+}
+.donate-button {
+    @include button(warning);
+}
+html body {
+    nav li.center.right {
+        padding-top: 5px;
+        clear: both;
+        .donate-button{
+
+            @include button-color(warning, true);
+            font-size: 18px;
+            margin: 0px 5px 4px 0;
+            padding: 8px 28px;
+        }
+    }
+}
+
+
+

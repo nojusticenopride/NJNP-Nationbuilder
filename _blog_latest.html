@@ -1,0 +1,169 @@
+{% for post in tag.most_recent_published_pages limit:1 offset:0 %}
+{% if post.blog_post.content contains '<iframe' %}{% assign nothing = '> </iframe>' %}
+{% assign cheaderimage = 'video' %}
+{% capture postVideo %}{% assign videoS = post.blog_post.content | split: '</iframe>' %}{% assign Mvideo = videoS[0] | replace: 'embedly-embed', 'embedly-embed embed-responsive-item card-img-top' %}{% assign video = Mvideo | remove: '<p>' %} {{ video | strip | append: '</iframe>' }}{% endcapture %}
+{% else %}
+{% if post.meta_image_url contains 'missing' %}
+{% if post.attachments.size > 0 %}
+{% for attachment in post.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign cheaderimage = attachment.url %}
+{% endif %}
+{% endfor %}
+{% else %}
+
+{% assign cheaderimage = site.meta_image_url %}
+
+{% endif %}
+{% else %}
+{% assign cheaderimage = post.meta_image_url %}
+{% endif %}
+{% endif %}
+{% assign typename = post.type_name %}
+<div class="col-md-12 mb-4">
+  <div class="card border-purple" style="overflow:hidden">
+    <!--Card image-->
+    
+      {% if cheaderimage == 'video' %}
+      <div class="card-img-top embed-responsive embed-responsive-4by3">
+      {{ postVideo | strip }}
+    </div>
+      {% else %}
+    <div class="view" style="">
+      <img src="{{ cheaderimage }}" class="card-img-top" style="" alt="">
+      
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    {% endif %}
+    <!--/.Card image-->
+    <!--Card content-->
+      <a class="activator mr-3 btn-floating position-relative purple btn-action ml-auto mr-4 waves-effect "><i class="fa fa-share-alt"></i></a>
+    <div class="card-body ">
+      <div class="byline">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+      {% capture cardcontent %}
+          {% if post.excerpt.size > 0 %}
+        {{ post.excerpt  | truncatewords:100 }}
+        {% else %}
+        {{ post.post.blog_post.content | strip_html | truncatewords:100 }}
+        {% endif %}
+      {% endcapture %}
+      {% assign card_content = cardcontent | strip %}
+      <!--Social shares button-->
+      <!--Title-->
+      {% if card_content.size > 0 %} 
+       {% if post.headline.size < 35 %}
+      <h5 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+      
+      <h6 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+      <hr>
+            <p class="card-text blog_teaser small mb-2">
+              {{ card_content }}
+      </p>      
+    <hr>
+      {% else %}
+      <h4 class="card-title font-weight-bold mb-4"><a href="{{ post.url }}">{{ post.headline }}</a></h4>      
+    <hr>
+      {% endif %}
+      <!--Text-->
+      
+      
+      <a href="{{ post.url }}" class="link-text py-2"><h6 class=" my-0">Read more <i class="fa fa-chevron-right"></i></h6></a>
+    </div>
+    <!--/.Card content-->
+  </div>
+  <!--/.Card Light-->
+
+</div>
+<!--Grid column-->
+{% endfor %}
+<div class="w-100"></div>
+{% for post in tag.most_recent_published_pages limit:3 offset:1 %}
+{% if post.blog_post.content contains '<iframe' %}{% assign nothing = '> </iframe>' %}
+{% assign cheaderimage = 'video' %}
+{% capture postVideo %}{% assign videoS = post.blog_post.content | split: '</iframe>' %}{% assign Mvideo = videoS[0] | replace: 'embedly-embed', 'embedly-embed embed-responsive-item card-img-top' %}{% assign video = Mvideo | remove: '<p>' %} {{ video | strip | append: '</iframe>' }}{% endcapture %}
+{% else %}
+{% if post.meta_image_url contains 'missing' %}
+{% if post.attachments.size > 0 %}
+{% for attachment in post.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign cheaderimage = attachment.url %}
+{% endif %}
+{% endfor %}
+{% else %}
+
+{% assign cheaderimage = site.meta_image_url %}
+
+{% endif %}
+{% else %}
+{% assign cheaderimage = post.meta_image_url %}
+{% endif %}
+{% endif %}
+{% assign typename = post.type_name %}
+<div class="col-md-4 mb-1">
+  <div class="card border-purple" style="overflow:hidden">
+    <!--Card image-->
+    
+      {% if cheaderimage == 'video' %}
+      <div class="card-img-top embed-responsive embed-responsive-16by9">
+      {{ postVideo | strip }}
+    </div>
+      {% else %}
+    <div class="view" style="height:150px;overflow:hidden">
+      <img src="{{ cheaderimage }}" class="card-img-top mw-auto w-auto" style="max-width:200%" alt="">
+      
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    {% endif %}
+    <!--/.Card image-->
+    <!--Card content-->
+      <a class="activator mr-3 btn-floating btn-action purple position-relative ml-auto mr-4 waves-effect "><i class="fa fa-share-alt"></i></a>
+    <div class="card-body ">
+      <div class="byline">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+      {% capture cardcontent %}
+          {% if post.excerpt.size > 0 %}
+        {{ post.excerpt  | truncatewords:20 }}
+        {% else %}
+        {{ post.post.blog_post.content | strip_html | truncatewords:20 }}
+        {% endif %}
+      {% endcapture %}
+      {% assign card_content = cardcontent | strip %}
+      <!--Social shares button-->
+      <!--Title-->
+      {% if card_content.size > 0 %} 
+       {% if post.headline.size < 35 %}
+      <h5 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+      
+      <h6 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+      <hr>
+            <p class="card-text blog_teaser small mb-2">
+              {{ card_content }}
+      </p>      
+    <hr>
+      {% else %}
+      <h4 class="card-title font-weight-bold mb-4"><a href="{{ post.url }}">{{ post.headline }}</a></h4>      
+    <hr>
+      {% endif %}
+      <!--Text-->
+      
+      
+      <a href="{{ post.url }}" class="link-text py-2"><h6 class=" my-0">Read more <i class="fa fa-chevron-right"></i></h6></a>
+    </div>
+    <!--/.Card content-->
+  </div>
+  <!--/.Card Light-->
+
+</div>
+<!--Grid column-->
+{% endfor %}

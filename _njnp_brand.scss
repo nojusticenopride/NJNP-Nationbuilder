@@ -1,0 +1,667 @@
+$black: #15151b;
+$white: #fff;
+
+
+/* For use in _color-definitions.scss */
+$red:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 235, 238)
+rgb(255, 163, 176)
+rgb(255, 133, 150)
+rgb(255, 102, 124)
+rgb(255, 71, 98)
+rgb(255, 41, 72)
+rgb(255, 10, 45)
+rgb(235, 0, 34)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 153, 168)
+rgb(255, 128, 146)
+;
+
+$red-50: nth($red, 1);
+$red-100: nth($red, 2);
+$red-200: nth($red, 3);
+$red-300: nth($red, 4);
+$red-400: nth($red, 5);
+$red-500: nth($red, 6);
+$red-600: nth($red, 7);
+$red-700: nth($red, 8);
+$red-800: nth($red, 9);
+$red-900: nth($red, 10);
+$red-a100: nth($red, 11);
+$red-a200: nth($red, 12);
+$red-a400: nth($red, 13);
+$red-a700: nth($red, 14);
+
+
+$pink:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 184, 210)
+rgb(255, 154, 191)
+rgb(255, 123, 172)
+rgb(255, 92, 153)
+rgb(255, 62, 133)
+rgb(255, 31, 114)
+rgb(255, 1, 95)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 174, 204)
+rgb(255, 148, 188)
+;
+
+$pink-50: nth($pink, 1);
+$pink-100: nth($pink, 2);
+$pink-200: nth($pink, 3);
+$pink-300: nth($pink, 4);
+$pink-400: nth($pink, 5);
+$pink-500: nth($pink, 6);
+$pink-600: nth($pink, 7);
+$pink-700: nth($pink, 8);
+$pink-800: nth($pink, 9);
+$pink-900: nth($pink, 10);
+$pink-a100: nth($pink, 11);
+$pink-a200: nth($pink, 12);
+$pink-a400: nth($pink, 13);
+$pink-a700: nth($pink, 14);
+
+
+$purple:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(241, 220, 242)
+rgb(219, 168, 222)
+rgb(210, 146, 213)
+rgb(201, 124, 205)
+rgb(192, 102, 197)
+rgb(183, 80, 188)
+rgb(166, 66, 172)
+rgb(145, 57, 149)
+rgb(255, 255, 255)
+rgb(250, 230, 251)
+rgb(225, 151, 229)
+rgb(212, 139, 216)
+;
+
+$purple-50: nth($purple, 1);
+$purple-100: nth($purple, 2);
+$purple-200: nth($purple, 3);
+$purple-300: nth($purple, 4);
+$purple-400: nth($purple, 5);
+$purple-500: nth($purple, 6);
+$purple-600: nth($purple, 7);
+$purple-700: nth($purple, 8);
+$purple-800: nth($purple, 9);
+$purple-900: nth($purple, 10);
+$purple-a100: nth($purple, 11);
+$purple-a200: nth($purple, 12);
+$purple-a400: nth($purple, 13);
+$purple-a700: nth($purple, 14);
+
+
+$deep-purple:
+rgb(219, 205, 219)
+rgb(188, 160, 187)
+rgb(164, 127, 163)
+rgb(129, 91, 127)
+rgb(111, 79, 110)
+rgb(93, 66, 92)
+rgb(75, 53, 74)
+rgb(57, 41, 57)
+rgb(39, 28, 39)
+rgb(21, 15, 21)
+rgb(230, 184, 228)
+rgb(203, 109, 199)
+rgb(139, 71, 136)
+rgb(112, 72, 111)
+;
+
+$deep-purple-50: nth($deep-purple, 1);
+$deep-purple-100: nth($deep-purple, 2);
+$deep-purple-200: nth($deep-purple, 3);
+$deep-purple-300: nth($deep-purple, 4);
+$deep-purple-400: nth($deep-purple, 5);
+$deep-purple-500: nth($deep-purple, 6);
+$deep-purple-600: nth($deep-purple, 7);
+$deep-purple-700: nth($deep-purple, 8);
+$deep-purple-800: nth($deep-purple, 9);
+$deep-purple-900: nth($deep-purple, 10);
+$deep-purple-a100: nth($deep-purple, 11);
+$deep-purple-a200: nth($deep-purple, 12);
+$deep-purple-a400: nth($deep-purple, 13);
+$deep-purple-a700: nth($deep-purple, 14);
+
+
+$indigo:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(222, 232, 247)
+rgb(165, 192, 232)
+rgb(140, 175, 226)
+rgb(116, 158, 220)
+rgb(92, 141, 214)
+rgb(67, 124, 208)
+rgb(49, 108, 195)
+rgb(43, 95, 171)
+rgb(255, 255, 255)
+rgb(235, 243, 254)
+rgb(148, 185, 239)
+rgb(133, 171, 229)
+;
+
+$indigo-50: nth($indigo, 1);
+$indigo-100: nth($indigo, 2);
+$indigo-200: nth($indigo, 3);
+$indigo-300: nth($indigo, 4);
+$indigo-400: nth($indigo, 5);
+$indigo-500: nth($indigo, 6);
+$indigo-600: nth($indigo, 7);
+$indigo-700: nth($indigo, 8);
+$indigo-800: nth($indigo, 9);
+$indigo-900: nth($indigo, 10);
+$indigo-a100: nth($indigo, 11);
+$indigo-a200: nth($indigo, 12);
+$indigo-a400: nth($indigo, 13);
+$indigo-a700: nth($indigo, 14);
+
+
+$blue:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(218, 239, 250)
+rgb(155, 211, 241)
+rgb(129, 199, 237)
+rgb(102, 187, 233)
+rgb(75, 175, 229)
+rgb(48, 163, 225)
+rgb(31, 149, 213)
+rgb(27, 130, 186)
+rgb(255, 255, 255)
+rgb(233, 247, 255)
+rgb(137, 210, 249)
+rgb(121, 198, 240)
+;
+
+$blue-50: nth($blue, 1);
+$blue-100: nth($blue, 2);
+$blue-200: nth($blue, 3);
+$blue-300: nth($blue, 4);
+$blue-400: nth($blue, 5);
+$blue-500: nth($blue, 6);
+$blue-600: nth($blue, 7);
+$blue-700: nth($blue, 8);
+$blue-800: nth($blue, 9);
+$blue-900: nth($blue, 10);
+$blue-a100: nth($blue, 11);
+$blue-a200: nth($blue, 12);
+$blue-a400: nth($blue, 13);
+$blue-a700: nth($blue, 14);
+
+
+$light-blue:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(232, 248, 252)
+rgb(169, 230, 243)
+rgb(143, 222, 239)
+rgb(116, 214, 235)
+rgb(89, 206, 231)
+rgb(62, 198, 227)
+rgb(36, 190, 223)
+rgb(29, 170, 200)
+rgb(255, 255, 255)
+rgb(249, 254, 255)
+rgb(152, 232, 250)
+rgb(135, 223, 242)
+;
+
+$light-blue-50: nth($light-blue, 1);
+$light-blue-100: nth($light-blue, 2);
+$light-blue-200: nth($light-blue, 3);
+$light-blue-300: nth($light-blue, 4);
+$light-blue-400: nth($light-blue, 5);
+$light-blue-500: nth($light-blue, 6);
+$light-blue-600: nth($light-blue, 7);
+$light-blue-700: nth($light-blue, 8);
+$light-blue-800: nth($light-blue, 9);
+$light-blue-900: nth($light-blue, 10);
+$light-blue-a100: nth($light-blue, 11);
+$light-blue-a200: nth($light-blue, 12);
+$light-blue-a400: nth($light-blue, 13);
+$light-blue-a700: nth($light-blue, 14);
+
+
+$cyan:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(209, 247, 247)
+rgb(148, 237, 236)
+rgb(122, 232, 232)
+rgb(96, 228, 227)
+rgb(70, 224, 222)
+rgb(44, 219, 218)
+rgb(34, 198, 197)
+rgb(29, 172, 171)
+rgb(255, 255, 255)
+rgb(222, 255, 255)
+rgb(129, 246, 245)
+rgb(114, 236, 235)
+;
+
+$cyan-50: nth($cyan, 1);
+$cyan-100: nth($cyan, 2);
+$cyan-200: nth($cyan, 3);
+$cyan-300: nth($cyan, 4);
+$cyan-400: nth($cyan, 5);
+$cyan-500: nth($cyan, 6);
+$cyan-600: nth($cyan, 7);
+$cyan-700: nth($cyan, 8);
+$cyan-800: nth($cyan, 9);
+$cyan-900: nth($cyan, 10);
+$cyan-a100: nth($cyan, 11);
+$cyan-a200: nth($cyan, 12);
+$cyan-a400: nth($cyan, 13);
+$cyan-a700: nth($cyan, 14);
+
+
+$teal:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(226, 252, 245)
+rgb(161, 245, 224)
+rgb(134, 242, 215)
+rgb(106, 239, 206)
+rgb(78, 236, 197)
+rgb(51, 233, 188)
+rgb(25, 229, 178)
+rgb(22, 201, 156)
+rgb(255, 255, 255)
+rgb(243, 255, 252)
+rgb(143, 252, 225)
+rgb(126, 245, 215)
+;
+
+$teal-50: nth($teal, 1);
+$teal-100: nth($teal, 2);
+$teal-200: nth($teal, 3);
+$teal-300: nth($teal, 4);
+$teal-400: nth($teal, 5);
+$teal-500: nth($teal, 6);
+$teal-600: nth($teal, 7);
+$teal-700: nth($teal, 8);
+$teal-800: nth($teal, 9);
+$teal-900: nth($teal, 10);
+$teal-a100: nth($teal, 11);
+$teal-a200: nth($teal, 12);
+$teal-a400: nth($teal, 13);
+$teal-a700: nth($teal, 14);
+
+
+$green:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(201, 251, 216)
+rgb(172, 248, 195)
+rgb(144, 246, 175)
+rgb(116, 244, 155)
+rgb(87, 241, 134)
+rgb(59, 239, 114)
+rgb(31, 237, 93)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(186, 255, 207)
+rgb(165, 250, 191)
+;
+
+$green-50: nth($green, 1);
+$green-100: nth($green, 2);
+$green-200: nth($green, 3);
+$green-300: nth($green, 4);
+$green-400: nth($green, 5);
+$green-500: nth($green, 6);
+$green-600: nth($green, 7);
+$green-700: nth($green, 8);
+$green-800: nth($green, 9);
+$green-900: nth($green, 10);
+$green-a100: nth($green, 11);
+$green-a200: nth($green, 12);
+$green-a400: nth($green, 13);
+$green-a700: nth($green, 14);
+
+
+$light-green:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(198, 252, 220)
+rgb(169, 250, 202)
+rgb(140, 248, 184)
+rgb(111, 246, 166)
+rgb(82, 244, 148)
+rgb(53, 243, 131)
+rgb(25, 241, 113)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(184, 255, 213)
+rgb(162, 252, 198)
+;
+
+$light-green-50: nth($light-green, 1);
+$light-green-100: nth($light-green, 2);
+$light-green-200: nth($light-green, 3);
+$light-green-300: nth($light-green, 4);
+$light-green-400: nth($light-green, 5);
+$light-green-500: nth($light-green, 6);
+$light-green-600: nth($light-green, 7);
+$light-green-700: nth($light-green, 8);
+$light-green-800: nth($light-green, 9);
+$light-green-900: nth($light-green, 10);
+$light-green-a100: nth($light-green, 11);
+$light-green-a200: nth($light-green, 12);
+$light-green-a400: nth($light-green, 13);
+$light-green-a700: nth($light-green, 14);
+
+
+$lime:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(225, 253, 200)
+rgb(209, 251, 170)
+rgb(193, 250, 141)
+rgb(177, 249, 112)
+rgb(161, 247, 82)
+rgb(145, 246, 53)
+rgb(129, 245, 24)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(219, 255, 187)
+rgb(206, 253, 163)
+;
+
+$lime-50: nth($lime, 1);
+$lime-100: nth($lime, 2);
+$lime-200: nth($lime, 3);
+$lime-300: nth($lime, 4);
+$lime-400: nth($lime, 5);
+$lime-500: nth($lime, 6);
+$lime-600: nth($lime, 7);
+$lime-700: nth($lime, 8);
+$lime-800: nth($lime, 9);
+$lime-900: nth($lime, 10);
+$lime-a100: nth($lime, 11);
+$lime-a200: nth($lime, 12);
+$lime-a400: nth($lime, 13);
+$lime-a700: nth($lime, 14);
+
+
+$yellow:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(254, 254, 240)
+rgb(251, 251, 172)
+rgb(250, 249, 142)
+rgb(249, 248, 113)
+rgb(248, 247, 84)
+rgb(247, 245, 54)
+rgb(245, 244, 25)
+rgb(230, 228, 10)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 254, 158)
+rgb(253, 252, 134)
+;
+
+$yellow-50: nth($yellow, 1);
+$yellow-100: nth($yellow, 2);
+$yellow-200: nth($yellow, 3);
+$yellow-300: nth($yellow, 4);
+$yellow-400: nth($yellow, 5);
+$yellow-500: nth($yellow, 6);
+$yellow-600: nth($yellow, 7);
+$yellow-700: nth($yellow, 8);
+$yellow-800: nth($yellow, 9);
+$yellow-900: nth($yellow, 10);
+$yellow-a100: nth($yellow, 11);
+$yellow-a200: nth($yellow, 12);
+$yellow-a400: nth($yellow, 13);
+$yellow-a700: nth($yellow, 14);
+
+
+$amber:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 250, 234)
+rgb(255, 233, 162)
+rgb(255, 225, 132)
+rgb(255, 218, 101)
+rgb(255, 211, 70)
+rgb(255, 203, 40)
+rgb(255, 196, 9)
+rgb(234, 177, 0)
+rgb(255, 255, 255)
+rgb(255, 255, 254)
+rgb(255, 230, 152)
+rgb(255, 224, 126)
+;
+
+$amber-50: nth($amber, 1);
+$amber-100: nth($amber, 2);
+$amber-200: nth($amber, 3);
+$amber-300: nth($amber, 4);
+$amber-400: nth($amber, 5);
+$amber-500: nth($amber, 6);
+$amber-600: nth($amber, 7);
+$amber-700: nth($amber, 8);
+$amber-800: nth($amber, 9);
+$amber-900: nth($amber, 10);
+$amber-a100: nth($amber, 11);
+$amber-a200: nth($amber, 12);
+$amber-a400: nth($amber, 13);
+$amber-a700: nth($amber, 14);
+
+
+$orange:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 248, 241)
+rgb(255, 216, 169)
+rgb(255, 202, 139)
+rgb(255, 188, 108)
+rgb(255, 174, 77)
+rgb(255, 160, 47)
+rgb(255, 146, 16)
+rgb(241, 131, 0)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 211, 159)
+rgb(255, 200, 133)
+;
+
+$orange-50: nth($orange, 1);
+$orange-100: nth($orange, 2);
+$orange-200: nth($orange, 3);
+$orange-300: nth($orange, 4);
+$orange-400: nth($orange, 5);
+$orange-500: nth($orange, 6);
+$orange-600: nth($orange, 7);
+$orange-700: nth($orange, 8);
+$orange-800: nth($orange, 9);
+$orange-900: nth($orange, 10);
+$orange-a100: nth($orange, 11);
+$orange-a200: nth($orange, 12);
+$orange-a400: nth($orange, 13);
+$orange-a700: nth($orange, 14);
+
+
+$deep-orange:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 214, 204)
+rgb(255, 157, 132)
+rgb(255, 132, 102)
+rgb(255, 108, 71)
+rgb(255, 84, 40)
+rgb(255, 59, 10)
+rgb(234, 47, 0)
+rgb(204, 41, 0)
+rgb(255, 255, 255)
+rgb(255, 230, 224)
+rgb(255, 149, 122)
+rgb(255, 128, 96)
+;
+
+$deep-orange-50: nth($deep-orange, 1);
+$deep-orange-100: nth($deep-orange, 2);
+$deep-orange-200: nth($deep-orange, 3);
+$deep-orange-300: nth($deep-orange, 4);
+$deep-orange-400: nth($deep-orange, 5);
+$deep-orange-500: nth($deep-orange, 6);
+$deep-orange-600: nth($deep-orange, 7);
+$deep-orange-700: nth($deep-orange, 8);
+$deep-orange-800: nth($deep-orange, 9);
+$deep-orange-900: nth($deep-orange, 10);
+$deep-orange-a100: nth($deep-orange, 11);
+$deep-orange-a200: nth($deep-orange, 12);
+$deep-orange-a400: nth($deep-orange, 13);
+$deep-orange-a700: nth($deep-orange, 14);
+
+
+$brown:
+rgb(246, 239, 237)
+rgb(221, 193, 185)
+rgb(203, 160, 147)
+rgb(180, 117, 99)
+rgb(168, 100, 81)
+rgb(147, 88, 71)
+rgb(126, 76, 61)
+rgb(106, 63, 51)
+rgb(85, 51, 41)
+rgb(64, 39, 31)
+rgb(248, 230, 224)
+rgb(231, 161, 140)
+rgb(195, 101, 74)
+rgb(170, 95, 73)
+;
+
+$brown-50: nth($brown, 1);
+$brown-100: nth($brown, 2);
+$brown-200: nth($brown, 3);
+$brown-300: nth($brown, 4);
+$brown-400: nth($brown, 5);
+$brown-500: nth($brown, 6);
+$brown-600: nth($brown, 7);
+$brown-700: nth($brown, 8);
+$brown-800: nth($brown, 9);
+$brown-900: nth($brown, 10);
+$brown-a100: nth($brown, 11);
+$brown-a200: nth($brown, 12);
+$brown-a400: nth($brown, 13);
+$brown-a700: nth($brown, 14);
+
+
+$blue-gray:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(228, 235, 236)
+rgb(185, 203, 207)
+rgb(167, 189, 194)
+rgb(149, 176, 182)
+rgb(131, 162, 170)
+rgb(113, 149, 157)
+rgb(98, 134, 142)
+rgb(85, 117, 124)
+rgb(255, 255, 255)
+rgb(236, 246, 248)
+rgb(170, 205, 212)
+rgb(160, 190, 196)
+;
+
+$blue-grays-50: nth($blue-gray, 1);
+$blue-gray-100: nth($blue-gray, 2);
+$blue-gray-200: nth($blue-gray, 3);
+$blue-gray-300: nth($blue-gray, 4);
+$blue-gray-400: nth($blue-gray, 5);
+$blue-gray-500: nth($blue-gray, 6);
+$blue-gray-600: nth($blue-gray, 7);
+$blue-gray-700: nth($blue-gray, 8);
+$blue-gray-800: nth($blue-gray, 9);
+$blue-gray-900: nth($blue-gray, 10);
+$blue-gray-a100: nth($blue-gray, 11);
+$blue-gray-a200: nth($blue-gray, 12);
+$blue-gray-a400: nth($blue-gray, 13);
+$blue-gray-a700: nth($blue-gray, 14);
+
+$blue: $light-blue-500;
+$blue_text: $light-blue-a700;
+$indigo: $indigo-500;
+
+$indigo_text: $indigo-a700;
+$purple: $purple-500;
+$purple_text: $purple-a700;
+$pink: $pink-500;
+$pink_text: $pink-a700;
+$red: $red-500;
+$red_text: $red-a700;
+$orange: $orange-500;
+$orange_text: $orange-a700;
+$yellow: $amber-500;
+$yellow_text: $amber-a700;
+$green: $green-500;
+$green_text: $green-a700;
+$teal: $teal-500;
+$teal_text: $teal-a700;
+$cyan: $cyan-500;
+
+$cyan_text: $cyan-a700;
+
+$blue_gray:$blue_gray-500;
+
+$blue_gray_text:$blue_gray-a700;
+
+$orange:$orange-500;
+
+$orange_text:$orange-a700;
+
+$deep_orange:$deep-orange-500;
+
+$deep_orange_text:$deep-orange-a700;
+
+$brown: $brown-500;
+$brown_text: $brown-a700;
+
+$light-green:$light-green-500;
+$light-green_text: $light-green-a700;
+
+$lime: $lime-500;
+$lime_text: $lime-a700;
+
+$yellow-light: $yellow-500;
+.text-brown {
+  color: $brown  !important;
+}
+.text-deep-orange {
+  color: $deep_orange !important;
+}
+.text-orange {
+  color: $orange  !important;
+}
+.text-blue-gray {
+  color: $blue_gray !important;
+}
+.text-purple {
+  color: $purple  !important;
+}
+.text-pink {
+  color: $pink !important;
+}
+.text-red {
+  color: $red !important;
+}
+.text-green {
+  color: $green !important;
+}

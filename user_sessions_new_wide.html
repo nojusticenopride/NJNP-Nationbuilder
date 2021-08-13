@@ -1,0 +1,126 @@
+<div id="accordion">
+  <div class="panel login-wrap"> 
+    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><h4 class="strong">Login</h4></a>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="form">
+        <div class="container">
+          {% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
+            <h6 class="center strong secondary">Please verify your password</h6>
+          {% else %}
+          {% endif %}
+
+          {% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
+
+            {% form_for user_session %}
+
+              <div class="form-errors">{% error_messages_for user_session %}</div>
+
+              {% hidden_field_tag "user_session[email]", request.current_signup.email %}
+
+              <div class="form-group">
+                {% password_field "password", class:"text form-control" %}<label for="user_session_password">Password</label>
+              </div>
+
+              {% submit_tag "Log in", class:"submit-button btn btn-lg btn-default full-width" %}
+
+              <div class="form-submit"></div>
+
+              <div class="margintop marginbottom">
+                <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary facebook">Facebook</a>
+                <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary twitter">Twitter</a>
+              </div>
+
+              <p><a href="{{ request.new_password_reset_url }}">Forgot your password?</a></p>
+
+              <p>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+
+            {% endform_for %}
+
+          {% elsif request.sorta_logged_in? and request.current_signup.has_password? == false %}
+
+            {% form_for account %}
+
+              {% hidden_field_tag "account[email]", request.current_signup.email %}
+
+              {% submit_tag "Email account activation instructions" , class:"submit-button btn btn-lg btn-default" %}
+              
+              <div class="form-submit"></div>
+
+            {% endform_for %}
+
+            <div class="margintop marginbottom">
+              <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary facebook">Facebook</a>
+              <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary twitter">Twitter</a>
+            </div>
+
+            <p>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+
+          {% else %}
+
+            {% form_for user_session %}
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-errors">{% error_messages_for user_session %}</div>
+                  <div class="form-group">
+                    {% email_field "email", class:"text form-control" %} <label for="user_session_email">Email Address</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    {% password_field "password", class:"text form-control" %}<label for="user_session_password">Password</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">{% check_box "remember_me", class:"checkbox" %}<label for="user_session_remember_me">Remember me</label></div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  {% submit_tag "Log in", class:"submit-button btn btn-lg btn-default full-width" %}
+                  <div class="form-submit"></div>
+                </div>
+              </div>
+
+              <div class="margintop marginbottom">
+                <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary facebook">Facebook</a>
+                <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary twitter">Twitter</a>
+              </div>
+
+              <p><a href="{{ request.new_password_reset_url }}">Forgot your password?</a></p>
+
+            {% endform_for %}
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel sign-up-wrap"> 
+    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><h4 class="strong">Sign up</h4></a>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="form">
+        <div class="container">
+          {% form_for account %}
+
+            <div class="form-errors">{% error_messages_for account %}</div>
+            <div class="form-group">
+              {% email_field "email", class:"text form-control" %}<label for="account_email">Email Address</label>
+            </div>
+
+            {% submit_tag "Send account activation", class:"submit-button btn btn-lg btn-default" %}
+            <div class="form-submit"></div>
+
+          {% endform_for %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

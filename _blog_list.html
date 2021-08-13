@@ -1,0 +1,160 @@
+{% capture post_stack1 %}
+<li class="list-group-item d-flex justify-content-between">
+  {% for post in page.blog.most_recent_blog_posts  | limit: 3 %}
+  {% if post.blog_post.content contains '<iframe' %}{% assign nothing = '> </iframe>' %}
+  {% assign cheaderimage = 'video' %}
+  {% capture postVideo %}{% assign videoS = post.blog_post.content | split: '</iframe>' %}{% assign Mvideo = videoS[0] | replace: 'embedly-embed', 'embedly-embed embed-responsive-item card-img-top' %}{% assign video = Mvideo | remove: '<p>' %} {{ video | strip | append: '</iframe>' }}{% endcapture %}
+{% else %}
+{% if post.meta_image_url contains 'missing' %}
+{% if post.attachments.size > 0 %}
+{% for attachment in post.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign cheaderimage = attachment.url %}
+{% endif %}
+{% endfor %}
+{% else %}
+
+{% assign cheaderimage = site.meta_image_url %}
+
+{% endif %}
+{% else %}
+{% assign cheaderimage = post.meta_image_url %}
+{% endif %}
+{% endif %}
+<div class="col-md-4 mb-1" style="overflow:hidden">
+  {% if cheaderimage == 'video' %}
+  <div class="card border-purple" style="overflow:hidden">
+    <div class="card-img-top embed-responsive embed-responsive-4by3">
+      {{ postVideo | strip }}
+    </div>
+    <div class="card-body ">
+      <div class="byline">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+
+      <a class="activator mr-3"><i class="fa fa-share-alt"></i></a>
+      <!--Title-->
+
+      {% if post.headline.size < 35 %}
+      <h5 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+
+      <h6 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  <div class="view" style="height:350px;overflow:hidden; background-image: url('{{ cheaderimage }}'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="mask waves-effect waves-light rgba-deep-purple-strong">
+      <a class="activator mr-3"><i class="fa fa-share-alt"></i></a>
+      <!--Title-->
+      {% if post.headline.size < 35 %}
+      <h5 class="white-text font-weight-bold mb-2"><a class="text-white" href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+
+      <h6 class="white-text font-weight-bold mb-2"><a class="text-white" href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+
+      <div class="byline text-light">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+      <hr>
+      <a href="{{ post.url }}" class="text-white link-text py-2"><h6 class="text-white my-0">Read more <i class="fa fa-chevron-right"></i></h6></a>
+      
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!--Grid column-->
+{% endfor %}
+</li>
+{% endcapture %}
+{% capture post_stack3 %}
+<li class="list-group-item d-flex justify-content-between">
+  {% for post in page.blog.most_recent_blog_posts  | limit: 3 offset:6 %}
+  {% if post.blog_post.content contains '<iframe' %}{% assign nothing = '> </iframe>' %}
+  {% assign cheaderimage = 'video' %}
+  {% capture postVideo %}{% assign videoS = post.blog_post.content | split: '</iframe>' %}{% assign Mvideo = videoS[0] | replace: 'embedly-embed', 'embedly-embed embed-responsive-item card-img-top' %}{% assign video = Mvideo | remove: '<p>' %} {{ video | strip | append: '</iframe>' }}{% endcapture %}
+{% else %}
+{% if post.meta_image_url contains 'missing' %}
+{% if post.attachments.size > 0 %}
+{% for attachment in post.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign cheaderimage = attachment.url %}
+{% endif %}
+{% endfor %}
+{% else %}
+
+{% assign cheaderimage = site.meta_image_url %}
+
+{% endif %}
+{% else %}
+{% assign cheaderimage = post.meta_image_url %}
+{% endif %}
+{% endif %}
+<div class="col-md-4 mb-1" style="overflow:hidden">
+  {% if cheaderimage == 'video' %}
+  <div class="card border-purple" style="overflow:hidden">
+    <div class="card-img-top embed-responsive embed-responsive-4by3">
+      {{ postVideo | strip }}
+    </div>
+    <div class="card-body ">
+      <div class="byline  text-light">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+
+      <a class="activator mr-3"><i class="fa fa-share-alt"></i></a>
+      <!--Title-->
+
+      {% if post.headline.size < 35 %}
+      <h5 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+
+      <h6 class="card-title font-weight-bold"><a href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+    </div>
+  </div>
+  {% else %}
+  <div class="view" style="height:350px;overflow:hidden; background-image: url('{{ cheaderimage }}'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="mask waves-effect waves-light rgba-deep-purple-strong">
+      <a class="activator mr-3"><i class="fa fa-share-alt"></i></a>
+      <!--Title-->
+      {% if post.headline.size < 35 %}
+      <h5 class="white-text font-weight-bold mb-2"><a class="text-white" href="{{ post.url }}">{{ post.headline }}</a></h5>
+      {% else %}
+
+      <h6 class="white-text font-weight-bold mb-2"><a class="text-white" href="{{ post.url }}">{{ post.headline | truncatechars: 50 }}</a></h6>
+      {% endif %}
+
+      <div class="byline text-light">
+        {{ post.published_at | date: '%b %d, %Y' }}
+      </div>
+      <hr>
+      <a href="{{ post.url }}" class="text-white link-text py-2"><h6 class="text-white my-0">Read more <i class="fa fa-chevron-right"></i></h6></a>
+      
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!--Grid column-->
+{% endfor %}
+</li>
+{% endcapture %}
+{% capture post_stack2 %}
+{% for post in page.blog.most_recent_blog_posts  | limit: 3 offset:3 %}
+<li class="list-group-item d-flex justify-content-between">
+  <h6 class="card-title d-inline"> {{ post.published_at | date: '%b %d, %Y' }}</h6><h6 class="card-title d-inline font-weight-bold"> <a href="{{ post.url }}">{{ post.headline }}</a> </h6>  <a href="{{ post.url }}" class="d-inline link-text text-muted">Read more <i class="fa fa-chevron-right"></i></a>
+</li>
+{% endfor %}
+{% endcapture %}
+{% capture post_stack4 %}
+{% for post in page.blog.most_recent_blog_posts  | limit: 3 offset:9 %}
+<li class="list-group-item d-flex justify-content-between">
+  <h6 class="card-title d-inline"> {{ post.published_at | date: '%b %d, %Y' }}</h6><h6 class="card-title d-inline font-weight-bold"> <a href="{{ post.url }}">{{ post.headline }}</a> </h6>  <a href="{{ post.url }}" class="d-inline link-text text-muted">Read more <i class="fa fa-chevron-right"></i></a>
+</li>
+{% endfor %}
+{% endcapture %}
+<ul class="list-group list-group-flush">
+  {{ post_stack1 }}
+  {{ post_stack2 }}
+</ul>

@@ -1,0 +1,504 @@
+{% assign post_slug =  page.slug %}
+{% if age_ptaggers.tags_count > 0 %}
+{% assign stmnt = ' ' %}
+{% for tag in age_ptaggers.tags %}
+{% assign stmnt = tag.slug %}
+{% if stmnt contains post_slug %}
+{% for post in tag.most_recent_published_pages | limit: 20 %}
+
+<hr class="my-5">
+{% case past.type_name %}
+
+{% when 'Petition' %}
+
+  <div class="row d-flex align-items-stretch">
+
+    <div class="col-sm-6 pr-5">  
+
+      <div id="content">
+
+        {% if post.petition.intro.size > 0 %}
+        <div id="intro" class="intro">
+          {{ post.petition.intro }}
+
+          {% if post.petition.content.size > 0 %}
+          <div id="disabledInput" class="strong accent form-control small p-2 pb-3 d-none d-sm-block" contenteditable="true" style="background: #f1f1f1; height: 25vh; overflow: scroll; font-size: .72rem; box-shadow: inset 0 -4px 0 #ddd;">
+            {{ post.petition.content }}
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% if post.show_social_slider? and post.public_activities_count > 0 %}
+        {% include "social_slider" %}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="pl-5 col-sm-6 col-lg-5">
+      <div class="form-wrap">
+
+
+
+        {% if post.petition.is_signed? %}
+
+        {% form_for petition_signature %}
+
+        <div class="form">
+
+          <h3>Thank you for signing!</h3>
+
+          <div class="form-errors">{% error_messages_for petition_signatures %}</div>
+
+          {% if post.is_commentable? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Change your comment</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.petition.is_image? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% file_field "image", class:"file" %}<label for="petition_signature_image">Upload a picture (140x140)</label></div></div>
+          </div>
+          {% if petition_signature.has_image? %}
+          <p><img src="{{ petition_signature.large_square_image_url }}" width="140" height="140" border="0"/></p>
+          {% endif %}
+          {% endif %}
+
+          {% if post.is_commentable? %}
+          {% capture signature_name %}Update {{ post.petition.signature_name }}{% endcapture %}
+          {% submit_tag signature_name, class:"submit-button btn btn-lg btn-default margintopmore" %}
+          {% endif %}
+
+          {% capture signature_name %}Remove {{ post.petition.signature_name }}{% endcapture %}
+          {{ post.petition.current_signature | delete_link message: signature_name class_name: "btn btn-danger margintopmore"}}
+
+          <div class="form-submit"></div>
+
+        </div>
+
+        {% endform_for %}
+
+        {% else %}
+
+        {% form_for petition_signature %}
+
+        <div class="form">
+
+          {% if request.sorta_logged_in? %}
+          <h4>Hi {{ request.current_signup.name_or_email }}, will you sign?</h4>
+
+          {% if request.logged_in? == false %}
+          <p>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+          {% endif %}
+
+          {% else %}
+
+          <h4>Will you sign?</h4>
+
+          {% endif %}
+
+          <div class="form-errors">{% error_messages_for petition_signature %}</div>
+
+          {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% text_field "first_name", class:"text form-control" %}<label for="petition_signature_first_name">First Name</label></div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% text_field "last_name", class:"text form-control" %}<label for="petition_signature_last_name">Last Name</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if request.sorta_logged_in? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% email_field "email", class:"text form-control" %}<label for="petition_signature_email">Email</label></div></div>
+          </div>
+          <div class="row">
+            {% if site.ask_for_mobiles? %}
+            <div class="col-md-12"><div class="form-group mb-0">{% phone_field "mobile_number", class:"text form-control" %}<label for="petition_signature_mobile_number">Mobile phone</label></div></div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          {% if post.petition.is_phone? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% phone_field "phone_number", class:"text form-control" %}<label for="petition_signature_phone_number">Phone</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.petition.is_address? %}
+          {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">
+              {% if post.petition.require_address? %}
+              {% text_field "submitted_address", class:"text form-control", required: "required" %}
+              {% else %}
+              {% text_field "submitted_address", class:"text form-control" %}
+              {% endif %}
+              <label for="petition_signature_submitted_address">Address (Street, City, State, Zip)</label>
+              </div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">
+              {% collection_select "country_code", post.petition.countries, "code", "name", class:"select form-control" %}<label for="petition_signature_country_code">Country</label> </div></div>
+          </div>
+          {% endif %}
+          {% endif %}
+
+          {% if post.is_commentable? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Comments (optional)</label></div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if post.petition.is_image? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group mb-0">{% file_field "image", class:"file" %}<label for="petition_signature_image">Upload a picture (140x140)</label>
+              </div></div>
+          </div>
+          {% endif %}
+
+
+          <input id="petition_signature_is_private" name="petition_signature[is_private]" type="hidden" value="1" />
+
+          {% if post.petition.is_volunteer? and site.ask_for_volunteers? %}
+          {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %}<label for="petition_signature_is_volunteer">I want to volunteer</label></div>
+            </div>
+          </div>
+          {% endif %}
+          {% endif %}
+
+          {% if post.show_consent_form? %}{% include "consent_form" %}{% endif %}
+
+          {% capture signature_name %}Add {{ post.petition.signature_name }}{% endcapture %}
+          {% submit_tag signature_name, class:"submit-button btn btn-lg btn-outline-warning text-dark  margintopmore" %}
+
+          {% unless post.show_consent_form? %}
+          {% if request.sorta_logged_in? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %}<label for="petition_signature_email_opt_in">Send me email updates</label></div>
+            </div>
+            {% if site.ask_for_mobiles? %}
+            <div class="col-md-12"><div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %}<label for="petition_signature_mobile_opt_in">Send me text message updates</label></div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endunless %}
+
+          <div class="form-submit"></div>
+
+        </div>
+
+        {% endform_for %}
+
+        {% if post.text_keyword_instructions.size > 0 %}
+        <div class="padbottom padtopmore">
+          or {{ post.text_keyword_instructions }}
+        </div>
+        {% endif %}
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% when 'Endorsement' %}
+
+
+  <div class="row">
+    <div class="col-sm-6 col-lg-5 col-lg-offset-1"> 
+
+
+      <div id="content">
+        {% if post.endorsement.intro.size > 0 %}
+        <div id="intro" class="intro">
+          {{ post.endorsement.intro }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-5">
+      <div class="form-wrap">
+        {% if post.endorsement.content.size > 0 %}
+        <div id="endorsement-content" class="strong accent">
+          {{ post.endorsement.content }}
+        </div>
+        {% endif %}
+
+        
+        {% if post.endorsement.is_signed? %}
+
+        {% form_for endorsement %}
+
+        <div class="form">
+
+          <h3 class="padbottommore">Thank you for signing!</h3>
+
+          <div class="form-errors">{% error_messages_for endorsements %}</div>
+
+          {% if post.is_commentable? %}
+          <div class="row">
+
+            <div class="col-md-12"><div class="form-group">{% text_area "content", class:"textarea form-control" %}<label for="endorsement_content">Change your comment</label></div></div>
+
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_image? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% file_field "image", class:"file" %}<label for="endorsement_image">Upload a {% if post.endorsement.require_organization? %}logo{% else %}picture{% endif %} (140x140)</label></div></div>
+          </div>
+          {% if endorsement.has_image? %}
+          <p><img src="{{ endorsement.large_square_image_url }}" height="140" border="0"/></p>
+          {% endif %}
+          {% endif %}
+
+          {% if post.is_commentable? %}
+          {% submit_tag "Update endorsement", class:"btn btn-lg btn-primary submit-button margintopmore" %}
+          {% endif %}
+
+          {{ post.endorsement.current_endorsement | delete_link message: "Remove endorsement" class_name: "btn btn-danger margintopmore" }}
+
+          <div class="form-submit"></div>
+
+        </div>
+
+        {% endform_for %}
+
+        {% else %}
+
+        {% form_for endorsement %}
+
+        <div class="form">
+
+          {% if request.sorta_logged_in? %}
+          <h4 class="padbottommore">Hi {{ request.current_signup.name_or_email }}, will {% if post.endorsement.require_organization? %}your organization{% else %}you{% endif %} endorse?</h4>
+
+          {% if request.logged_in? == false %}
+          <div class="padbottommore">
+            If you're not {{ request.current_signup.name_or_email }},
+            <a href="{{ request.current_signup.logout_url }}">click here</a>.
+          </div>
+          {% endif %}
+
+          {% else %}
+
+          <h4 class="padbottommore">Will {% if post.endorsement.require_organization? %}your organization{% else %}you{% endif %} endorse?</h4>
+
+          {% endif %}
+
+          <div class="form-errors">{% error_messages_for endorsement %}</div>
+
+          {% if post.endorsement.require_organization? %}
+
+          {% if post.endorsement.is_organization? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "employer", class:"text form-control" %}<label for="endorsement_employer">Organization / Company</label></div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "occupation", class:"text form-control" %}<label for="endorsement_occupation">Your Title</label></div></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "is_organization", class:"checkbox" %}<label for="endorsement_is_organization">My organization is making the endorsement</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="endorsement_first_name">First Name</label></div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="endorsement_last_name">Last Name</label></div></div>
+          </div>
+          {% endif %}
+
+          {% else %}
+
+          {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="endorsement_first_name">First Name</label></div></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="endorsement_last_name">Last Name</label></div></div>
+          </div>
+          {% endif %}
+
+          {% endif %}
+
+          {% if request.sorta_logged_in? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% email_field "email", class:"text form-control" %}<label for="endorsement_email">Email</label></div></div>
+            {% if site.ask_for_mobiles? %}
+            <div class="col-md-12"><div class="form-group">{% phone_field "mobile_number", class:"text form-control" %}<label for="endorsement_mobile_number">Mobile phone (optional)</label></div></div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_organization? and post.endorsement.require_organization? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "employer", class:"text form-control" %}<label for="endorsement_employer">Organization / Company (optional)</label></div></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "occupation", class:"text form-control" %}<label for="endorsement_occupation">Your Title (optional)</label></div></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "is_organization", class:"checkbox" %} <label for="endorsement_is_organization">My organization is making the endorsement</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_phone? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% phone_field "phone_number", class:"text form-control" %}<label for="endorsement_phone_number">Phone</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_address? %}
+          {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_field "submitted_address", class:"text form-control" %}<label for="endorsement_submitted_address">Address (Street, City, State, Zip)</label></div></div>
+          </div>
+          {% endif %}
+          {% endif %}
+
+          {% if post.is_commentable? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% text_area "content", class:"textarea form-control" %}<label for="endorsement_content">Comments (optional)</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_image? %}
+          <div class="row">
+            <div class="col-md-12"><div class="form-group">{% file_field "image", class:"file" %}<label for="endorsement_image">Upload a {% if post.endorsement.require_organization? %}logo{% else %}picture{% endif %} (140x140)</label></div></div>
+          </div>
+          {% endif %}
+
+          {% if post.endorsement.is_volunteer? and site.ask_for_volunteers? %}
+          {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %} <label for="endorsement_is_volunteer">I want to volunteer</label></div></div>
+          </div>
+          {% endif %}
+          {% endif %}
+
+          {% if post.show_consent_form? %}{% include "consent_form" %}{% endif %}
+
+          {% submit_tag "Add endorsement", class:"btn btn-lg btn-primary submit-button margintopmore" %}
+
+          {% unless post.show_consent_form? %}
+          {% if request.sorta_logged_in? == false %}
+          <div class="row">
+            <div class="col-md-12"><div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %} <label for="endorsement_email_opt_in">Send me email updates</label></div></div>
+            {% if site.ask_for_mobiles? %}
+            <div class="col-md-12"><div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %} <label for="endorsement_mobile_opt_in">Send me text message updates</label></div></div>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endunless %}
+
+          <div class="form-submit"></div>
+
+        </div>
+
+        {% if post.text_keyword_instructions.size > 0 %}
+        <div class="padbottom padtopmore">
+          or {{ post.text_keyword_instructions }}
+        </div>
+        {% endif %}
+
+        {% endform_for %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+{% endcase %}
+
+  <div class="row" id="content">
+    {% if post.meta_image_url contains 'missing' %}
+    {% if post.attachments.size > 0 %}
+    {% for attachment in post.attachments limit:1 %}
+    {% assign headerimage = attachment.url %}
+    {% endfor %}
+    {% else %}
+    {% assign headerimage = site.header_image_url_980 %}
+    {% endif %}
+    {% else %}
+
+    {% assign headerimage = post.meta_image_large_url %}
+    {% endif %}
+
+
+
+    <!-- Grid column -->
+    <div class="col-lg-5">
+
+      <!-- Featured image -->
+      <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+        <img class="img-fluid" src="{{ headerimage | strip }}" alt="{{post.name}}">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-lg-7">
+
+      <!-- Category -->
+      {% if post.tags_count > 0 %}
+
+      <div id="page-tags" class="page-tags">
+        {% include "page_tags" with page %}
+      </div>
+      {% endif %}
+      <!-- Post title -->
+      <h3 class="font-weight-bold mb-3"><strong>{{ post.headline }}</strong></h3>
+      <!-- Excerpt -->
+
+    </div>
+    <div class="w-100"></div><div class="col-sm-12">
+      <!-- Grid row -->
+      {% case post.type_name %}
+      {% when 'Blog Post' %}
+
+    <p>{{ post.blog_post.content | strip_html }}</p>
+      {% when 'Blog' %}
+
+      {{ post.blog.content | strip_html }}
+      {% when 'Basic' %}
+
+      {{ post.basic.content }}
+      {% when 'Redirect' %}
+      {{ post.excerpt }}
+
+
+      {% endcase %}
+      <!-- Read more button -->
+      <a href="{{ post.url  }}" class="btn btn-success btn-md">Read more</a>
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+
+
+{% endif %}

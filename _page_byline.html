@@ -1,0 +1,9 @@
+{% assign signup = page.author %}
+
+{% capture sShowLabel %}{% if page.type_name == 'Press Release' %}Media Contact{% else %} {% if page.type_name == 'Event' %}Hosted by{% else %}Written by{% endif %}{% endif %}{% endcapture %}
+
+	{% include "signup_show" %}
+
+  {% if site.has_rule_page? and request.logged_in? %}<h6 class="strong">Is there something you need to report on this page?</h6><h6 class="strong accent marginbottommore"> <a href="{{ page.flag_url }}" class="flag">Flag this post.</a></h6>{% endif %}
+
+</div>

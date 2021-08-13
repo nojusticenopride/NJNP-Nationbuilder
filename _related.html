@@ -1,0 +1,27 @@
+
+
+  <ul class="nav flex-column  md-pills pills-unique peach-gradient lighten-3 pb-4 mt-2 sticky-top mb-4 font-weight-bold z-depth-1">
+    <li class="bg-danger nav-item mw-100 border-dark pt-4 pb-3 mb-3" style="border-bottom: 3px solid;">
+
+      <a class="text-dark h5 pl-3 text-uppercase pb-3"  href="{{page.slug}}">{{page.name}} Resources</a>
+    </li>
+    {% for child in page.children %}
+    <li class="nav-item mw-100 pb-2  px-4">
+
+      <a class="btn btn-block text-wrap d-block btn-warning nav-link dark-text" href="{{child.slug}}">{{child.name}}</a>
+    </li>
+    {% unless child.type_slug == 'faq' %}
+    {% if child.has_children? %}
+
+    {% for child in child.children %}
+    
+    <li class="nav-item mw-100 pb-2  px-4">
+
+      <a class="btn btn-block text-wrap d-block btn-danger nav-link dark-text" href="{{child.slug}}">{{child.name}}</a>
+    </li>
+    {% endfor %}
+    {% endif %}
+    {% endunless %}
+
+    {% endfor %}
+  </ul>

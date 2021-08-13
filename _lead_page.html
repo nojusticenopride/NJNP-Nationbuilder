@@ -1,0 +1,681 @@
+{% if page.name contains 'ction' %}
+
+
+<article class="blog padtopmore row-fluid" id="blog-page-{{ page.id }}" role="contentinfo">
+    <header class="padtopmore headline">
+        <h2><a href="{{ page.url }}">{{ page.headline}}   </a></h2>
+    </header>
+    {% capture pagetype %}{{ page.type_slug }}{% endcapture %}
+
+    <div class="intro">{{ page[pagetype].content}}</div>
+    {% if page.has_children? %}
+    <section class="well  padtop intro" role="contentinfo">
+        {% for child in page.children %}
+        {% assign img_url = nil %}
+
+
+        {% if child.meta_image_url contains 'missing' %}
+        {% if child.attachments.size > 0 %}
+        {% for attachment in child.attachments %}
+        {% if attachment.content_type contains 'image' %}
+        {% assign img_url = attachment.url %}
+
+        {% endif %}
+        {% endfor %}
+        {%else %}  
+        {% assign img_url =  random_image_url %}
+        {% endif %}
+        {% else %}
+        {% assign img_url = child.meta_image_url %}
+        {% endif %}
+
+        <article class="page-excerpt {% if img_url %}has-attachments{% endif %}" id="blog-post-page-{{ child.id }}" {% if img_url %}style="background-image: url('{{ img_url  | strip }}')"{% endif %}>
+            <div class="page-excerpt-content">
+                <h4><a href="{{ child.url }}">{{ child.headline }}</a></h4>
+                <div class="byline">
+                    <a href="{{ child.url }}" class="center button small_button small-button">Take Action</a>
+                </div>
+                <div class="excerpt" data-truncate="185">
+                    {% if child.petition.intro.size > 0 %}
+                    {{ child.petition.intro }}
+                    {% else %}
+                    {{ child.excerpt }}
+                    {% endif %}
+                </div>
+                <span class="read-more"><a href="{{ child.url }}">Read more</a></span>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+    <section class="well  padtop intro" role="contentinfo">
+        {% for child in page.children %}
+        {% assign img_url = nil %}
+        {% if forloop.first == true %}
+        <header>
+            <h3 class="headline"><a href="{{ child.url }}">{{ child.headline }}</a></h3></header>
+        <div class="row-fluid padbottommore">
+            <div class="span8 medpad">
+                {% if child.petition.intro.size > 0 %}
+                <div class="intro desktop-visible ">{{ child.petition.intro | truncatewords:80 }}</div>
+                {% else %}
+                <div class="intro desktop-visible ">{{ child.excerpt | truncatewords:80}}</div>
+                {% endif %}
+                <i><a  href="{{ child.url }}">Read the full petition!</a></i>
+            </div>
+            <div class="span4 medpad center">
+                {% include "homepage_excerpt_petition" with child.slug %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </section>
+    {% else %}
+    <section class="well padtop intro" role="contentinfo">
+        {% for child in site.most_recent_petition_pages %}
+        {% assign img_url = nil %}
+        {% if child.meta_image_url contains 'missing' %}
+        {% if child.attachments.size > 0 %}
+        {% for attachment in child.attachments %}
+        {% if attachment.content_type contains 'image' %}
+        {% assign img_url = attachment.url %}
+        {% endif %}
+        {% endfor %}
+        {% else %}  
+        {% assign img_url =  random_image_url %}
+        {% endif %}
+        {% else %}
+        {% assign img_url = child.meta_image_url %}
+        {% endif %}
+
+        <article class="page-excerpt {% if img_url %}has-attachments{% endif %}" id="blog-post-page-{{ child.id }}" {% if img_url %}style="background-image: url('{{ img_url  | strip }}')"{% endif %}>
+            <div class="page-excerpt-content">
+                <h4><a href="{{ child.url }}">{{ child.headline }}</a></h4>
+                <div class="byline">
+                    <a href="{{ child.url }}" class="center button small_button small-button">Take Action</a>
+                </div>
+                <div class="excerpt" data-truncate="185">
+                    {% if child.petition.intro.size > 0 %}
+                    {{ child.petition.intro }}
+                    {% else %}
+                    {{ child.excerpt }}
+                    {% endif %}
+                </div>
+                <span class="read-more"><a href="{{ child.url }}">Read more</a></span>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+    <section class="well  padtop intro" role="contentinfo">
+        {% for child in site.most_recent_petition_pages %}
+        {% assign img_url = nil %}
+        {% if forloop.first == true %}
+        <header>
+            <h3 class="headline"><a href="{{ child.url }}">{{ child.headline }}</a></h3></header>
+
+        <div class="row-fluid padbottommore">
+            <div class="span8 medpad">
+
+                {% if child.petition.intro.size > 0 %}
+                <div class="intro desktop-visible ">{{ child.petition.intro | truncatewords:80 }}</div>
+                {% else %}
+                <div class="intro desktop-visible ">{{ child.excerpt | truncatewords:80}}</div>
+                {% endif %}
+                <i><a  href="{{ child.url }}">Read the full petition!</a></i>
+
+            </div>
+            <div class="span4 medpad center">
+                {% include "homepage_excerpt_petition" with child.slug %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </section>
+    {% endif %}
+</article>
+<article class="padtopmore lead-page desktop-visible petition-slider padbottommore" role="complementary">
+    <header class='padtopmore padbottom'>
+        <h2 class="headline">All Actions</h2>
+    </header>
+    {% include "petition_slider" %}
+</article>
+{% else %}
+{% for child in page.children %}
+{% assign flop = forloop.index %}
+{% assign maxprep = %3N | divided_by: 100 %}
+
+{% assign max1 = maxprep | ceil %}
+{% assign rnnm = max1| divided_by: flop %}
+
+<article class="article-wrap page-id{{ child.id }}">
+    <div class="header-image-wrap"  style=" background-image:url('{{ split_images[rnnm]  | strip }}');">
+        <div class="header-image-gradient">                  
+            <header><h1  class="excerpt-title">  <a href="{{ child.url }}"> {% if child.type_name == 'Blog' %}<span class="icon-blog"></span> Latest {% endif %}{{ child.headline }}</a></h1><h4 class="excerpt-type"> <a href="{{ child.url }}">{{ page.name }} </a></h4>
+
+            </header>
+
+            {% capture pagetype %}{{ child.type_slug }}{% endcapture %}
+            {% if child[pagetype].intro.size > 0 %}
+            <div class="intro">{{ child[pagetype].intro }}</div>
+            {% endif %}
+            {% if child.excerpt.size > 0 %}
+            <div class="intro"><small>{{ child.excerpt | truncatewords:80 }} <span class="continue"><a href='{{ child.url }}'>Continue reading &rarr;</a></span></small></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    {% if forloop.first == true %}
+    {{ subnav }}
+
+    {% endif %}
+    {% if child.type_name == 'Blog' %}
+    <div class="clearfix"></div>
+    <section class="row-fluid blog padtopmore padbottommore well " id="blog-page-{{ child.id }}">
+        {% for post in child.blog.most_recent_blog_posts limit: 4 %}
+        {% assign img_url = nil %}
+
+
+        {% if post.meta_image_url contains 'missing' %}
+        {% if post.attachments.size > 0 %}
+        {% for attachment in post.attachments %}
+        {% if attachment.content_type contains 'image' %}
+        {% assign img_url = attachment.url %}
+
+        {% endif %}
+        {% endfor %}
+        {%else %}  
+        {% assign cIN = forloop.index | times: 2.14 %}
+        {% assign cINF = cIN  | divided_by:0.89 | round %}
+
+        {% assign img_url = split_images[cINF] %}
+        {% endif %}
+        {% else %}
+        {% assign img_url = post.meta_image_url %}
+        {% endif %}
+
+        <article class="page-excerpt {% if img_url %}has-attachments{% endif %}" id="blog-post-page-{{ post.id }}" {% if img_url %}style="background-image: url('{{ img_url }}')"{% endif %}>
+
+            <div class="page-excerpt-content">
+
+                <h4><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+
+                <div class="byline">
+                    {{ post.published_at | date: '%b %d' }} &nbsp;&middot;&nbsp; By {{ post.author.published_name_linked }} &nbsp;&middot;&nbsp; {% if post.public_activities_count > 0 %}{{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %} &nbsp;&middot;&nbsp;{% endif %} {{ "Share" | share_button page_id: post.id }}
+                </div>
+
+                <div class="excerpt" data-truncate="185">
+                    {{ post.blog_post.content }}
+                </div>
+
+                <span class="read-more"><a href="{{ post.url }}">Read more</a></span>
+
+            </div>
+
+        </article>
+
+
+        {% endfor %}
+        {% for child2 in child.children %}
+        {% if child2.type_name == "Redirect" %}
+
+
+        {% assign img_url = nil %}
+
+        {% if child2.meta_image_url contains 'missing' %}
+        {% if child2.attachments.size > 0 %}
+        {% for attachment in child2.attachments %}
+        {% if attachment.content_type contains 'image' %}
+        {% assign img_url = attachment.url %}
+
+        {% endif %}
+        {% endfor %}
+        {%else %}  
+        {% assign cIN = forloop.index | times: 2.14 %}
+        {% assign cINF = cIN  | divided_by:0.89 | round %}
+
+        {% assign img_url = split_images[cINF] %}
+        {% endif %}
+        {% else %}
+        {% assign img_url = child2.meta_image_url %}
+        {% endif %}
+
+        <article class="page-excerpt {% if img_url %}has-attachments{% endif %}" id="blog-child2-page-{{ child2.id }}" {% if img_url %}style="background-image: url('{{ img_url }}')"{% endif %}>
+
+            <div class="page-excerpt-content">
+
+                <h4><a href="{{ child2.url }}">{{ child2.headline }}</a></h4>
+
+                <div class="byline">
+                    {{ child2.published_at | date: '%b %d' }} &nbsp;&middot;&nbsp; By {{ child2.author.published_name_linked }} &nbsp;&middot;&nbsp; {% if child2.public_activities_count > 0 %}{{ child2.public_activities_count }} reaction{% if child2.public_activities_count > 1 %}s{% endif %} &nbsp;&middot;&nbsp;{% endif %} {{ "Share" | share_button page_id: child2.id }}
+                </div>
+
+                <div class="excerpt" data-truncate="185">
+                    {{ child2.excerpt }}
+                </div>
+
+                <span class="read-more"><a href="{{ child2.url }}">Read more</a></span>
+
+            </div>
+
+        </article>
+        {% endif %}
+        {% endfor %}
+
+        <div class="clearfix"></div>
+        <h6 class="center padbottommore"><a class="submit-button center" href="{{ child2.url }}">See all Updates</a></h6>
+    </section>
+
+    <div class="clearfix"></div>
+
+    {% else %}
+    {% capture pagetype %}{{ child.type_slug }}{% endcapture %}
+    {% if child[pagetype].intro.size > 0 %}{% elsif child.excerpt.size > 0 %}{% else %}
+    {% if child[pagetype].content.size > 0 %}
+    <div class="excerpt" data-truncate="500">{{ child[pagetype].content }}
+
+    </div>
+
+    <span class="continue"><a href='{{ child.url }}'>Continue reading &rarr;</a></span>
+
+    {% endif %}
+    {% endif %}
+
+
+    <section class="padtopmore lead-page page-{{ child.id }} well padbottommore">
+
+        {% for child2 in child.children %}
+
+        {% unless child2.type_name == "Blog Post"" or child2.type_name == "Question" or child2.type_name == "Redirect" %}
+
+
+        {% case child2.type_name %}
+
+
+
+
+
+
+
+
+        <!-- FAQ page -->
+
+
+        {% when 'FAQ' %}
+        <header class='headline'>
+            <h2 >
+                <a href="{{ child.url }}"><span class="icon-question-octagon-frame"></span> {{ child2.headline }}</a>
+            </h2>
+        </header>
+        {% if child2.faq.content.size > 0 %}
+        <div class="intro">{{ child2.faq.content }}</div>
+        {% endif %}
+        {% for child3 in child2.children %}
+
+        <article class="faq2"><div class="padtopmore padbottommore">
+            <h3>{{ child3.headline}}</h3>
+            {% if child3.question.content.size >0 %}
+            <small>{{ child3.question.content }}</small>
+            {% unless forloop.last == true %}  
+            <a href="{{ child2.url }}"><i>read more &rarr;</i></a>
+            {% endunless %}
+            {% else %}
+            <small>{{ child3.question.answer | truncatewords:25 }}</small>
+            {% unless forloop.last == true %}  
+            <a href="{{ child2.url }}"><i>read more &rarr;</i></a>
+            {% endunless %}
+            {% endif %}
+            </div>
+
+        </article>
+
+
+        {% endfor %}
+        <div class="padtopmore padbottommore"></div>
+
+        <div class="clearfix"></div>
+        <div class="continue submit-button "><a href="{{ child2.url }}">Go To {{ child2.headline }} &rarr;</a>
+        </div>
+
+
+
+
+
+
+
+
+
+        {% when 'Basic' %}
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-application"></span> Featured page</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        <div class="truncate-500" data-truncate="500">{{ child2.basic.content }}</div>
+
+        <span class="continue"><a href='{{ post.url }}'>Continue reading &rarr;</a></span>
+
+
+
+
+        <!-- Calendar page -->
+        {% when 'Calendar' %}
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-calendar"></span> Upcoming events</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        <div class="event-wrap-container">
+
+            <ul class="event-wrap">
+                {% for event in child2.calendar.events_upcoming %}
+                <li>{% include "event" %}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+
+        <!-- Endorsement page -->  
+        {% when 'Endorsement' %}
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-stamp"></span> Endorse</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        {% if child2.endorsement.intro.size > 0 %}
+        <div class="intro">{{ child2.endorsement.intro }}</div>
+        {% endif %}
+
+        {% if child2.endorsement.content.size > 0 %}
+        <div id="endorsement-content" class="intro">
+            {{ child2.endorsement.content }}
+        </div>
+        {% endif %}
+
+        <a class="button submit-link" href="{{ child2.url }}">Endorse</a>
+
+        <!-- Event page -->
+        {% when 'Event' %}
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-calendar"></span> Featured event</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        {% if child2.event.content.size > 0 %}
+        <div class="intro">{{ child2.event.content }}</div>
+        {% endif %}
+
+        <div class="event-detail-wrap row-fluid">
+            <div class="event-detail span6">
+                <div class="subhead">WHEN</div>
+                <div class="subtext">
+                    {% if child2.event.is_multi_day? %}
+                    {{ child2.event.local_start_at | event_time }} - {{ child2.event.local_end_at | event_time }}
+                    {% else %}
+                    {{ child2.event.local_start_at | event_time }}
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if child2.event.has_venue? %}
+
+            <div class="event-detail span6">
+                <div class="subhead">WHERE</div>
+                <div class="subtext">
+                    {% if child2.event.venue_name.size > 0 %}
+                    {{ child2.event.venue_name }}<br/>
+                    {% endif %}
+                    {% for line in child2.event.venue_address.multi_line %}
+                    {{ line }}<br/>
+                    {% endfor %}
+                    {% if child2.event.has_venue_address? %}
+                    <a href="{{ child2.event.venue_address.google_map_link }}">Google map and directions</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% endif %}
+        </div>
+
+        <div class="padbottommore">
+            {% if child2.event.is_ticket_required? %}
+            {{ child2.event.ticket_price_with_currency }}
+            {% elsif child2.event.is_user_ticket_required? %}
+            {{ child2.event.user_ticket_price_with_currency }}
+            {% endif %}
+
+            {% if child2.event.is_ticket_required? or child2.event.is_user_ticket_required? %} &middot; {% endif %}
+
+            {% if child2.event.show_guests? and child2.event.rsvps_count > 0 %}
+            <a href="{{ child2.url }}" class="rsvp-count">{{ child2.event.rsvps_count }} rsvp{% if child2.event.rsvps_count > 1 %}s{% endif %}</a>
+            {% endif %}
+        </div>
+
+        {% if child2.event.is_maximum_capacity? %}
+        <a class="button destroy-link" href="{{ child2.url }}">sold out</a>
+        {% elsif child2.event.is_past? == false %}
+        <a class="button submit-link" href="{{ child2.url }}">rsvp</a>
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Petition page -->
+        {% when 'Petition' %}
+
+        {% if forloop.first == true %}
+        <h4 class="excerpt-title"><a href="{{ child2.url }}">{{ child2.headline }}</a></h4>
+
+        <div class="row-fluid padbottommore">
+            <div class="span8 medpad">
+
+                {% if child2.excerpt.size > 0 %}
+                <div class="intro desktop-visible ">{{ child2.excerpt | truncatewords:80}}</div>
+                {% else %}
+                <div class="intro desktop-visible ">{{ child2.petition.intro | truncatewords:80 | strip }}</div>
+                {% endif %}
+                <i><a  href="{{ child2.url }}">Read the full petition!</a></i>
+
+            </div>
+            <div class="span4 medpad center">
+
+                {% include "homepage_excerpt_petition" with child2.slug %}
+            </div>
+        </div>
+        {% else %}
+        <h3 class="padtop excerpt-title"><a href="{{ child2.url }}">{{ child2.headline }}</a></h3>
+        {% if child2.petition.intro.size > 0 %}
+        <div class="intro">{{ child2.petition.intro | truncatewords:80 }}</div>
+        {% else %}
+        <div class="intro">{{ child2.excerpt | truncatewords:80 }}</div>
+        {% endif %}
+        <h6 class="center padbottommore"><a class="submit-button center" href="{{ child2.url }}">Take Action</a></h6>
+        {% endif %}
+        <!-- Press release page -->
+        {% when 'Press Release' %}
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-megaphone"></span> Featured press release</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        <div class="released-at">
+            {{ child2.published_at | date: '%B %d, %Y' }}
+        </div>
+
+        {% if child2.has_author? %}
+        <div class="contact vcard padbottomless">
+            <div class="contact-name">
+                Contact: <span class="n">{{ child2.author.published_name }}</span>
+            </div>
+            {% if child2.author.has_phone? %}
+            <a href="tel:{{ child2.author.phone_number }}" class="tel">
+                {{ child2.author.phone_number }}
+            </a>
+            {% endif %}
+            {% if child2.author.has_email? %}
+            <div class="email">
+                {{ child2.author.email | enkode_email }}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="truncate-500" data-truncate="500">{{ child2.press_release.content }}</div>
+
+        <span class="continue"><a href="{{ child2.url }}">Continue reading &rarr;</a></span>
+
+
+
+
+
+
+
+
+        <!-- Recruiting page -->
+        {% when 'Recruiting' %}
+
+
+        <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-users"></span> Spread the word</a></h3>
+
+        <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+        {% if request.sorta_logged_in? %}
+        <p>Anyone referred through your personal tracking link will credited to you.</p>
+        {% else %}
+        Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a> to get your personal tracking link.
+        <div class="padtop padbottommore">
+            <a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
+            <a href="{{ request.twitter_connect_url }}"><img src="{{ "signin_with_twitter.png" | asset_path }}"></a>
+        </div>
+        {% endif %}
+        {% if request.sorta_logged_in? %}
+        <form><input type="text" id="tracking_link" onclick="this.focus();this.select();" readonly="readonly" value="{{ child2.recruiting.featured_page.full_url_with_recruiter }}"></input></form>
+    {% endif %}
+
+    <!-- Rules page -->
+    {% when 'Rules' %}
+
+    <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-property"></span> Rules</a></h3>
+
+    <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+    {% if child2.rule.content.size > 0 %}
+    <div class="intro">{{ child2.rule.content }}</div>
+    {% endif %}
+
+    <ol class="rule-list">
+        {% for rule in child2.rule.rules %}
+        <li><div class="rule">{{ rule.name }}</div> {{ rule.content }}</li>
+        {% endfor %}
+    </ol>
+
+    <!-- Signup page -->
+    {% when 'Signup' %}
+
+    <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-user"></span> Sign up</a></h3>
+
+    <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+    {% if child2.signup.content.size > 0 %}
+    <div class="intro">{{ child2.signup.content }}</div>
+    {% endif %}
+
+    {% include "homepage_excerpt_signup" with child2.slug %}
+
+    <!-- Survey page -->
+    {% when 'Survey' %}
+
+    <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-tick"></span> Survey</a></h3>
+
+    <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+    {% if child2.survey.content.size > 0 %}
+    <div class="intro">{{ child2.survey.content }}</div>
+    {% endif %}
+
+    <a class="button submit-link" href="{{ child2.url }}">Take the survey</a>
+
+    <!-- Volunteer signup page -->
+    {% when 'Volunteer Signup' %}
+
+    <h3 class="excerpt-type"><a href="{{ child2.url }}"><span class="icon-hand"></span> Volunteer sign up</a></h3>
+
+    <h4 class="excerpt-title"><a href="{{ post.url }}">{{ child2.headline }}</a></h4>
+
+    {% if child2.volunteer_signup.content.size > 0 %}
+    <div class="intro">{{ child2.volunteer_signup.content }}</div>
+    {% endif %}
+
+    {% include "homepage_excerpt_volunteer_signup" with child2.slug %}
+
+    {% when 'Redirect' %}
+    {% unless child.type_name == 'Blog' %}
+
+
+    {% if child.name contains "ction" %}
+    <h3 class="padtopmore excerpt-title"><a href="{{ child2.url }}">{{ child2.headline }}</a></h3>
+    {% if child2.petition.intro.size > 0 %}
+    <div class="intro">{{ child2.petition.intro }}</div>
+    {% else %}
+    <div class="intro">{{ child2.excerpt }}</div>
+    {% endif %}
+    <h6 class="center padbottommore"><a class="submit-button center" href="{{ child2.url }}">Take Action</a></h6>
+
+    {% else %}
+
+    {% if child2.excerpt.size > 0 %}
+    <div class="row-fluid faq-container  padtopmore padbottommore">
+        <div class="span12 center">
+            <h2  class='headline'>
+                <a href="{{ child2.url }}"> {{ child2.headline }}</a>
+            </h2>
+            <p>
+                {{ child2.excerpt }}
+            </p>
+        </div>
+    </div>
+    {% else %}
+    {% cycle '<div class="row-fluid faq-container padtopmore padbottommore">', '' %}
+    <div class="span6 center">
+        <h3>
+            <a href="{{ child2.url }}" class="submit-button padbottommore padtop">
+                <span><i class="fas fa-redo-alt"></i></span> &nbsp; {{ child2.headline }}</a>
+        </h3>
+    </div>
+    {% cycle '','</div>' %}
+    {% endif %}
+
+
+    {% endif %}
+
+    {% endunless %}
+    {% endcase %}
+
+
+
+    <!-- .homepage-excerpt -->
+
+    {% endunless %}
+    {% if forloop.first == true %}{%unless forloop.last == true %}<hr class=" headline"><div class="well page-programs question-page-{{child2.id}}">
+    {% endunless %}
+    {% endif %}
+
+    {% if forloop.last == true %}  {%unless forloop.first == true %}
+    </div>
+
+    {% endunless %}
+    {% endif %}
+    {% endfor %}
+    </section>
+{% endif %}
+</article>
+{% endfor %}
+
+{% endif %}

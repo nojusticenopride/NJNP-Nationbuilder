@@ -1,0 +1,33 @@
+<div class="card event-card">
+
+  {% if event.has_meta_image? %}
+    <div class="image" style="background-image: url({{ event.meta_image_url }});"></div>
+  {% else %}
+    <a href="{{ event.url }}">
+    <div class="event-date {% cycle 'gray', 'brand-primary-lighter', 'brand-primary', 'gray-light' %}">
+        <h6 class="strong secondary">{{ event.event.local_start_at | date: '%B' }}</h6>
+        <h2 class="strong">{{ event.event.local_start_at | date: '%d' }}</h2>
+    </div>
+    </a>
+  {% endif %}
+
+  {% if event.has_meta_image? %}
+  <h6 class="strong secondary">{{ event.event.local_start_at | date: '%B %d' }}</h6>
+  {% endif %}
+  <h5 class="strong"><a href="{{ event.url }}">{{ event.name }}</a></h5>
+  {% if event.event.has_venue? %}
+    <div>
+    {% if event.event.has_venue_address? %}
+      <a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a><br/>
+      {{ event.event.venue_address.location }}
+    {% else %}
+      {{ event.event.venue_name }}
+    {% endif %}
+    </div>
+  {% endif %}
+  {{ event.event.local_start_at | date: '%I:%M %p' }}
+  {% if event.event.is_multi_day? %}
+  &mdash; {{ event.event.local_end_at | event_date }}
+  {% endif %}
+
+ </div>

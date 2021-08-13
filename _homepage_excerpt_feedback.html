@@ -1,0 +1,66 @@
+<div class="form">
+
+  {% form_for feedback %}
+  {% hidden_field_tag "page_id", homepage_excerpt.id %}
+
+    <div class="form-errors">{% error_messages_for feedback %}</div>
+
+    <h6 class="accent strong">{{ homepage_excerpt.feedback.content_name }}</h6>
+
+    {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+    
+      <div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="feedback_first_name">First Name</label></div>
+      <div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="feedback_last_name">Last Name</label></div>
+    
+    {% endif %}
+
+    {% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+    
+      <div class="form-group">{% email_field "email", class:"text form-control" %}<label for="feedback_email">Email</label></div>
+
+      {% if site.ask_for_mobiles? %}
+      <div class="form-group">{% phone_field "mobile_number", class:"text form-control" %}<label for="feedback_mobile_number">Mobile phone (optional)</label></div>
+      {% endif %}
+
+    {% endif %}
+
+    {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+
+      <div class="form-group">{% text_field "submitted_address", class:"text form-control" %}<label for="feedback_submitted_address">Address</label></div>
+    
+    {% endif %}
+
+    {% if homepage_excerpt.feedback.is_content? %}
+    
+      <div class="form-group">{% text_area "content", class:"textarea form-control autogrow" %}<label for="feedback_content">Comments</label></div>
+      
+    {% endif %}
+
+    {% submit_tag homepage_excerpt.feedback.submit_button_name, class:"submit-button btn btn-primary btn-lg-tablet margintopmore" %}
+
+    {% if homepage_excerpt.feedback.is_content? %}   
+      {% if site.ask_to_publish_to_stream? %}
+        <div class="checkbox">{% check_box "is_private", class:"checkbox" %} <label for="feedback_is_private">Don't post this publicly</label></div>
+      {% endif %}
+    {% endif %}
+   
+    {% if homepage_excerpt.feedback.is_volunteers? and site.ask_for_volunteers? %}
+      {% if request.logged_in? == false or request.current_signup.is_volunteer == false %}
+        <div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %} <label for="feedback_is_volunteer">I want to volunteer</label></div>
+      {% endif %}
+    {% endif %}
+
+    {% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+
+      <div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %} <label for="feedback_email_opt_in">Send me email updates</label></div>
+      
+      {% if site.ask_for_mobiles? %}
+        <div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %} <label for="feedback_mobile_opt_in">Send me text messages</label></div>  
+      {% endif %}
+    {% endif %}
+
+    <div class="form-submit"></div>
+
+  {% endform_for %}
+
+</div>

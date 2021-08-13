@@ -1,0 +1,49 @@
+{% if request.current_signup.crawling_twitter? %}
+
+  <h5 class="strong accent twitter-followings" id="twitter_followings">
+    <img src="{{ "bert-loader-small.gif" | asset_path }}" border="0"> Checking Twitter for people who have joined...</h5>
+  {{ request.current_signup.crawling_twitter_status_url | auto_refresh }}
+  
+
+{% else %}
+
+  {% if request.current_signup.followings_count_from_twitter == 0 %}
+
+    <h5 class="strong accent">None of the people you follow on Twitter have joined.</h5>
+
+  {% else %}
+
+    <h1 class="strong accent">{{ request.current_signup.followings_count_from_twitter }}</h1>
+    <h5 class="strong accent">people you follow on Twitter have joined. You are automatically following them.</h5>
+
+    {% if request.current_signup.followings_count_from_twitter > 6 %}
+      <h5 class="strong secondary marginbottommore">Including...</h5>
+    {% endif %}
+
+    {% for signup in request.current_signup.followings_from_twitter %}
+      {% include "signup_show" %}
+    {% endfor %}
+
+  {% endif %}
+
+  {% if request.current_signup.followers_count_from_twitter == 0 %}
+
+    <h5 class="strong secondary">None of your Twitter followers have joined.</h5>
+
+  {% else %}
+
+    <h1 class="strong accent">{{ request.current_signup.followers_count_from_twitter }}</h1>
+
+    <h5 class="strong accent">of your Twitter followers have already joined. They are automatically following you.</h5>
+    
+    {% if request.current_signup.followers_count_from_twitter > 6 %}
+      <h5 class="strong secondary marginbottommore">Including...</h5>
+    {% endif %}
+
+    {% for signup in request.current_signup.followers_from_twitter %}
+      {% include "signup_show" %}
+    {% endfor %}
+
+  {% endif %}
+
+{% endif %}

@@ -1,0 +1,1177 @@
+// Colors
+$mdb-color-lighten-5:	#d0d6e2 !default;	
+$mdb-color-lighten-4:	#b1bace !default;	
+$mdb-color-lighten-3:	#929fba !default;	
+$mdb-color-lighten-2:	#7283a7 !default;	
+$mdb-color-lighten-1:	#59698d !default;	
+$mdb-color-base:	#45526e !default;	
+$mdb-color-darken-1:	#3b465e !default;	
+$mdb-color-darken-2:	#2e3951 !default;	
+$mdb-color-darken-3:	#1c2a48 !default;	
+$mdb-color-darken-4:	#1c2331 !default;	
+$black: #15151b;
+$white: #fff;
+
+
+/* For use in _color-definitions.scss */
+$red:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 235, 238)
+rgb(255, 163, 176)
+rgb(255, 133, 150)
+rgb(255, 102, 124)
+rgb(255, 71, 98)
+rgb(255, 41, 72)
+rgb(255, 10, 45)
+rgb(235, 0, 34)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 153, 168)
+rgb(255, 128, 146)
+;
+$red-lighten-5:	nth($red, 1) !default;
+$red-lighten-4:	nth($red, 2) !default;
+$red-lighten-3:	nth($red, 3) !default;
+$red-lighten-2:	nth($red, 4) !default;
+$red-lighten-1:	nth($red, 5) !default;
+$red-base:	nth($red, 6) !default;
+$red-darken-1:	nth($red, 7) !default;
+$red-darken-2:	nth($red, 8) !default;
+$red-darken-3:	nth($red, 9) !default;
+$red-darken-4:	nth($red, 10) !default;
+$red-accent-1:	nth($red, 11) !default;
+$red-accent-2:	nth($red, 12) !default;
+$red-accent-3:	nth($red, 13) !default;
+$red-accent-4:	nth($red, 14) !default;
+
+$pink:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 184, 210)
+rgb(255, 154, 191)
+rgb(255, 123, 172)
+rgb(255, 92, 153)
+rgb(255, 62, 133)
+rgb(255, 31, 114)
+rgb(255, 1, 95)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 174, 204)
+rgb(255, 148, 188)
+;
+
+$pink-lighten-5:	nth($pink, 1) !default;
+$pink-lighten-4:	nth($pink, 2) !default;
+$pink-lighten-3:	nth($pink, 3) !default;
+$pink-lighten-2:	nth($pink, 4) !default;
+$pink-lighten-1:	nth($pink, 5) !default;
+$pink-base:	nth($pink, 6) !default;
+$pink-darken-1:	nth($pink, 7) !default;
+$pink-darken-2:	nth($pink, 8) !default;
+$pink-darken-3:	nth($pink, 9) !default;
+$pink-darken-4:	nth($pink, 10) !default;
+$pink-accent-1:	nth($pink, 11) !default;
+$pink-accent-2:	nth($pink, 12) !default;
+$pink-accent-3:	nth($pink, 13) !default;
+$pink-accent-4:	nth($pink, 14) !default;
+
+
+$purple:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(241, 220, 242)
+rgb(219, 168, 222)
+rgb(210, 146, 213)
+rgb(201, 124, 205)
+rgb(192, 102, 197)
+rgb(183, 80, 188)
+rgb(166, 66, 172)
+rgb(145, 57, 149)
+rgb(255, 255, 255)
+rgb(250, 230, 251)
+rgb(225, 151, 229)
+rgb(212, 139, 216)
+;
+$purple-lighten-5:	nth($purple, 1) !default;
+$purple-lighten-4:	nth($purple, 2) !default;
+$purple-lighten-3:	nth($purple, 3) !default;
+$purple-lighten-2:	nth($purple, 4) !default;
+$purple-lighten-1:	nth($purple, 5) !default;
+$purple-base:	nth($purple, 6) !default;
+$purple-darken-1:	nth($purple, 7) !default;
+$purple-darken-2:	nth($purple, 8) !default;
+$purple-darken-3:	nth($purple, 9) !default;
+$purple-darken-4:	nth($purple, 10) !default;
+$purple-accent-1:	nth($purple, 11) !default;
+$purple-accent-2:	nth($purple, 12) !default;
+$purple-accent-3:	nth($purple, 13) !default;
+$purple-accent-4:	nth($purple, 14) !default;
+
+$deep-purple:
+rgb(219, 205, 219)
+rgb(188, 160, 187)
+rgb(164, 127, 163)
+rgb(129, 91, 127)
+rgb(111, 79, 110)
+rgb(93, 66, 92)
+rgb(75, 53, 74)
+rgb(57, 41, 57)
+rgb(39, 28, 39)
+rgb(21, 15, 21)
+rgb(230, 184, 228)
+rgb(203, 109, 199)
+rgb(139, 71, 136)
+rgb(112, 72, 111)
+;
+$deep-purple-lighten-5:	nth($deep-purple, 1) !default;
+$deep-purple-lighten-4:	nth($deep-purple, 2) !default;
+$deep-purple-lighten-3:	nth($deep-purple, 3) !default;
+$deep-purple-lighten-2:	nth($deep-purple, 4) !default;
+$deep-purple-lighten-1:	nth($deep-purple, 5) !default;
+$deep-purple-base:	nth($deep-purple, 6) !default;
+$deep-purple-darken-1:	nth($deep-purple, 7) !default;
+$deep-purple-darken-2:	nth($deep-purple, 8) !default;
+$deep-purple-darken-3:	nth($deep-purple, 9) !default;
+$deep-purple-darken-4:	nth($deep-purple, 10) !default;
+$deep-purple-accent-1:	nth($deep-purple, 11) !default;
+$deep-purple-accent-2:	nth($deep-purple, 12) !default;
+$deep-purple-accent-3:	nth($deep-purple, 13) !default;
+$deep-purple-accent-4:	nth($deep-purple, 14) !default;
+
+$indigo:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(222, 232, 247)
+rgb(165, 192, 232)
+rgb(140, 175, 226)
+rgb(116, 158, 220)
+rgb(92, 141, 214)
+rgb(67, 124, 208)
+rgb(49, 108, 195)
+rgb(43, 95, 171)
+rgb(255, 255, 255)
+rgb(235, 243, 254)
+rgb(148, 185, 239)
+rgb(133, 171, 229)
+;
+$indigo-lighten-5:	nth($indigo, 1) !default;
+$indigo-lighten-4:	nth($indigo, 2) !default;
+$indigo-lighten-3:	nth($indigo, 3) !default;
+$indigo-lighten-2:	nth($indigo, 4) !default;
+$indigo-lighten-1:	nth($indigo, 5) !default;
+$indigo-base:	nth($indigo, 6) !default;
+$indigo-darken-1:	nth($indigo, 7) !default;
+$indigo-darken-2:	nth($indigo, 8) !default;
+$indigo-darken-3:	nth($indigo, 9) !default;
+$indigo-darken-4:	nth($indigo, 10) !default;
+$indigo-accent-1:	nth($indigo, 11) !default;
+$indigo-accent-2:	nth($indigo, 12) !default;
+$indigo-accent-3:	nth($indigo, 13) !default;
+$indigo-accent-4:	nth($indigo, 14) !default;
+
+
+
+$blue:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(218, 239, 250)
+rgb(155, 211, 241)
+rgb(129, 199, 237)
+rgb(102, 187, 233)
+rgb(75, 175, 229)
+rgb(48, 163, 225)
+rgb(31, 149, 213)
+rgb(27, 130, 186)
+rgb(255, 255, 255)
+rgb(233, 247, 255)
+rgb(137, 210, 249)
+rgb(121, 198, 240)
+;
+$blue-lighten-5:	nth($blue, 1) !default;
+$blue-lighten-4:	nth($blue, 2) !default;
+$blue-lighten-3:	nth($blue, 3) !default;
+$blue-lighten-2:	nth($blue, 4) !default;
+$blue-lighten-1:	nth($blue, 5) !default;
+$blue-base:	nth($blue, 6) !default;
+$blue-darken-1:	nth($blue, 7) !default;
+$blue-darken-2:	nth($blue, 8) !default;
+$blue-darken-3:	nth($blue, 9) !default;
+$blue-darken-4:	nth($blue, 10) !default;
+$blue-accent-1:	nth($blue, 11) !default;
+$blue-accent-2:	nth($blue, 12) !default;
+$blue-accent-3:	nth($blue, 13) !default;
+$blue-accent-4:	nth($blue, 14) !default;
+$light-blue:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(232, 248, 252)
+rgb(169, 230, 243)
+rgb(143, 222, 239)
+rgb(116, 214, 235)
+rgb(89, 206, 231)
+rgb(62, 198, 227)
+rgb(36, 190, 223)
+rgb(29, 170, 200)
+rgb(255, 255, 255)
+rgb(249, 254, 255)
+rgb(152, 232, 250)
+rgb(135, 223, 242)
+;
+$light-blue-lighten-5:	nth($light-blue, 1) !default;
+$light-blue-lighten-4:	nth($light-blue, 2) !default;
+$light-blue-lighten-3:	nth($light-blue, 3) !default;
+$light-blue-lighten-2:	nth($light-blue, 4) !default;
+$light-blue-lighten-1:	nth($light-blue, 5) !default;
+$light-blue-base:	nth($light-blue, 6) !default;
+$light-blue-darken-1:	nth($light-blue, 7) !default;
+$light-blue-darken-2:	nth($light-blue, 8) !default;
+$light-blue-darken-3:	nth($light-blue, 9) !default;
+$light-blue-darken-4:	nth($light-blue, 10) !default;
+$light-blue-accent-1:	nth($light-blue, 11) !default;
+$light-blue-accent-2:	nth($light-blue, 12) !default;
+$light-blue-accent-3:	nth($light-blue, 13) !default;
+$light-blue-accent-4:	nth($light-blue, 14) !default;
+
+
+
+$cyan:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(209, 247, 247)
+rgb(148, 237, 236)
+rgb(122, 232, 232)
+rgb(96, 228, 227)
+rgb(70, 224, 222)
+rgb(44, 219, 218)
+rgb(34, 198, 197)
+rgb(29, 172, 171)
+rgb(255, 255, 255)
+rgb(222, 255, 255)
+rgb(129, 246, 245)
+rgb(114, 236, 235)
+;
+$cyan-lighten-5:	nth($cyan, 1) !default;
+$cyan-lighten-4:	nth($cyan, 2) !default;
+$cyan-lighten-3:	nth($cyan, 3) !default;
+$cyan-lighten-2:	nth($cyan, 4) !default;
+$cyan-lighten-1:	nth($cyan, 5) !default;
+$cyan-base:	nth($cyan, 6) !default;
+$cyan-darken-1:	nth($cyan, 7) !default;
+$cyan-darken-2:	nth($cyan, 8) !default;
+$cyan-darken-3:	nth($cyan, 9) !default;
+$cyan-darken-4:	nth($cyan, 10) !default;
+$cyan-accent-1:	nth($cyan, 11) !default;
+$cyan-accent-2:	nth($cyan, 12) !default;
+$cyan-accent-3:	nth($cyan, 13) !default;
+$cyan-accent-4:	nth($cyan, 14) !default;
+
+
+
+$teal:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(226, 252, 245)
+rgb(161, 245, 224)
+rgb(134, 242, 215)
+rgb(106, 239, 206)
+rgb(78, 236, 197)
+rgb(51, 233, 188)
+rgb(25, 229, 178)
+rgb(22, 201, 156)
+rgb(255, 255, 255)
+rgb(243, 255, 252)
+rgb(143, 252, 225)
+rgb(126, 245, 215)
+;
+$teal-lighten-5:	nth($teal, 1) !default;
+$teal-lighten-4:	nth($teal, 2) !default;
+$teal-lighten-3:	nth($teal, 3) !default;
+$teal-lighten-2:	nth($teal, 4) !default;
+$teal-lighten-1:	nth($teal, 5) !default;
+$teal-base:	nth($teal, 6) !default;
+$teal-darken-1:	nth($teal, 7) !default;
+$teal-darken-2:	nth($teal, 8) !default;
+$teal-darken-3:	nth($teal, 9) !default;
+$teal-darken-4:	nth($teal, 10) !default;
+$teal-accent-1:	nth($teal, 11) !default;
+$teal-accent-2:	nth($teal, 12) !default;
+$teal-accent-3:	nth($teal, 13) !default;
+$teal-accent-4:	nth($teal, 14) !default;
+
+
+$green:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(201, 251, 216)
+rgb(172, 248, 195)
+rgb(144, 246, 175)
+rgb(116, 244, 155)
+rgb(87, 241, 134)
+rgb(59, 239, 114)
+rgb(31, 237, 93)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(186, 255, 207)
+rgb(165, 250, 191)
+;
+
+$green-lighten-5:	nth($green, 1) !default;
+$green-lighten-4:	nth($green, 2) !default;
+$green-lighten-3:	nth($green, 3) !default;
+$green-lighten-2:	nth($green, 4) !default;
+$green-lighten-1:	nth($green, 5) !default;
+$green-base:	nth($green, 6) !default;
+$green-darken-1:	nth($green, 7) !default;
+$green-darken-2:	nth($green, 8) !default;
+$green-darken-3:	nth($green, 9) !default;
+$green-darken-4:	nth($green, 10) !default;
+$green-accent-1:	nth($green, 11) !default;
+$green-accent-2:	nth($green, 12) !default;
+$green-accent-3:	nth($green, 13) !default;
+$green-accent-4:	nth($green, 14) !default;
+$light-green:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(198, 252, 220)
+rgb(169, 250, 202)
+rgb(140, 248, 184)
+rgb(111, 246, 166)
+rgb(82, 244, 148)
+rgb(53, 243, 131)
+rgb(25, 241, 113)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(184, 255, 213)
+rgb(162, 252, 198)
+;
+
+$light-green-lighten-5:	nth($light-green, 1) !default;
+$light-green-lighten-4:	nth($light-green, 2) !default;
+$light-green-lighten-3:	nth($light-green, 3) !default;
+$light-green-lighten-2:	nth($light-green, 4) !default;
+$light-green-lighten-1:	nth($light-green, 5) !default;
+$light-green-base:	nth($light-green, 6) !default;
+$light-green-darken-1:	nth($light-green, 7) !default;
+$light-green-darken-2:	nth($light-green, 8) !default;
+$light-green-darken-3:	nth($light-green, 9) !default;
+$light-green-darken-4:	nth($light-green, 10) !default;
+$light-green-accent-1:	nth($light-green, 11) !default;
+$light-green-accent-2:	nth($light-green, 12) !default;
+$light-green-accent-3:	nth($light-green, 13) !default;
+$light-green-accent-4:	nth($light-green, 14) !default;
+
+
+
+$lime:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(225, 253, 200)
+rgb(209, 251, 170)
+rgb(193, 250, 141)
+rgb(177, 249, 112)
+rgb(161, 247, 82)
+rgb(145, 246, 53)
+rgb(129, 245, 24)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(219, 255, 187)
+rgb(206, 253, 163)
+;
+
+
+$lime-lighten-5:	nth($lime, 1) !default;
+$lime-lighten-4:	nth($lime, 2) !default;
+$lime-lighten-3:	nth($lime, 3) !default;
+$lime-lighten-2:	nth($lime, 4) !default;
+$lime-lighten-1:	nth($lime, 5) !default;
+$lime-base:	nth($lime, 6) !default;
+$lime-darken-1:	nth($lime, 7) !default;
+$lime-darken-2:	nth($lime, 8) !default;
+$lime-darken-3:	nth($lime, 9) !default;
+$lime-darken-4:	nth($lime, 10) !default;
+$lime-accent-1:	nth($lime, 11) !default;
+$lime-accent-2:	nth($lime, 12) !default;
+$lime-accent-3:	nth($lime, 13) !default;
+$lime-accent-4:	nth($lime, 14) !default;
+
+
+
+$yellow:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(254, 254, 240)
+rgb(251, 251, 172)
+rgb(250, 249, 142)
+rgb(249, 248, 113)
+rgb(248, 247, 84)
+rgb(247, 245, 54)
+rgb(245, 244, 25)
+rgb(230, 228, 10)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 254, 158)
+rgb(253, 252, 134)
+;
+
+$yellow-lighten-5:	nth($yellow, 1) !default;
+$yellow-lighten-4:	nth($yellow, 2) !default;
+$yellow-lighten-3:	nth($yellow, 3) !default;
+$yellow-lighten-2:	nth($yellow, 4) !default;
+$yellow-lighten-1:	nth($yellow, 5) !default;
+$yellow-base:	nth($yellow, 6) !default;
+$yellow-darken-1:	nth($yellow, 7) !default;
+$yellow-darken-2:	nth($yellow, 8) !default;
+$yellow-darken-3:	nth($yellow, 9) !default;
+$yellow-darken-4:	nth($yellow, 10) !default;
+$yellow-accent-1:	nth($yellow, 11) !default;
+$yellow-accent-2:	nth($yellow, 12) !default;
+$yellow-accent-3:	nth($yellow, 13) !default;
+$yellow-accent-4:	nth($yellow, 14) !default;
+
+
+
+$amber:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 250, 234)
+rgb(255, 233, 162)
+rgb(255, 225, 132)
+rgb(255, 218, 101)
+rgb(255, 211, 70)
+rgb(255, 203, 40)
+rgb(255, 196, 9)
+rgb(234, 177, 0)
+rgb(255, 255, 255)
+rgb(255, 255, 254)
+rgb(255, 230, 152)
+rgb(255, 224, 126)
+;
+
+$amber-lighten-5:	nth($amber, 1) !default;
+$amber-lighten-4:	nth($amber, 2) !default;
+$amber-lighten-3:	nth($amber, 3) !default;
+$amber-lighten-2:	nth($amber, 4) !default;
+$amber-lighten-1:	nth($amber, 5) !default;
+$amber-base:	nth($amber, 6) !default;
+$amber-darken-1:	nth($amber, 7) !default;
+$amber-darken-2:	nth($amber, 8) !default;
+$amber-darken-3:	nth($amber, 9) !default;
+$amber-darken-4:	nth($amber, 10) !default;
+$amber-accent-1:	nth($amber, 11) !default;
+$amber-accent-2:	nth($amber, 12) !default;
+$amber-accent-3:	nth($amber, 13) !default;
+$amber-accent-4:	nth($amber, 14) !default;
+
+
+$orange:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 248, 241)
+rgb(255, 216, 169)
+rgb(255, 202, 139)
+rgb(255, 188, 108)
+rgb(255, 174, 77)
+rgb(255, 160, 47)
+rgb(255, 146, 16)
+rgb(241, 131, 0)
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 211, 159)
+rgb(255, 200, 133)
+;
+
+$orange-lighten-5:	nth($orange, 1) !default;
+$orange-lighten-4:	nth($orange, 2) !default;
+$orange-lighten-3:	nth($orange, 3) !default;
+$orange-lighten-2:	nth($orange, 4) !default;
+$orange-lighten-1:	nth($orange, 5) !default;
+$orange-base:	nth($orange, 6) !default;
+$orange-darken-1:	nth($orange, 7) !default;
+$orange-darken-2:	nth($orange, 8) !default;
+$orange-darken-3:	nth($orange, 9) !default;
+$orange-darken-4:	nth($orange, 10) !default;
+$orange-accent-1:	nth($orange, 11) !default;
+$orange-accent-2:	nth($orange, 12) !default;
+$orange-accent-3:	nth($orange, 13) !default;
+$orange-accent-4:	nth($orange, 14) !default;
+
+$deep-orange:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(255, 214, 204)
+rgb(255, 157, 132)
+rgb(255, 132, 102)
+rgb(255, 108, 71)
+rgb(255, 84, 40)
+rgb(255, 59, 10)
+rgb(234, 47, 0)
+rgb(204, 41, 0)
+rgb(255, 255, 255)
+rgb(255, 230, 224)
+rgb(255, 149, 122)
+rgb(255, 128, 96)
+;
+$deep-orange-lighten-5:	nth($deep-orange, 1) !default;
+$deep-orange-lighten-4:	nth($deep-orange, 2) !default;
+$deep-orange-lighten-3:	nth($deep-orange, 3) !default;
+$deep-orange-lighten-2:	nth($deep-orange, 4) !default;
+$deep-orange-lighten-1:	nth($deep-orange, 5) !default;
+$deep-orange-base:	nth($deep-orange, 6) !default;
+$deep-orange-darken-1:	nth($deep-orange, 7) !default;
+$deep-orange-darken-2:	nth($deep-orange, 8) !default;
+$deep-orange-darken-3:	nth($deep-orange, 9) !default;
+$deep-orange-darken-4:	nth($deep-orange, 10) !default;
+$deep-orange-accent-1:	nth($deep-orange, 11) !default;
+$deep-orange-accent-2:	nth($deep-orange, 12) !default;
+$deep-orange-accent-3:	nth($deep-orange, 13) !default;
+$deep-orange-accent-4:	nth($deep-orange, 14) !default;
+
+
+$brown:
+rgb(246, 239, 237)
+rgb(221, 193, 185)
+rgb(203, 160, 147)
+rgb(180, 117, 99)
+rgb(168, 100, 81)
+rgb(147, 88, 71)
+rgb(126, 76, 61)
+rgb(106, 63, 51)
+rgb(85, 51, 41)
+rgb(64, 39, 31)
+rgb(248, 230, 224)
+rgb(231, 161, 140)
+rgb(195, 101, 74)
+rgb(170, 95, 73)
+;
+
+$brown-lighten-5:	nth($brown, 1) !default;
+$brown-lighten-4:	nth($brown, 2) !default;
+$brown-lighten-3:	nth($brown, 3) !default;
+$brown-lighten-2:	nth($brown, 4) !default;
+$brown-lighten-1:	nth($brown, 5) !default;
+$brown-base:	nth($brown, 6) !default;
+$brown-darken-1:	nth($brown, 7) !default;
+$brown-darken-2:	nth($brown, 8) !default;
+$brown-darken-3:	nth($brown, 9) !default;
+$brown-darken-4:	nth($brown, 10) !default;
+
+
+
+$blue-gray:
+rgb(255, 255, 255)
+rgb(255, 255, 255)
+rgb(228, 235, 236)
+rgb(185, 203, 207)
+rgb(167, 189, 194)
+rgb(149, 176, 182)
+rgb(131, 162, 170)
+rgb(113, 149, 157)
+rgb(98, 134, 142)
+rgb(85, 117, 124)
+rgb(255, 255, 255)
+rgb(236, 246, 248)
+rgb(170, 205, 212)
+rgb(160, 190, 196)
+;
+$blue-grey-lighten-5:	nth($blue-gray, 1) !default;
+$blue-grey-lighten-4:	nth($blue-gray, 2) !default;
+$blue-grey-lighten-3:	nth($blue-gray, 3) !default;
+$blue-grey-lighten-2:	nth($blue-gray, 4) !default;
+$blue-grey-lighten-1:	nth($blue-gray, 5) !default;
+$blue-grey-base:	nth($blue-gray, 6) !default;
+$blue-grey-darken-1:	nth($blue-gray, 7) !default;
+$blue-grey-darken-2:	nth($blue-gray, 8) !default;
+$blue-grey-darken-3:	nth($blue-gray, 9) !default;
+$blue-grey-darken-4:	nth($blue-gray, 10) !default;
+$grey-lighten-5:	#fafafa !default;	
+$grey-lighten-4:	#f5f5f5 !default;	
+$grey-lighten-3:	#eeeeee !default;	
+$grey-lighten-2:	#e0e0e0 !default;	
+$grey-lighten-1:	#bdbdbd !default;	
+$grey-base:	#9e9e9e !default;	
+$grey-darken-1:	#757575 !default;	
+$grey-darken-2:	#616161 !default;	
+$grey-darken-3:	#424242 !default;	
+$grey-darken-4:	#212121 !default;	
+$black-base:	#000 !default;	
+$white-base:	#fff !default;	$mdb-colors-1: () !default;
+$mdb-colors-1: map-merge((
+  "mdb-color": (
+    "lighten-5":  $mdb-color-lighten-5,
+    "lighten-4":  $mdb-color-lighten-4,
+    "lighten-3":  $mdb-color-lighten-3,
+    "lighten-2":  $mdb-color-lighten-2,
+    "lighten-1":  $mdb-color-lighten-1,
+    "base":       $mdb-color-base,
+    "darken-1":   $mdb-color-darken-1,
+    "darken-2":   $mdb-color-darken-2,
+    "darken-3":   $mdb-color-darken-3,
+    "darken-4":   $mdb-color-darken-4
+  ),
+  "red": (
+    "lighten-5":  $red-lighten-5,
+    "lighten-4":  $red-lighten-4,
+    "lighten-3":  $red-lighten-3,
+    "lighten-2":  $red-lighten-2,
+    "lighten-1":  $red-lighten-1,
+    "base":       $red-base,
+    "darken-1":   $red-darken-1,
+    "darken-2":   $red-darken-2,
+    "darken-3":   $red-darken-3,
+    "darken-4":   $red-darken-4,
+    "accent-1":   $red-accent-1,
+    "accent-2":   $red-accent-2,
+    "accent-3":   $red-accent-3,
+    "accent-4":   $red-accent-4
+  ),
+  "pink": (
+    "lighten-5":  $pink-lighten-5,
+    "lighten-4":  $pink-lighten-4,
+    "lighten-3":  $pink-lighten-3,
+    "lighten-2":  $pink-lighten-2,
+    "lighten-1":  $pink-lighten-1,
+    "base":       $pink-base,
+    "darken-1":   $pink-darken-1,
+    "darken-2":   $pink-darken-2,
+    "darken-3":   $pink-darken-3,
+    "darken-4":   $pink-darken-4,
+    "accent-1":   $pink-accent-1,
+    "accent-2":   $pink-accent-2,
+    "accent-3":   $pink-accent-3,
+    "accent-4":   $pink-accent-4
+  ),
+  "purple": (
+    "lighten-5":  $purple-lighten-5,
+    "lighten-4":  $purple-lighten-4,
+    "lighten-3":  $purple-lighten-3,
+    "lighten-2":  $purple-lighten-2,
+    "lighten-1":  $purple-lighten-1,
+    "base":       $purple-base,
+    "darken-1":   $purple-darken-1,
+    "darken-2":   $purple-darken-2,
+    "darken-3":   $purple-darken-3,
+    "darken-4":   $purple-darken-4,
+    "accent-1":   $purple-accent-1,
+    "accent-2":   $purple-accent-2,
+    "accent-3":   $purple-accent-3,
+    "accent-4":   $purple-accent-4
+  ),
+  "deep-purple": (
+    "lighten-5":  $deep-purple-lighten-5,
+    "lighten-4":  $deep-purple-lighten-4,
+    "lighten-3":  $deep-purple-lighten-3,
+    "lighten-2":  $deep-purple-lighten-2,
+    "lighten-1":  $deep-purple-lighten-1,
+    "base":       $deep-purple-base,
+    "darken-1":   $deep-purple-darken-1,
+    "darken-2":   $deep-purple-darken-2,
+    "darken-3":   $deep-purple-darken-3,
+    "darken-4":   $deep-purple-darken-4,
+    "accent-1":   $deep-purple-accent-1,
+    "accent-2":   $deep-purple-accent-2,
+    "accent-3":   $deep-purple-accent-3,
+    "accent-4":   $deep-purple-accent-4
+  ),
+  "indigo": (
+    "lighten-5":  $indigo-lighten-5,
+    "lighten-4":  $indigo-lighten-4,
+    "lighten-3":  $indigo-lighten-3,
+    "lighten-2":  $indigo-lighten-2,
+    "lighten-1":  $indigo-lighten-1,
+    "base":       $indigo-base,
+    "darken-1":   $indigo-darken-1,
+    "darken-2":   $indigo-darken-2,
+    "darken-3":   $indigo-darken-3,
+    "darken-4":   $indigo-darken-4,
+    "accent-1":   $indigo-accent-1,
+    "accent-2":   $indigo-accent-2,
+    "accent-3":   $indigo-accent-3,
+    "accent-4":   $indigo-accent-4
+  ),
+  "blue": (
+    "lighten-5":  $blue-lighten-5,
+    "lighten-4":  $blue-lighten-4,
+    "lighten-3":  $blue-lighten-3,
+    "lighten-2":  $blue-lighten-2,
+    "lighten-1":  $blue-lighten-1,
+    "base":       $blue-base,
+    "darken-1":   $blue-darken-1,
+    "darken-2":   $blue-darken-2,
+    "darken-3":   $blue-darken-3,
+    "darken-4":   $blue-darken-4,
+    "accent-1":   $blue-accent-1,
+    "accent-2":   $blue-accent-2,
+    "accent-3":   $blue-accent-3,
+    "accent-4":   $blue-accent-4
+  ),
+  "light-blue": (
+    "lighten-5":  $light-blue-lighten-5,
+    "lighten-4":  $light-blue-lighten-4,
+    "lighten-3":  $light-blue-lighten-3,
+    "lighten-2":  $light-blue-lighten-2,
+    "lighten-1":  $light-blue-lighten-1,
+    "base":       $light-blue-base,
+    "darken-1":   $light-blue-darken-1,
+    "darken-2":   $light-blue-darken-2,
+    "darken-3":   $light-blue-darken-3,
+    "darken-4":   $light-blue-darken-4,
+    "accent-1":   $light-blue-accent-1,
+    "accent-2":   $light-blue-accent-2,
+    "accent-3":   $light-blue-accent-3,
+    "accent-4":   $light-blue-accent-4
+  ),
+  "cyan": (
+    "lighten-5":  $cyan-lighten-5,
+    "lighten-4":  $cyan-lighten-4,
+    "lighten-3":  $cyan-lighten-3,
+    "lighten-2":  $cyan-lighten-2,
+    "lighten-1":  $cyan-lighten-1,
+    "base":       $cyan-base,
+    "darken-1":   $cyan-darken-1,
+    "darken-2":   $cyan-darken-2,
+    "darken-3":   $cyan-darken-3,
+    "darken-4":   $cyan-darken-4,
+    "accent-1":   $cyan-accent-1,
+    "accent-2":   $cyan-accent-2,
+    "accent-3":   $cyan-accent-3,
+    "accent-4":   $cyan-accent-4
+  ),
+  "teal": (
+    "lighten-5":  $teal-lighten-5,
+    "lighten-4":  $teal-lighten-4,
+    "lighten-3":  $teal-lighten-3,
+    "lighten-2":  $teal-lighten-2,
+    "lighten-1":  $teal-lighten-1,
+    "base":       $teal-base,
+    "darken-1":   $teal-darken-1,
+    "darken-2":   $teal-darken-2,
+    "darken-3":   $teal-darken-3,
+    "darken-4":   $teal-darken-4,
+    "accent-1":   $teal-accent-1,
+    "accent-2":   $teal-accent-2,
+    "accent-3":   $teal-accent-3,
+    "accent-4":   $teal-accent-4
+  ),
+  "green": (
+    "lighten-5":  $green-lighten-5,
+    "lighten-4":  $green-lighten-4,
+    "lighten-3":  $green-lighten-3,
+    "lighten-2":  $green-lighten-2,
+    "lighten-1":  $green-lighten-1,
+    "base":       $green-base,
+    "darken-1":   $green-darken-1,
+    "darken-2":   $green-darken-2,
+    "darken-3":   $green-darken-3,
+    "darken-4":   $green-darken-4,
+    "accent-1":   $green-accent-1,
+    "accent-2":   $green-accent-2,
+    "accent-3":   $green-accent-3,
+    "accent-4":   $green-accent-4
+  ),
+  "light-green": (
+    "lighten-5":  $light-green-lighten-5,
+    "lighten-4":  $light-green-lighten-4,
+    "lighten-3":  $light-green-lighten-3,
+    "lighten-2":  $light-green-lighten-2,
+    "lighten-1":  $light-green-lighten-1,
+    "base":       $light-green-base,
+    "darken-1":   $light-green-darken-1,
+    "darken-2":   $light-green-darken-2,
+    "darken-3":   $light-green-darken-3,
+    "darken-4":   $light-green-darken-4,
+    "accent-1":   $light-green-accent-1,
+    "accent-2":   $light-green-accent-2,
+    "accent-3":   $light-green-accent-3,
+    "accent-4":   $light-green-accent-4
+  ),
+  "lime": (
+    "lighten-5":  $lime-lighten-5,
+    "lighten-4":  $lime-lighten-4,
+    "lighten-3":  $lime-lighten-3,
+    "lighten-2":  $lime-lighten-2,
+    "lighten-1":  $lime-lighten-1,
+    "base":       $lime-base,
+    "darken-1":   $lime-darken-1,
+    "darken-2":   $lime-darken-2,
+    "darken-3":   $lime-darken-3,
+    "darken-4":   $lime-darken-4,
+    "accent-1":   $lime-accent-1,
+    "accent-2":   $lime-accent-2,
+    "accent-3":   $lime-accent-3,
+    "accent-4":   $lime-accent-4
+  ),
+  "yellow": (
+    "lighten-5":  $yellow-lighten-5,
+    "lighten-4":  $yellow-lighten-4,
+    "lighten-3":  $yellow-lighten-3,
+    "lighten-2":  $yellow-lighten-2,
+    "lighten-1":  $yellow-lighten-1,
+    "base":       $yellow-base,
+    "darken-1":   $yellow-darken-1,
+    "darken-2":   $yellow-darken-2,
+    "darken-3":   $yellow-darken-3,
+    "darken-4":   $yellow-darken-4,
+    "accent-1":   $yellow-accent-1,
+    "accent-2":   $yellow-accent-2,
+    "accent-3":   $yellow-accent-3,
+    "accent-4":   $yellow-accent-4
+  ),
+  "amber": (
+    "lighten-5":  $amber-lighten-5,
+    "lighten-4":  $amber-lighten-4,
+    "lighten-3":  $amber-lighten-3,
+    "lighten-2":  $amber-lighten-2,
+    "lighten-1":  $amber-lighten-1,
+    "base":       $amber-base,
+    "darken-1":   $amber-darken-1,
+    "darken-2":   $amber-darken-2,
+    "darken-3":   $amber-darken-3,
+    "darken-4":   $amber-darken-4,
+    "accent-1":   $amber-accent-1,
+    "accent-2":   $amber-accent-2,
+    "accent-3":   $amber-accent-3,
+    "accent-4":   $amber-accent-4
+  ),
+  "orange": (
+    "lighten-5":  $orange-lighten-5,
+    "lighten-4":  $orange-lighten-4,
+    "lighten-3":  $orange-lighten-3,
+    "lighten-2":  $orange-lighten-2,
+    "lighten-1":  $orange-lighten-1,
+    "base":       $orange-base,
+    "darken-1":   $orange-darken-1,
+    "darken-2":   $orange-darken-2,
+    "darken-3":   $orange-darken-3,
+    "darken-4":   $orange-darken-4,
+    "accent-1":   $orange-accent-1,
+    "accent-2":   $orange-accent-2,
+    "accent-3":   $orange-accent-3,
+    "accent-4":   $orange-accent-4
+  ),
+  "deep-orange": (
+    "lighten-5":  $deep-orange-lighten-5,
+    "lighten-4":  $deep-orange-lighten-4,
+    "lighten-3":  $deep-orange-lighten-3,
+    "lighten-2":  $deep-orange-lighten-2,
+    "lighten-1":  $deep-orange-lighten-1,
+    "base":       $deep-orange-base,
+    "darken-1":   $deep-orange-darken-1,
+    "darken-2":   $deep-orange-darken-2,
+    "darken-3":   $deep-orange-darken-3,
+    "darken-4":   $deep-orange-darken-4,
+    "accent-1":   $deep-orange-accent-1,
+    "accent-2":   $deep-orange-accent-2,
+    "accent-3":   $deep-orange-accent-3,
+    "accent-4":   $deep-orange-accent-4
+  ),
+  "brown": (
+    "lighten-5":  $brown-lighten-5,
+    "lighten-4":  $brown-lighten-4,
+    "lighten-3":  $brown-lighten-3,
+    "lighten-2":  $brown-lighten-2,
+    "lighten-1":  $brown-lighten-1,
+    "base":       $brown-base,
+    "darken-1":   $brown-darken-1,
+    "darken-2":   $brown-darken-2,
+    "darken-3":   $brown-darken-3,
+    "darken-4":   $brown-darken-4
+  ),
+  "blue-grey": (
+    "lighten-5":  $blue-grey-lighten-5,
+    "lighten-4":  $blue-grey-lighten-4,
+    "lighten-3":  $blue-grey-lighten-3,
+    "lighten-2":  $blue-grey-lighten-2,
+    "lighten-1":  $blue-grey-lighten-1,
+    "base":       $blue-grey-base,
+    "darken-1":   $blue-grey-darken-1,
+    "darken-2":   $blue-grey-darken-2,
+    "darken-3":   $blue-grey-darken-3,
+    "darken-4":   $blue-grey-darken-4
+  ),
+  "grey": (
+    "lighten-5":  $grey-lighten-5,
+    "lighten-4":  $grey-lighten-4,
+    "lighten-3":  $grey-lighten-3,
+    "lighten-2":  $grey-lighten-2,
+    "lighten-1":  $grey-lighten-1,
+    "base":       $grey-base,
+    "darken-1":   $grey-darken-1,
+    "darken-2":   $grey-darken-2,
+    "darken-3":   $grey-darken-3,
+    "darken-4":   $grey-darken-4
+  ),
+  "black": (
+    "base":  $black-base
+  ),
+  "white": (
+    "base":  $white-base
+  )
+), $mdb-colors-1);
+
+// Full palette of colors
+$enable_full_palette: true !default;
+
+// Stylish rgba colors
+$stylish-rgba: (
+  "rgba-stylish-slight": rgba(62, 69, 81, .1),
+  "rgba-stylish-light": rgba(62, 69, 81, .3),
+  "rgba-stylish-strong": rgba(62, 69, 81, .7),
+);
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+
+
+
+// Material colors
+$primary-color:        $light-blue-base !default;
+$primary-color-dark:   $blue-base !default;
+$secondary-color:       $purple-base !default;
+$secondary-color-dark: $deep-purple-base !default;
+$default-color:        $orange-base !default;
+$default-color-dark:  $deep-orange-base !default;
+$info-color:           $cyan-base !default;
+$info-color-dark:      $cyan-darken-4 !default;
+$success-color:        $green-base !default;
+$success-color-dark:   $green-darken-4 !default;
+$warning-color:        $yellow-base !default;
+$warning-color-dark:   $yellow-darken-4 !default;
+$danger-color:         $red-base !default;
+$danger-color-dark:    $red-darken-4 !default;
+$elegant-color:        $pink-base !default;
+$elegant-color-dark:   $pink-darken-4 !default;
+$stylish-color:        $gray-600 !default;
+$stylish-color-dark:    $gray-900 !default; 
+$unique-color:         $brown-base !default;
+$unique-color-dark:    $brown-darken-4 !default;
+$special-color:        $amber-base !default;
+$special-color-dark:   $amber-darken-4 !default;
+$white:                #fff;
+$black:                #000;
+$error-color:          $red-base !default;
+
+$material-colors: () !default;
+$material-colors: map-merge((
+  "primary-color":        $primary-color,
+  "primary-color-dark":   $primary-color-dark,
+  "secondary-color":      $secondary-color,
+  "secondary-color-dark": $secondary-color-dark,
+  "default-color":        $default-color,
+  "default-color-dark":   $default-color-dark,
+  "info-color":           $info-color,
+  "info-color-dark":      $info-color-dark,
+  "success-color":        $success-color,
+  "success-color-dark":   $success-color-dark,
+  "warning-color":        $warning-color,
+  "warning-color-dark":   $warning-color-dark,
+  "danger-color":         $danger-color,
+  "danger-color-dark":    $danger-color-dark,
+  "elegant-color":        $elegant-color,
+  "elegant-color-dark":   $elegant-color-dark,
+  "stylish-color":        $stylish-color,
+  "stylish-color-dark":   $stylish-color-dark,
+  "unique-color":         $unique-color,
+  "unique-color-dark":    $unique-color-dark,
+  "special-color":        $special-color,
+  "special-color-dark":   $special-color-dark
+), $material-colors);
+
+// Social colors
+$fb-color:    #3b5998 !default;
+$tw-color:    #55acee !default;
+$gplus-color: #dd4b39 !default;
+$yt-color:    #ed302f !default;
+$li-color:    #0082ca !default;
+$pin-color:   #c61118 !default;
+$ins-color:   #2e5e86 !default;
+$git-color:   #333333 !default;
+$comm-color:  #30cfc0 !default;
+$vk-color:    #4c75a3 !default;
+$drib-color:  #ec4a89 !default;
+$so-color:    #ffac44 !default;
+$slack-color: #56b68b !default;
+$email-color: #4b515d !default;
+$redd-color:  #ff4500 !default;
+
+$social-colors: () !default;
+$social-colors: map-merge((
+  "fb":       $fb-color,
+  "tw":       $tw-color,
+  "gplus":    $gplus-color,
+  "yt":       $yt-color,
+  "li":       $li-color,
+  "pin":      $pin-color,
+  "ins":      $ins-color,
+  "git":      $git-color,
+  "comm":     $comm-color,
+  "vk":       $vk-color,
+  "dribbble": $drib-color,
+  "so":       $so-color,
+  "slack":    $slack-color,
+  "email":    $email-color,
+  "reddit":   $redd-color
+), $social-colors);
+
+// MDB buttons colors
+$mdb-colors: () !default;
+$mdb-colors: map-merge((
+  "primary":     $primary-color,
+  "danger":      $danger-color,
+  "warning":     $warning-color-dark,
+  "success":     $success-color,
+  "info":        $info-color,
+  "default":     $default-color,
+  "secondary":   $secondary-color,
+  "elegant":     $elegant-color,
+  "unique":      $pink-darken-4,
+  "dark-green":  $green-darken-2,
+  "mdb-color":   $mdb-color-lighten-1,
+  "red":         $red-darken-2,
+  "pink":        $pink-lighten-1,
+  "purple":      $purple-darken-1,
+  "deep-purple": $deep-purple-darken-2,
+  "indigo":      $indigo-base,
+  "blue":        $blue-darken-2,
+  "light-blue":  $blue-accent-1,
+  "cyan":        $cyan-base,
+  "teal":        $teal-darken-2,
+  "green":       $green-darken-2,
+  "light-green": $light-green-base,
+  "lime":        $lime-darken-2,
+  "yellow":      $yellow-darken-2,
+  "amber":       $amber-darken-2,
+  "orange":      $orange-darken-2,
+  "deep-orange": $deep-orange-lighten-1,
+  "brown":       $brown-base,
+  "grey":        $grey-darken-2,
+  "blue-grey":   $blue-grey-lighten-1,
+  "dark":        $grey-darken-4,
+  "light":       $grey-lighten-2,
+  "white":       $white-base,
+  "black":       $black-base
+), $mdb-colors);
+
+// Basic colors
+$basic: () !default;
+$basic: map-merge((
+  "primary":  $primary-color,
+  "danger":   $danger-color,
+  "warning":  $warning-color,
+  "success":  $success-color,
+  "info":     $info-color
+), $basic);
+
+$basic-mdb-colors: () !default;
+$basic-mdb-colors: map-merge((
+  "primary":     $primary-color,
+  "danger":      $danger-color,
+  "warning":     $warning-color-dark,
+  "success":     $success-color,
+  "info":        $info-color,
+  "default":     $default-color,
+  "secondary":   $secondary-color,
+  "dark":        $grey-darken-4,
+  "light":       $grey-lighten-2
+), $basic-mdb-colors);
+
+$pagination-colors: () !default;
+$pagination-colors: map-merge((
+  "blue": $primary-color,
+  "red": $danger-color,
+  "teal": $default-color,
+  "dark-grey": $special-color,
+  "dark": $elegant-color,
+  "blue-grey": $unique-color,
+  "amber": $amber-darken-4,
+  "purple": $deep-purple-darken-1
+), $pagination-colors);
+
+$ctbc: () !default;
+$ctbc: map-merge((
+  "tabs-cyan": $yellow-base,
+  "tabs-orange": $red-darken-1,
+  "tabs-grey": $white-base,
+  "tabs-pink": $deep-purple-base,
+  "tabs-green": $blue-darken-3,
+  "tabs-primary": $white-base
+), $ctbc);
+
+$switch-color-bg:                 $secondary-color !default;
+$switch-color-checked-lever-bg:   desaturate(lighten($secondary-color, 25%), 25%) !default;
+$switch-color-unchecked-bg:       #F1F1F1 !default;
+$switch-color-unchecked-lever-bg: #818181 !default;
+
+$switch-colors: () !default;
+$switch-colors: map-merge((
+  "bg":                 $switch-color-bg,
+  "checked-lever-bg":   $switch-color-checked-lever-bg,
+  "unchecked-bg":       $switch-color-unchecked-bg,
+  "unchecked-lever-bg": $switch-color-unchecked-lever-bg,
+), $switch-colors);
+
+$dropdown-colors: () !default;
+$dropdown-colors: map-merge((
+  "primary"  : $primary-color,
+  "danger"   : $danger-color-dark,
+  "default"  : $default-color,
+  "secondary": $secondary-color,
+  "success"  : $success-color,
+  "info"     : $info-color,
+  "warning"  : $warning-color,
+  "dark"     : map-get($mdb-colors, "elegant"),
+  "ins"      : map-get($social-colors, "ins")
+), $dropdown-colors);
+
+// Gradients
+$gradients: () !default;
+$gradients: map-merge((
+  "purple": (
+    "start": #ff6ec4,
+    "end": #7873f5
+  ),
+  "peach": (
+    "start": #FFD86F,
+    "end": #FC6262
+  ),
+  "aqua": (
+    "start": #2096ff,
+    "end": #05ffa3
+  ),
+  "blue": (
+    "start": #45cafc,
+    "end": $indigo-darken-2
+  ),
+), $gradients);
+
+// Gradients RGBA Version
+$gradients-rgba: () !default;
+$gradients-rgba: map-merge((
+  "purple": (
+    "start": rgba(255,110,196,.9),
+    "end": rgba(120,115,245,.9)
+  ),
+  "peach": (
+    "start": rgba(255,216,111,.9),
+    "end": rgba(252,98,98,.9)
+  ),
+  "aqua": (
+    "start": rgba(32,150,255,.9),
+    "end": rgba(5,255,163,.9)
+  ),
+  "blue": (
+    "start": rgba(69,202,252,.9),
+    "end": rgba(48,63,159,.9)
+  ),
+), $gradients-rgba);

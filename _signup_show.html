@@ -1,0 +1,45 @@
+ <div class="media">
+{% include "signup_icon" %}
+  <div class="media-body">
+    <h5 class="mt-0 font-weight-bold">{{ sShowLabel | strip }} {{ signup.published_name_linked }}</h5>
+   	{% if site.show_public_profiles? %}
+		<p>{{ signup.bio }}</p>
+	{% endif %}
+	{% if page.type_name == 'Press Release' %}
+		{% if page.author.has_phone? or page.author.has_email? %}
+			<div class="marginbottom">
+				{% if page.author.has_phone? %}
+					<div class="tel">
+						<h6>Phone</h6>
+		        <a href="tel:{{ page.author.phone_number }}" class="tel">{{ page.author.phone_number }}</a>
+		      </div>
+		    {% endif %}
+		    {% if page.author.has_email? %}
+		    	<div class="email">
+			      <h6>Email</h6>
+			      {{ page.author.email | enkode_email }}
+			    </div>
+			  {% endif %}
+			</div>
+		{% endif %}
+	{% endif %}
+{% include "signup_follow" with signup %}
+
+	{% if site.show_public_profiles? %}
+		<a href="{{ signup.profile_url }}" class="network">Profile</a>
+	{% endif %}
+
+	{% if signup.has_facebook_info? %}
+		<a href="{{ signup.facebook_profile_url }}" class="network">Facebook</a>
+	{% endif %}
+
+	{% if signup.has_twitter_info? %}
+		<a href="{{ signup.twitter_profile_url }}" class="network">Twitter</a>
+	{% endif %}
+
+	{% if signup.has_website? %}
+		<a href="{{ signup.website }}" class="network">Website</a>
+	{% endif %}
+
+  </div>
+</div>

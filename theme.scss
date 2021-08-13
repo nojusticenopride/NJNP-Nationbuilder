@@ -1,0 +1,3907 @@
+@import "njnp_brand";
+@import "bootstrap_build";
+
+// styles for new features - slow switchover to BS4 framework
+// border-radius mixin
+@import "border_radius";
+
+// compass css3 mixins
+@import "compass/css3";
+
+// countdown widget for moneybomb page
+@import "framework_countdown2";
+
+@import "njnp_mixins";
+@import "type";
+// fluid grid
+@import "grid";
+
+// activity and page icons
+@import "icons";
+
+// buttons
+@import "buttons";
+
+
+// tooltips
+@import "tooltips";
+
+// tables
+@import "tables";
+
+// pagination
+@import "pagination";
+
+
+// staged donations
+@import "donation_v2";
+
+// fixed admin nav
+@import "cd_admin_nav";
+@import "updates";
+@import "tagify";
+@import "stories";
+
+//
+//Bgs
+//---------------------
+
+
+$gray-base: $gray-500;
+
+$MDgradients: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$MDgradients: map-merge(
+(
+"blue":  $blue,
+
+"red":  $red,
+"orange":  $orange,
+"purple": $purple,
+
+"yellow":  $yellow,
+
+"green":  $green,
+),
+$MDgradients
+);
+
+@mixin generate-bg-gradient($class, $loc, $grad ) {
+  #{$class} { background:linear-gradient($loc, $grad);}
+}
+@each $color, $value in $MDgradients{
+
+  $grads: $blue 0%,$purple 25%,$red 50%,$orange 75%,$yellow 100% !default;
+  @if $value == $blue {
+    $grads: $blue 0%,$blue-500 33%,$indigo 66%,$purple 100%;
+  }
+  @else if $value == $red {
+    $grads: $pink 0%,$red 33%,$orange 75%;
+  }
+  @else if $value == $purple {
+    $grads: $pink 0%,$red 33%,$orange 75%, $purple 100%;
+  }
+  @else if $value == $orange {
+    $grads:  $orange 0%, $amber-500 44%, $deep_orange 75%;
+  }
+  @else if $value == $yellow {
+    $grads: $light-green 0%, $lime 44%,$yellow-500 75%,
+  }
+  @else if $value == $green {
+    $grads: $teal-500 0%,$green 33%,$light-green 66%,$lime 90%;
+  }
+
+  @include generate-bg-gradient(".#{$color}-bg",left , $grads);
+}
+
+
+// Mixins
+// --------------------------------------------------
+
+@mixin background-opacity($color, $opacity: 0.3) {
+  background: $color; /* The Fallback */
+  background: rgba($color, $opacity);
+}
+
+@mixin label-variant($color) {
+  border-color: $color;
+  color: $color;
+
+  &[href] {
+    &:hover,
+    &:focus {
+      border-color: darken($color, 10%);
+      color: darken($color, 10%);
+    }
+  }
+}
+
+
+
+body {
+  min-height: 100%;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+.interior-widget {
+  .form-control,
+  .form-group>select,
+  #donation_amount_other,
+  #pledge_amount_other {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+.icon-cc {
+  margin: 0 5px 15px 0
+}
+
+//
+// Pages that have a pale background instead of white
+// --------------------------------------------------
+
+.page-profiles-show,
+.page-signups-edit,
+.page-type-faq,
+.page-type-calendar,
+.page-type-donation,
+.page-type-find-friends,
+.page-type-followers,
+.page-type-follows,
+.page-type-recruiting,
+.page-users-password-resets-new-wide,
+.page-user-sessions-new-wide,
+.page-users-accounts-new-wide{
+  @include background-opacity($gray-light, 0.2);
+  .main-container{
+    padding-bottom: 36px;
+  }
+}
+
+//
+// Shadow styles
+// --------------------------------------------------
+
+.alpha-shadow{
+  box-shadow: 0 5px 17px rgba(0,0,0,0.13);
+}
+.beta-shadow{
+  box-shadow: 0 0 5px rgba(0,0,0,0.13);
+}
+
+// Modals (modals.scss)
+// --------------------------------------------------
+
+.modal-backdrop{
+  background-color: $gray-base;
+}
+.modal-header{
+  border: 0;
+  min-height: 18px;
+}
+.modal-content{
+  border-radius: $border-radius;
+}
+.modal-body{
+  padding: 18px;
+  .form-errors{
+    ul{
+      background: $danger;
+      text-align: left;
+      padding: 9px 36px 9px 45px;
+      margin: 0 -18px;
+      list-style-type: none;
+      font-size: 13.5px;
+      color: white;
+      background-image: url(bell.png);
+      background-repeat: no-repeat;
+      background-position: 18px 13.5px;
+      @include media-breakpoint-up(sm) {
+        padding: 9px 36px 9px 72px;
+        margin: 0 -36px;
+      }
+    }
+  }
+  @include media-breakpoint-up(sm) {
+    padding: 18px 36px;
+  }
+}
+.modal-dialog {
+  @include media-breakpoint-up(sm) {
+    width: 540px;
+    margin: 30px auto;
+  }
+}
+.close{
+  font-size: 18px;
+}
+.hide {
+  display: none;
+}
+.show.hide, .show {
+  display: inherit;
+}
+//
+// Like page / Sharetable
+// -----------------------------------------
+
+.like-page{
+  padding: 18px 0 13.5px;
+  max-width: 278px;
+
+  h5{
+    float: left;
+  }
+  .sharetable{
+    float: right;
+    font-size: 18px;
+    line-height: 27px;
+    padding-top: 7px;
+    a{
+      display: inline-block;
+      margin-left: 18px;
+    }
+  }
+}
+
+//
+// Widgets
+// -----------------------------------------
+
+.exterior-widget{
+  margin: 63px 0 0 0;
+  @include media-breakpoint-up(sm) {
+    margin: 81px 0 0 0;
+  }
+}
+
+.interior-widget{
+  padding: 27px 18px;
+  text-align: center;
+  border-radius: 9px;
+
+  h3{
+    margin-top: 0;
+    margin-bottom: 27px;
+
+    a:hover{
+      text-decoration: none;
+    }
+
+  }
+
+  h3.secondary a{
+    @extend .secondary !optional;
+  }
+
+  hr{
+    width: 90px;
+    margin: 17px auto 18px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding: 45px 27px;
+    p{
+      text-align: left;
+    }
+  }
+
+  .question-list h3{
+    text-align: center;
+  }
+}
+
+.exterior-widget, .interior-widget{
+  &.brand-primary{
+    background: $primary;
+  }
+  &.text-color{
+    background: $gray-base;
+    color: white;
+    a{
+      color: white;
+    }
+    .bar-text{
+      color: white;
+      h2{
+        color: white;
+      }
+    }
+    .radio label, .checkbox label{
+      color: white;
+      opacity: 0.8;
+    }
+    .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
+      background: $primary;
+      border: 1px solid $primary;
+
+      &:checked{
+        background-color: $primary;
+        background-image: url(check.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 1px solid $primary;
+      }
+    }
+  }
+  &.brand-primary-lighter{
+    background: $primary;
+    hr{
+      border-top: 1px solid;
+    }
+    .btn a{
+      color: white;
+    }
+  }
+  &.gray{
+    background: $gray-500;
+    h3{
+      a{
+        color: $text-color;
+      }
+    }
+    hr{
+      border-top: 1px solid white;
+    }
+  }
+  &.gray-light{
+    background: $gray-light;
+    hr{
+      border-top: 1px solid white;
+    }
+  }
+  &.gray-lighter{
+    background: $gray-lighter;
+    h3{
+    }
+  }
+  &.gray-lightest{
+    @include background-opacity($gray-light, 0.3);
+    hr{
+      border-top: 1px solid ;
+    }
+  }
+}
+
+.widget-page-type-endorsement, .widget-page-type-petition, .widget-page-type-volunteer-signup{
+  .interior-widget{
+    h3{
+      margin-top: 45px;
+    }
+    .collapse{
+      padding: 45px 0 0;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .widget-page-type-faq, .widget-page-type-leaderboard, .widget-page-type-moneybomb{
+    h3{
+      text-align: left;
+    }
+  }
+  .widget-page-type-recruiting{
+    h3{
+      text-align: left;
+    }
+  }
+  .widget-page-type-feedback, .widget-page-type-rules{
+    .interior-widget{
+      text-align: left;
+
+      hr{
+        margin: 18px 0;
+      }
+
+    }
+  }
+  .widget-page-type-feedback{
+    position: relative;
+    .feedback-image-wrap{
+      display: table;
+      .feedback-image, .interior-widget{
+        display: table-cell;
+      }
+      .interior-widget{
+        width: 50%;
+      }
+      .feedback-image{
+        width: 50%;
+      }
+      .absolute-feedback-image{
+        position: absolute;
+        width: 50%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+  .widget-page-type-question, .widget-page-type-activity-stream{
+    .interior-widget{
+      text-align: left;
+    }
+  }
+  .widget-fill{
+    height: 45px;
+  }
+}
+
+.widget-page-type-blog-post{
+  a{
+    color: white;
+  }
+  @include media-breakpoint-up(sm) {
+    p{
+      text-align: left;
+    }
+    .image{
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+    // allows image to dynamically resize to the height of the headline
+    .image-wrap{
+      display: table;
+      width: 100%;
+      margin: 0;
+      .col-sm-8, .col-sm-4{
+        display: table-cell;
+        position: relative;
+        float: none;
+      }
+      .col-sm-4{
+        padding-right: 0;
+      }
+    }
+    .interior-widget{
+      height: 414px;
+      display: table-cell;
+      vertical-align: middle;
+      position: relative;
+      padding-top: 36px;
+      hr{
+        position: absolute;
+        top: 18px;
+        left: 0;
+        right: 0;
+      }
+
+      hr:first-of-type{
+        top: auto;
+        bottom: 18px;
+      }
+    }
+  }
+}
+
+.widget-page-type-suggestion{
+  @include media-breakpoint-up(sm) {
+    .suggestion-wrap{
+      display: table;
+      width: 100%;
+      .suggestion-card, .suggestion-content{
+        display: table-cell;
+        width: 50%;
+        vertical-align: middle;
+        padding: 27px 18px;
+        h4 a{
+
+        }
+      }
+    }
+    p{
+      text-align: left;
+    }
+    .image{
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+    // allows image to dynamically resize to the height of the headline
+    .image-wrap{
+      display: table;
+      width: 100%;
+      margin: 0;
+      .col-sm-4{
+        display: table-cell;
+        position: relative;
+        float: none;
+      }
+    }
+    .interior-widget{
+      height: 414px;
+      display: table-cell;
+      vertical-align: middle;
+      position: relative;
+      padding-top: 36px;
+      hr{
+        position: absolute;
+        top: 18px;
+        left: 0;
+        right: 0;
+      }
+
+      hr:first-of-type{
+        top: auto;
+        bottom: 18px;
+      }
+    }
+  }
+}
+
+.widget-page-type-calendar{
+  padding: 27px 0;
+  text-align: center;
+  @include media-breakpoint-up(sm) {
+    padding: 45px 0;
+  }
+}
+
+.exterior-widget.widget-page-type-donation-v2,
+.exterior-widget.widget-page-type-donation{
+  h3 a{
+    @extend .accent !optional;
+  }
+  .bar-text{
+    @extend .accent !optional;
+    h2{
+      @extend .accent !optional;
+      display: block;
+    }
+  }
+}
+
+.exterior-widget.widget-page-type-donation-v2 h3 {
+  margin-bottom: 0;
+}
+
+.widget-page-type-vote-pledge{
+  .btn-lg{
+    width: 100%;
+  }
+}
+
+// @media screen and (min-width: $screen-md-min){
+  // 	.widget-fill{
+    // 		height: 81px;
+    // 	}
+  // }
+
+// centers text vertically on blog and suggestion box widgets
+
+@include media-breakpoint-up(sm) {
+  .widget-page-type-suggestion-box{
+    .col-sm-4{
+      display: table;
+    }
+  }
+}
+
+
+//
+// Cards
+// -----------------------------------------
+
+.view.overlay {
+    overflow: hidden;
+    position: relative;
+}
+
+
+.card{
+  border-radius: 9px;
+}
+
+.activity-card{
+  text-align: left;
+  margin-bottom: 18px;
+  padding: 18px;
+  font-size: 13.5px;
+  font-weight: 300;
+
+  .signup-icon{
+    overflow: hidden;
+    position: absolute;
+    img{
+      width: 36px;
+      height: 36px;
+      border-radius: 36px;
+    }
+  }
+
+  &.inverse{
+    background: white;
+    color: $text-color;
+    font-family: $headings-font-family;
+    border-bottom-left-radius: 0;
+    position: relative;
+    margin-left: 45px;
+    a{
+      font-weight: 500;
+      color: $text-color;
+    }
+    .signup-icon{
+      left: -45px;
+      bottom: 0;
+    }
+  }
+  &.text-color{
+    background: $text-color;
+    color: white;
+    font-family: $headings-font-family;
+    border-bottom-right-radius: 0;
+    position: relative;
+    margin-right: 45px;
+    a{
+      font-weight: 500;
+      color: white;
+    }
+    .signup-icon{
+      right: -45px;
+      bottom: 0;
+    }
+  }
+}
+
+.activity-stream-card{
+  border-radius: 0;
+  background: white;
+  padding: 18px 18px 18px 72px;
+  position: relative;
+  min-height: 72px;
+  margin-bottom: 18px;
+
+
+  .signup-icon{
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    img{
+      width: 36px;
+      height: 36px;
+      border-radius: 36px;
+    }
+  }
+  .activity{
+    font-family: $headings-font-family;
+    font-size: 13.5px;
+    font-weight: 300;
+    a{
+      font-weight: 500;
+      color: $text-color;
+    }
+    .timeago{
+      color: $primary;
+      // solves the problem of a double line in Firefox
+      text-decoration: none;
+    }
+    .activity-content{
+      margin-top: 27px;
+    }
+
+    a.btn.btn-default.submit-link { color: $gray-lighter;}
+  }
+  &:hover{
+    @extend .beta-shadow !optional;
+  }
+}
+
+// need the col to be display table in order for the card to be full width
+.suggestion-box, .blog, .widget-page-type-blog, .widget-page-type-suggestion-box{
+  .col-md-4, .col-sm-4{
+    display: table;
+
+    // objects displayed table-cell don't take margins
+    margin-bottom: 18px;
+
+    // fixes a problem in mobile where the tables collapse
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+
+  }
+}
+
+.blog-card, .suggestion-card{
+  height: 306px;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 18px;
+  position: relative;
+  text-align: center;
+
+  hr{
+    max-width: 99px;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    right: 0;
+  }
+
+  hr:first-of-type{
+    top: auto;
+    bottom: 18px;
+  }
+
+  h4{
+    position: relative;
+  }
+
+  &.image-bg{
+    background-size: cover;
+    background-position: center;
+    padding: 18px;
+    text-align: center;
+    border-radius: 0;
+    .overlay{
+      @include background-opacity($text-color, 0.6);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+    h4{
+      position: relative;
+      color: white;
+      font-weight: 500;
+      a{
+        color: white;
+      }
+    }
+    hr{
+      display: none;
+    }
+  }
+
+  &.text-color{
+    background: $text-color;
+  }
+  &.gray{
+    background: $gray-500;
+  }
+  &.gray-light {
+    background: $gray-light;
+  }
+  &.brand-primary{
+    background: $primary;
+  }
+  &.brand-primary-lighter{
+    @include background-opacity($primary, 0.2);
+  }
+
+  @include media-breakpoint-up(md) {
+    height: 414px;
+  }
+}
+
+.blog-card.widget, .suggestion-card.widget{
+
+  // margin-bottom: 18px;
+  padding: 27px 18px;
+  height: auto;
+  display: block;
+
+  h4 a{
+    color: white;
+  }
+
+  &.image-bg{
+    padding: 9px 9px 9px 108px;
+    position: relative;
+    min-height: 99px;
+    text-align: left;
+    background-color: white;
+    .overlay{
+      display: none;
+    }
+    .image{
+      width: 90px;
+      height: 90px;
+      background-size: cover;
+      position: absolute;
+      left: 0;
+      top: 4.5px;
+      border-radius: 9px;
+    }
+    h4{
+      margin: 0;
+      a{
+        color: $text-color;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    height: 306px;
+    display: table-cell;
+    vertical-align: middle;
+
+    &.image-bg{
+      background-size: cover;
+      background-position: center;
+      padding: 18px;
+      text-align: center;
+      border-radius: 0;
+      .overlay{
+        @include background-opacity($text-color, 0.6);
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+      h4{
+        position: relative;
+        color: white;
+        font-weight: 500;
+        a{
+          color: white;
+        }
+      }
+      hr{
+        display: none;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    height: 360px;
+  }
+  @include media-breakpoint-up(md) {
+    height: 414px;
+  }
+}
+
+// the event card homepage widget is really complex - be forewarned!
+
+.event-card{
+  position: relative;
+  padding-left: 117px;
+  margin-bottom: 27px;
+  min-height: 99px;
+  font-size: 13.5px;
+  line-height: 18px;
+  text-align: left;
+
+  a{
+    color: $text-color;
+  }
+
+  .image, .event-date{
+    position: absolute;
+    width: 99px;
+    height: 99px;
+    left: 0;
+    top: 0;
+  }
+
+  .image{
+    background-size: cover;
+    background-position: center;
+    border-radius: 0px;
+  }
+
+  h2, h6{
+    margin:0;
+  }
+  h2{
+    font-size: 45px;
+    line-height: 45px;
+  }
+
+  h5{
+    margin-top: 0;
+  }
+
+  hr{
+    width: 99px;
+    margin: 18px auto;
+  }
+
+  .event-date{
+    padding: 18px;
+    text-align: center;
+    border-radius: 9px;
+
+    &.gray{
+      background: $gray-500;
+    }
+    &.gray-lighter{
+      background: $gray-lighter;
+    }
+    &.brand-primary{
+      background: $primary;
+    }
+    &.brand-primary-lighter{
+      @include background-opacity($primary, 0.3);
+    }
+
+  }
+
+  &.widget{
+    background: $gray-light;
+    padding: 27px;
+    text-align: center;
+  }
+
+  @include media-breakpoint-up(sm) {
+
+    &.event-card-large{
+      padding-left: 0;
+      background: transparent;
+      border-radius: 0;
+
+      .image{
+        width: 100%;
+        height: 315px;
+        position: relative;
+      }
+      .left{
+        text-align: left;
+      }
+      .card-content:empty ~ .event-card .event-date {
+        padding-top: 0;
+      }
+      .event-date-wrap{
+        position: relative;
+        padding-left: 117px;
+        padding-top: 18px;
+      }
+      .event-headline{
+        display: table-cell;
+        vertical-align: middle;
+        height: 306px;
+        text-align: center;
+        background: $gray-500;
+        width: 1%;
+        border-radius: 9px;
+
+        hr{
+          position: absolute;
+          top: 18px;
+          left: 0;
+          right: 0;
+        }
+
+        hr:first-of-type{
+          top: auto;
+          bottom: 18px;
+        }
+      }
+      &.widget{
+        padding: 0;
+        text-align: left;
+        hr{
+          margin-left: 0;
+        }
+        .image{
+          height: auto;
+          padding-top: 100%;
+        }
+      }
+    }
+  }
+  @include media-breakpoint-up(md) {
+
+    padding-left: 198px;
+    min-height: 162px;
+    font-size: 18px;
+    line-height: 27px;
+
+    .image, .event-date{
+      width: 162px;
+      height: 162px;
+      padding: 45px;
+      a {
+        text-decoration: none;
+      }
+    }
+
+    &.event-card-large:not(.single-card){
+
+      h6{
+        margin-top: 18px;
+      }
+      .image{
+        height: 414px;
+      }
+    }
+  }
+}
+
+.question-card{
+  background: white;
+  @extend .beta-shadow !optional;
+  padding: 27px 18px;
+  margin-bottom: 18px;
+  &:hover{
+    @extend .alpha-shadow !optional;
+  }
+}
+
+.leaderboard-card{
+  @include background-opacity($gray-lighter, 0.3);
+  margin-bottom: 9px;
+  padding: 18px 72px;
+  position: relative;
+  text-align: left;
+  .position{
+    position: absolute;
+    top: 13.5px;
+    left: 18px;
+  }
+  a{
+    color: $text-color;
+  }
+  h4{
+    padding-top: 4.5px;
+    display: block;
+    margin-bottom: 0;
+  }
+  .signup-icon{
+    position: absolute;
+    right: 9px;
+    top: 31.5px;
+    img{
+      width: 54px;
+      height: 54px;
+      border-radius: 54px;
+    }
+  }
+}
+
+.signup-card{
+  border-radius: 0;
+  background: white;
+  padding: 18px 18px 18px 90px;
+  position: relative;
+  margin-bottom: 36px;
+  max-width: 375px;
+  font-size: 13.5px;
+  line-height: 18px;
+  p{
+    font-size: 13.5px;
+    line-height: 18px;
+    margin-bottom: 9px;
+  }
+  h4{
+    padding-right: 18px;
+  }
+  .tel, .email{
+    font-size: 13.5px;
+    h6{
+      display: inline-block;
+      min-width: 50px;
+    }
+  }
+  .network{
+
+    text-decoration: underline;
+    font-weight: 700;
+    margin-right: 9px;
+  }
+  .signup-icon{
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    img{
+      height: 54px;
+      width: 54px;
+      border-radius: 54px;
+    }
+  }
+  .delete, .post{
+    position: absolute;
+    right: 18px;
+    top: 31.5px;
+  }
+}
+
+#slider-cards {
+  height: 90px;
+
+  .slider-card{
+    border-radius: 0;
+    background: white;
+    position: relative;
+    margin-bottom: 36px;
+    h4{
+      padding-right: 18px;
+    }
+  }
+  .slider-card-profile {
+    background: white;
+    height: 90px;
+    padding: 18px 18px 18px 54px;
+    border-radius: 0;
+    img {
+      float: none;
+      margin-right: 0;
+    }
+    .signup-icon{
+      position: absolute;
+      left: 9px;
+      top: 22.5px;
+      img{
+        width: 36px;
+        height: 36px;
+        border-radius: 36px;
+      }
+    }
+    .slider-name {
+      position: relative;
+      line-height: inherit;
+      top: 0;
+      a:link, a:visited, a:active {
+        color: inherit;
+      }
+    }
+  }
+}
+
+//
+// Activation message
+// -----------------------------------------
+
+
+//
+// Wherever there is a round thumbnail of a user
+// -----------------------------------------
+
+.signup-icon{
+  img{
+    width: 27px;
+    height: 27px;
+    border-radius: 27px;
+  }
+}
+
+//
+// The little follow/unfollow buttons on signup cards and page follow
+// -----------------------------------------
+.v2-theme .btn-floating {
+    font-size: initial;
+}
+.post, .delete{
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  text-align: center;
+
+  // center the icon vertically
+  line-height: 9px;
+  font-size: 18px;
+  padding: 3px;
+}
+.post{
+  background: $primary;
+}
+.delete{
+  @include background-opacity($gray-base, 0.2);
+}
+
+// Page follow
+// -----------------------------------------
+
+.page-follow {
+  float: right;
+}
+
+.addreaction {
+  display: none;
+}
+
+// Facepile of followers
+// -----------------------------------------
+
+.followers-truncated{
+  .elipses{
+    font-size: 27px;
+    color: $gray-500;
+  }
+  a{
+    display: inline-block;
+    margin-left: 9px;
+    &:first-child{
+      margin-left: 0;
+    }
+  }
+}
+
+// Progress bar - the thermometer
+// -----------------------------------------
+
+.thermo-wrap{
+  margin: 0 -15px;
+  @include background-opacity($gray-light, 0.2);
+  padding: 18px 15px;
+
+  @include media-breakpoint-up(sm) {
+    background: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.progress {
+  margin-top: 9px;
+  margin-bottom: 27px;
+  height: 27px;
+  background-color: $gray-500;
+  border-radius: 27px;
+  box-shadow: none;
+}
+
+.bar-text{
+  text-align: left;
+  padding-left: 9px;
+  font-size: 9px;
+  line-height: 27px;
+
+  h2{
+    margin: 0;
+    margin-top: 9px;
+    display: inline-block;
+    color: $text-color;
+  }
+  @include media-breakpoint-up(md) {
+    font-size: 13.5px;
+  }
+}
+
+.progress .bar {
+  background-color: lighten(desaturate(adjust-hue($primary, 0.0234), 47.6103), 29.0196);
+  background-image: linear-gradient(-90deg, $primary 0%, lighten(desaturate(adjust-hue($primary, 0.0234), 47.6103), 29.0196) 79%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten(desaturate(adjust-hue($primary, 0.0234), 47.6103), 29.0196)', endColorstr='$primary', GradientType=0);
+  box-shadow: none;
+}
+
+.progress .bar + .bar {
+  box-shadow: none;
+}
+
+
+// Countdown on moneybomb pages and widget
+// -----------------------------------------
+
+.countdown{
+  width: 260px;
+  line-height: 36px;
+  height: auto;
+  margin: 0px auto;
+}
+
+#t7_timer{
+  width: 260px;
+  height: auto;
+}
+
+.t7_numbs{
+  border-radius: 9px;
+  color: $text-color;
+  font-family: $headings-font-family;
+  line-height: 54px;
+  text-align: center;
+  overflow: hidden;
+  font-size: 22.5px;
+  font-weight: 500;
+}
+
+#t7_vals{
+  height: 54px;
+}
+
+.countdown-formatting{
+  background-image: none;
+  height: 54px;
+  letter-spacing: 14px;
+  margin-right: 4.5px;
+  letter-spacing: 14px;
+  width: 60px;
+  padding: 0 9px;
+  float: none;
+  display: inline-block;
+}
+
+#t7_d{
+  @extend .countdown-formatting !optional;
+  @include background-opacity($primary, 0.8);
+}
+
+#t7_h{
+  @extend .countdown-formatting !optional;
+  @include background-opacity(lighten(saturate(adjust-hue($primary, 0.0097), 0.6711), 13.5294), 0.8);
+}
+
+#t7_m{
+  @extend .countdown-formatting !optional;
+  @include background-opacity(lighten(saturate(adjust-hue($primary, 0.8612), 12.5523), 41.9608)
+    , 0.8);
+}
+
+#t7_s{
+  @extend .countdown-formatting !optional;
+  @include background-opacity(#fff, 0.8);
+  margin-right: 0;
+  height: auto;
+}
+
+.t7_labs{
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: $font-family-sans-serif;
+  color: rgba(255,255,255,0.8);
+  left: 0;
+  top: 0
+}
+
+.form-wrap{
+  .t7_labs{
+    color: $text-color;
+  }
+}
+
+.label-formatting{
+  width: 60px;
+  margin-right: 4.5px;
+  float: none;
+  display: inline-block;
+}
+
+#t7_dl, #t7_hl, #t7_ml, #t7_sl{
+  @extend .label-formatting !optional;
+}
+
+//
+// Pagination (pagination.scss)
+// --------------------------------------------------
+
+.pagination-container{
+  text-align: center;
+  margin: 18px 0;
+  border: 0;
+}
+
+.pagination {
+  border-radius: 0;
+  text-align: center;
+
+  > li {
+    display: inline; // Remove list-style and block-level defaults
+    > a,
+    > span {
+      padding: 9px 27px;
+      line-height: 9px;
+      border-radius: 45px;
+      font-size: 9px;
+      font-family: $headings-font-family;
+      text-transform: uppercase;
+      display: none;
+      font-weight: 500;
+      min-width: 100px;
+    }
+    &:first-child {
+      > a,
+      > span {
+        @include border-left-radius(45px);
+        display: block;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        @include border-right-radius(45px);
+        display: block;
+        margin-left: 9px;
+      }
+    }
+    @include media-breakpoint-up(md) {
+      > a,
+      > span {
+        padding: 13.5px 45px;
+        line-height: 13.5px;
+        font-size: 13.5px;
+        min-width: 160px;
+      }
+    }
+  }
+}
+
+//
+// Page Byline
+// --------------------------------------------------
+
+.byline{
+  position: relative;
+  .signup-card{
+    padding: 18px 0px 18px 72px;
+    background: transparent;
+    .signup-icon{
+      left: 0;
+    }
+    .post{
+      right: 0;
+    }
+  }
+}
+
+//
+// Form Errors
+// NationBuilder displays form errors as H2s which is excessive - this makes the H2s smaller
+// -----------------------------------------
+.form-errors{
+  h2{
+    font-size: 9px;
+    line-height: 13.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  ul{
+    list-style-type: none;
+    margin-bottom: 18px;
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 13.5px;
+    font-weight: 700;
+    li{
+      padding-left: 18px;
+      border-left: 4px solid $primary;
+    }
+  }
+}
+
+
+
+// Other Components
+// -----------------------------------------
+
+.connect-button, .bar-goal {
+  @extend .marginbottomless !optional;
+}
+
+.flag_form {
+  @extend .marginbottommore !optional;
+}
+
+.cc, .form-submit {
+  @extend .margintopless !optional;
+}
+
+.on-button-small, .off-button-small {
+  @extend .label !optional;
+}
+
+.on-button-small {
+  @extend .label-success !optional;
+}
+
+.off-button-small {
+  @extend .label-danger !optional;
+}
+
+.share-container.panel {
+  @extend .margintopmore !optional;
+  margin-bottom: 0;
+}
+
+.share-close {
+  margin-top: -.4em;
+}
+
+.activities{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.panel {
+  .excerpt-type {
+    margin-top: -.2em;
+  }
+}
+
+.media {
+  .media-left {
+    img {
+      max-width: none;
+    }
+  }
+}
+
+
+.page-excerpt {
+  &:last-of-type, &:last-child {
+    & + hr {
+      display: none;
+    }
+  }
+}
+
+.page-excerpts {
+  & > li:last-child {
+    & > hr:last-child {
+      display: none;
+    }
+  }
+}
+
+// Suggestion box pages
+// -----------------------------------------
+
+#suggestion-page-form-expanded {
+  display: none;
+}
+
+// Suggestion pages
+// -----------------------------------------
+
+.how-would-you-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px 15px 0;
+}
+
+@include media-breakpoint-up(md) {
+
+  .people-list-follow {
+    float: right;
+    text-align: right;
+  }
+
+  .user_session_form {
+    #user_session_email {
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+
+
+//
+// Activity Stream
+// -----------------------------------------
+
+#stream{
+  margin-top: 9px;
+}
+.page-type-activity-stream #stream {
+  margin-top: 36px;
+}
+
+.reaction-wrap{
+  @include background-opacity($gray-light,0.2);
+  padding: 45px 0;
+
+
+  .user-session-form-container {
+    margin-top: 27px;
+  }
+
+  @include media-breakpoint-up(md) {
+    .sign-in-with-email{
+      .btn-lg-tablet{
+        width: 100%;
+      }
+    }
+  }
+}
+
+#reactions{
+  padding-top: 45px;
+}
+
+#featured_endorsements, #petition-photos{
+  img{
+    margin-right: 18px;
+  }
+}
+
+
+//
+// Login page
+// -----------------------------------------
+
+.login-wrap, .sign-up-wrap{
+  vertical-align: middle;
+  margin-bottom: 0;
+  border-radius: 0;
+
+  a:focus, a:hover{
+    text-decoration: none;
+  }
+  h4{
+    padding: 27px 0;
+    text-align: center;
+
+    a:focus{
+      border: 0;
+      text-decoration: none;
+    }
+  }
+  .panel-collapse{
+    padding-bottom: 36px;
+  }
+}
+.login-wrap{
+  @include background-opacity($gray-lighter, 0.2);
+  .btn.facebook, .btn.twitter{
+    width: 48%;
+  }
+  .twitter{
+    margin-left: 3%;
+  }
+}
+.sign-up-wrap{
+  background-color: $primary;
+  a{
+    color: $text-color;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .login-wrap, .sign-up-wrap{
+    max-width: 457px;
+    margin: 0 auto;
+    border-radius: 9px;
+
+    .container{
+      width: auto;
+    }
+  }
+  .login-wrap{
+    background-color: $gray-500;
+    margin-bottom: 27px;
+
+    a{
+      color: $text-color;
+      &:hover, &:focus{
+        color: $text-color;
+      }
+    }
+  }
+  .panel-collapse{
+    padding: 0 36px 36px;
+  }
+}
+
+//
+// Blog page
+// -----------------------------------------
+// Blog cards are display table cell so they don't take margins
+
+.blog .page-excerpt{
+  margin-bottom: 27px;
+}
+
+
+// Calendar page
+// -----------------------------------------
+
+#events_map{
+  height: 280px !important;
+  margin: 0 -15px;
+  @include media-breakpoint-up(sm) {
+    height: 414px !important;
+    margin: 0;
+  }
+}
+#calendar_page_change_address_change_form{
+  .text:not(#address_change_submitted_address){
+    width: 60%;
+    float: left;
+    margin-top: 4.5px;
+  }
+  .input-group-btn{
+    margin-top: 9px;
+    width: 37%;
+    float: right;
+  }
+}
+
+.page-type-calendar .panel-group {
+  background: white;
+  border: 1px solid #DAE1E6;
+  border-radius: 9px;
+  // padding-left: 150px;
+  padding: 25px;
+  -webkit-box-shadow: 0 5px 17px rgba(0,0,0,0.13);
+  box-shadow: 0 5px 17px rgba(0,0,0,0.13);
+  position: relative;
+  padding-top: 27px;
+}
+
+.map-wrap{
+  margin-bottom: 18px;
+}
+
+.map img {
+  max-width: none;
+}
+
+// Directory page
+// -----------------------------------------
+.signup-wrap{
+  @include background-opacity($gray-light,0.2);
+  padding: 45px 0;
+}
+
+// Donation pages
+// -----------------------------------------
+
+[for='donation_amount_other']{
+  display: none !important;
+}
+
+#donation_amount_other {
+  margin-top: 18px;
+}
+
+#donation_amount_other {
+  @extend .form-control !optional;
+  width: auto;
+}
+
+#donation_num_installments {
+  color: $gray-500;
+}
+
+.donation-container{
+  @extend .alpha-shadow !optional;
+  background: white;
+  border-radius: 9px;
+  overflow: hidden;
+  .form-errors{
+    padding: 9px 18px;
+  }
+  .donation-left{
+    background: $gray-500;
+    .body{
+      padding: 18px;
+    }
+  }
+  .btn-primary{
+    float: right;
+  }
+  .btn-ghost{
+    background: transparent;
+    float: left;
+  }
+
+  @include media-breakpoint-up(sm) {
+    display: table;
+    width: 100%;
+    .donation-left{
+      .checkbox label, .checkbox.label{
+        color: white;
+      }
+    }
+
+  }
+}
+
+.form-progress-indicator {
+  width: 100%;
+}
+
+.progress-indicator-stages{
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  width: auto;
+  text-align: center;
+  display: table;
+  width: 100%;
+  li{
+    margin-right: 0;
+    width: 33.33333%;
+    display: table-cell;
+    padding: 18px;
+    font-family: $headings-font-family;
+    font-weight: 500;
+    color: white;
+    font-size: 13.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    span{
+      opacity: 0.3;
+    }
+    &.active, &.completed{
+      border-bottom: 3px solid $primary;
+      span{
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.progress-stages {
+  min-height: 402px;
+  .progress-stage {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+  .errorExplanation {
+    padding: 1px 36px 18px 36px;
+  }
+  label[for='donation_card_expires_on'] {
+    position: static;
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+// Event page
+// -----------------------------------------
+
+.event-detail-wrap{
+  @include background-opacity($gray-light, 0.2);
+  padding: 45px 0;
+}
+.page-type-event{
+  #slider-cards{
+    .slider-card-profile{
+      padding: 18px;
+      .signup-icon{
+        display: none;
+      }
+    }
+  }
+}
+
+//
+// Invoice pages
+// -----------------------------------------
+
+.invoices {
+  .invoice-total, .amount {
+    @extend .text-right !optional;
+  }
+  .expander-sign {
+    cursor: pointer;
+  }
+  .expander-content {
+    display: none;
+  }
+}
+//
+// Leaderboard
+// -----------------------------------------
+
+.leaderboard-rank {
+  position: relative;
+  display: block;
+  float: left;
+  margin: -20px 0 0 4px;
+}
+
+//
+// Moneybomb pages
+// -----------------------------------------
+
+#pledge_amount_other {
+  @extend .form-control !optional;
+  width: auto;
+  margin: 9px 0 9px 4.5px;
+}
+label[for="pledge_amount_other"]{
+  width: 100%;
+  padding-left: 5px;
+  display: block;
+  position: static;
+}
+.page-type-moneybomb .submit-button + .btn-danger {
+  margin-top: 34px;
+}
+
+//
+// Profile pages
+// -----------------------------------------
+
+.profile-header{
+  border-radius: 9px;
+  background: white;
+  position: relative;
+  padding: 81px 18px 36px;
+  text-align: center;
+  .signup-icon{
+    display: block;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    img{
+      width: 126px;
+      height: 126px;
+      border-radius: 126px;
+      box-shadow: 0 3px 3px rgba(0,0,0,0.13);
+    }
+  }
+  h2, h6{
+    text-align: center;
+    .delete, .post{
+      margin: 10px auto;
+    }
+  }
+  .network{
+    @include background-opacity($gray-base, 0.3);
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+    display: inline-block;
+    margin-right: 18px;
+    margin-top: 45px;
+    text-align: center;
+    line-height: 45px;
+    color: white;
+    font-size: 24px;
+    a{
+      color: white;
+    }
+    i{
+      margin-right: 0;
+    }
+    .icon-twitter{
+      padding-left: 6px;
+    }
+    .icon-facebook {
+      padding-left: 3px;
+    }
+    img{
+      margin-top: -5px;
+    }
+  }
+}
+
+.fundraising-box{
+  border-radius: 9px;
+  background: white;
+  padding: 18px;
+  margin-top: 45px;
+}
+
+//
+// Recruiting pages
+// -----------------------------------------
+.white-bg{
+  background: white;
+}
+
+//
+// Rule pages
+// -----------------------------------------
+.rule-list{
+  font-size: 13.5px;
+  @include media-breakpoint-up(lg) {
+    font-size: 18px;
+  }
+}
+
+
+//
+// Settings page
+// -----------------------------------------
+
+.page-signups-edit{
+  .panel-group {
+    @include media-breakpoint-up(sm) {
+      background: white;
+      border: 1px solid $gray-light;
+      border-radius: 9px;
+      padding-left: 150px;
+      box-shadow: 0 5px 17px rgba(0,0,0,0.13);
+      position: relative;
+      padding-top: 27px;
+
+      .panel-title>a[aria-expanded="true"] {
+        pointer-events: none;
+      }
+
+      .panel {
+        @include border-bottom-radius(0);
+        border: 0;
+        background: transparent;
+
+        .panel-body{
+          padding: 0;
+        }
+
+        .panel-title{
+          position: absolute;
+          left: 36px;
+          top: 36px;
+        }
+
+        .panel-heading{
+          padding: 0;
+          margin: 0;
+        }
+
+        &:nth-child(2){
+          .panel-title{
+            top: 63px;
+          }
+        }
+        &:nth-child(3){
+          .panel-title{
+            top: 90px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//
+// Suggestion box pages
+// -----------------------------------------
+
+.tag-list{
+  > li > a{
+    border-radius: 100px;
+  }
+}
+
+//
+// Suggestion pages
+// -----------------------------------------
+
+.page-type-suggestion{
+  .answer{
+    margin: 27px 0;
+    padding: 27px;
+    @include background-opacity($gray-light, 0.3);
+  }
+}
+
+//
+// Survey pages
+// -----------------------------------------
+
+.page-type-survey{
+
+  // turns radios into full width buttons
+
+  .radio-inline{
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    label.radio{
+      margin: 0;
+      width: 100%;
+    }
+  }
+  .radio-inline+.radio-inline{
+    padding-right: 0;
+    margin-left: 0;
+  }
+}
+
+//
+// Splash page
+// -----------------------------------------
+.splash-page{
+  .like-page, #stream{
+    display: none;
+  }
+}
+
+//
+// Volunteer pages
+// ------------------------------------------
+
+.page-type-volunteer-signup {
+  .intro {
+    font-size: $font-size-sm;
+  }
+}
+
+//
+// svg to png
+//-------------------------------------------
+
+input[type="file"] +label:before{
+  padding: 17px 20px;
+  content: "";
+  background-image: url(upload.png);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+select.form-control {
+  background-size: 10px;
+}
+.modal-body .form-errors ul {
+  background-size: 18px;
+}
+.notice .image {
+  background-size: 20px;
+}
+@media screen and (max-width: 768px) {
+  .flash-share .modal-body .share-right .close {
+    margin: 9px 18px 9px 0;
+  }
+}
+
+//
+// Donation v2 Pages
+//-------------------------------------------
+
+.page-type-donation-v2.page-pages-show-donation-v2-wide {
+  .card-error-container .card-error {
+    font-size: 13px;
+    padding-top: 5px;
+    color: $danger;
+  }
+  span.error-message {
+    @extend .form-error !optional;
+  }
+  .ticket-list {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      li {
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: bold;
+      }
+    }
+  }
+  .text-rule {
+    font-size: 13px;
+  }
+  a.clear-order {
+    font-size: 18px;
+  }
+  .small-gutter {
+    padding: 0 30px;
+    > .row {
+      padding-left: 5px;
+      padding-right: 5px;
+      .row {
+        margin-left: -5px;
+        margin-right: -5px;
+      }
+      *[class*="col-"] {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+  }
+  .small-gutter div[class*="col-"].donation-v2-container {
+    padding: 50px 15px;
+    @extend .alpha-shadow !optional;
+    background: white;
+
+  }
+  #donation_amount_other {
+    display: none;
+    + label {
+      top: 0;
+      margin: 0;
+    }
+    &:focus + label,
+    &:active + label {
+      top: 0;
+      font-size: 13.5px;
+      background-color: $gray-base;
+      color: $body-bg;
+      border-color: transparent;
+    }
+  }
+  .donation-other-input-container {
+    .currency-symbol {
+      position: absolute;
+      font-size: 24px;
+      position: absolute;
+      top: 50%;
+      left: 7px;
+      transform: translate( 0, -50%);
+    }
+    .nb_donation_v2_amount {
+      @extend .form-control !optional;
+      padding: 9px 9px 9px 24px !important;
+      font-size: 20px !important;
+    }
+  }
+  .card-monthly div {
+    font-size: 12px;
+  }
+  .radio-inline.donation-v2-amounts {
+    width: 100%;
+    margin: 0 0 10px;
+    label {
+      background: $gray-500;
+      color: $gray-100;
+    }
+    input[type="radio"]:checked+label {
+      background-color: $gray-base;
+      color: $body-bg;
+      border-color: transparent;
+    }
+    .used#donation_amount_other+label {
+      font-size: 13.5px;
+    }
+    span {
+      float: left;
+      padding: 5px;
+      min-width: 33.333%;
+      width: 33.333%;
+      &:nth-child(3n) {
+        padding-right: 0;
+      }
+      &:nth-child(3n + 1) {
+        padding-left: 0;
+      }
+      label {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+  .donation-v2-occurence-radio {
+    position: relative;
+    left: 4.5px;
+    > span {
+      @extend .radio-inline !optional;
+      width: 50%;
+      float: left;
+      &:first-child {
+        padding-right: 8px;
+      }
+      &:last-child {
+        padding-left: 3px;
+        margin: 0;
+      }
+      label.radio {
+        left: 0;
+        position: relative;
+        width: 100%;
+        min-width: 100%;
+        margin: 0;
+        background: $gray-500;
+        color: $gray-100;
+      }
+      input[type="radio"]:checked+label.radio {
+        background-color: $gray-base;
+        color: $body-bg;
+        border-color: transparent;
+        &:hover {
+          color: $body-bg;
+        }
+      }
+      input[type="radio"]+label.radio {
+        &:hover {
+          color: $gray-100;
+        }
+      }
+    }
+  }
+  .contribution-rules {
+    font-size: 18px;
+  }
+  .submit-container {
+    background-color: $gray-lighter;
+    border-radius: 2px;
+    text-align: center;
+    padding: 35px 15px 50px;
+    .donation-v2-amount {
+      font-size: 40px;
+      margin-bottom: 25px;
+      width: 100%;
+      min-height: 46px;
+      line-height: initial;
+      span {
+        opacity: 1;
+        font-weight: bold;
+        display: inline-block;
+        .nb_donation_v2_interval {
+          font-size: 17px;
+          &.hidden {
+            display: none;
+            opacity: 0;
+          }
+        }
+        &.hidden {
+          opacity: 0;
+          display: none;
+          + span {
+            font-size: 22px;
+            font-weight: normal;
+          }
+          ~ .nb_donation_v2_interval {
+            display: none;
+          }
+        }
+      }
+      .nb_donation_v2_amount {
+        margin-left: 4px;
+      }
+      .hidden + .nb_donation_amount {
+        font-size: 22px;
+      }
+    }
+  }
+}
+@media (min-width: 767px) {
+  .page-type-donation-v2.page-pages-show-donation-v2-wide {
+    .donation-v2-container {
+      border-radius: 9px;
+      padding: 60px;
+    }
+    .radio-inline.donation-v2-amounts span {
+      min-width: 25%;
+      width: 25%;
+      &:nth-child(3n) {
+        padding-right: 5px;
+      }
+      &:nth-child(3n + 1) {
+        padding-left: 5px;
+      }
+      &:nth-child(4n) {
+        padding-right: 0;
+      }
+      &:nth-child(4n + 1) {
+        padding-left: 0;
+      }
+    }
+    .small-gutter {
+      > .row {
+        padding: 0 100px;
+      }
+      div[class*="col-"].donation-v2-container {
+        padding: 50px 60px;
+      }
+    }
+  }
+}
+
+// Consent Forms
+//-------------------------------------------
+// Add spacing after consent fields
+.consent-form-container {
+  margin-bottom: 2em;
+  .vote-pledge-form &,
+  .endorsement_form & {
+    margin-bottom: 0;
+  }
+}
+// Put radio yes/no inputs on the same line
+.consent-form__option .radio {
+  display: inline-block;
+  margin-right: 2em;
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.consent-form__option p {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.consent-form__option p:last-of-type {
+  margin-bottom: 0;
+}
+//
+// Cards
+// -----------------------------------------
+
+.card{
+  border-radius: 9px;
+}
+
+.activity-card{
+  text-align: left;
+  margin-bottom: 18px;
+  padding: 18px;
+  font-size: 13.5px;
+  font-weight: 300;
+
+  .signup-icon{
+    overflow: hidden;
+    position: absolute;
+    img{
+      width: 36px;
+      height: 36px;
+      border-radius: 36px;
+    }
+  }
+
+  &.inverse{
+    background: white;
+    color: $text-color;
+    font-family: $headings-font-family;
+    border-bottom-left-radius: 0;
+    position: relative;
+    margin-left: 45px;
+    a{
+      font-weight: 500;
+      color: $text-color;
+    }
+    .signup-icon{
+      left: -45px;
+      bottom: 0;
+    }
+  }
+  &.text-color{
+    background: $text-color;
+    color: white;
+    font-family: $headings-font-family;
+    border-bottom-right-radius: 0;
+    position: relative;
+    margin-right: 45px;
+    a{
+      font-weight: 500;
+      color: white;
+    }
+    .signup-icon{
+      right: -45px;
+      bottom: 0;
+    }
+  }
+}
+
+.activity-stream-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $card-bg;
+  background-clip: border-box;
+  border: $card-border-width solid $card-border-color;
+  @include border-radius($card-border-radius);
+
+  .signup-icon{
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    img{
+      width: 36px;
+      height: 36px;
+      border-radius: 36px;
+    }
+  }
+  .activity{
+    font-family: $headings-font-family;
+    font-size: 13.5px;
+    font-weight: 300;
+    a{
+      font-weight: 500;
+      color: $text-color;
+    }
+    .timeago{
+      color: theme-color("primary");
+      // solves the problem of a double line in Firefox
+      text-decoration: none;
+    }
+    .activity-content{
+      margin-top: 27px;
+    }
+
+    a.btn.btn-default.submit-link { color: $gray-lighter;}
+  }
+  &:hover{
+    @include box-shadow($box-shadow);
+  }
+}
+
+
+///************type************//
+
+h1, .display-1 {
+  font-family: 'Permanent Marker', cursive;
+  text-transform:uppercase; 
+  font-weight:900;
+  letter-spacing:1px;
+}
+/* Chips */
+
+.chip.chip-md {
+  height: 42px;
+  line-height: 42px;
+  border-radius: 21px;
+}
+.chip.chip-md img {
+  height: 42px;
+  width: 42px;
+}
+.chip.chip-md .close {
+  height: 42px;
+  line-height: 42px;
+  border-radius: 21px;
+}
+.chip.chip-lg {
+  height: 52px;
+  line-height: 52px;
+  border-radius: 26px;
+}
+.chip.chip-lg img {
+  height: 52px;
+  width: 52px;
+}
+.chip.chip-lg .close {
+  height: 52px;
+  line-height: 52px;
+  border-radius: 26px;
+}
+
+
+///****************Navbar *************** 9-25 ********//
+.top-nav{
+  background-color: transparent;
+}
+.navbar-header {
+  background: transparent;
+  box-shadow: none;
+}
+.navbar-dark .navbar-nav .nav-link {
+  font-family:"montserrat",sans-serif;
+  font-size:small;
+  padding: 2rem 0.25rem 0 0.5rem !important;
+}
+
+
+@media (max-width: 772px){
+  ul.navbar-nav.mr-auto.d-block.d-sm-flex {
+    width:100%;
+  }
+
+ 
+
+  .navbar .mega-dropdown-li .dropdown-menu.mega-menu {
+    margin-left: -1rem;
+    padding-right: 2rem;
+    padding-top: 2rem !important;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    font-size: larger;
+  }
+
+
+}
+
+.close span.text-pink.pink-text.h1.font-weight-lighter {
+  font-weight: 400;
+  font-family: 'muli';
+}
+.navbar-dark .navbar-nav.campaigns .nav-link {
+  color: #352935;
+  font-family:"muli",sans-serif;
+  text-transform:capitalize !important;
+  font-size:large;
+  padding: 1.2rem 0.25rem 0.8rem 0.5rem !important;
+}
+.navbar-dark .navbar-nav .nav-link.dropdown-toggle::after {
+  margin-left: 0rem;
+  vertical-align: 0.1rem;
+}
+.nav-card {
+  border: 0;
+  background: transparent;
+  padding:0;
+  margin:0;
+
+  .card-body {
+    overflow: hidden;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.125rem 0.9rem 0;
+    margin-bottom: 0;
+  }
+  .card-footer {
+    margin-bottom: 2em;
+    .btn{
+      border-radius: 1rem;
+      padding: 0;
+      font-weight: bold;
+    }
+    /* padding:0; */
+  }
+}
+/*.dropdown:hover .dropdown-menu {display: block;} */
+.sticky-top .navbar-brand {
+
+  img {
+    height: 3.5rem;
+    max-width: 100%;
+  }
+
+
+}
+.aware-theme.v2-theme .navbar .mega-dropdown .dropdown-menu.mega-menu.v-2 {
+
+  .nav-card {
+    .btn-back_to_the_roots  {
+      border-color: $pink;
+    }
+  }
+  .back_to_the_roots {
+    background-color: rgba(255, 123, 172, 1.85);
+    .sub-menu ul li a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #352935 !important;
+    }
+  }    
+}
+.btn:not(.collapsed) .rotate-icon {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.btn:not(.collapsed) {
+  .label-switch {
+    &.minimize{
+      display:inline;
+      opacity:1;
+    }
+
+    &.expand {
+      display:none;
+      opacity:0;
+    }
+
+  }
+}
+
+.btn-trans_justice:hover {
+  color: #060608;
+  background-color: #74d6eb;
+  border-color: #74d6eb;
+}
+.aware-theme.v2-theme .navbar .mega-dropdown .dropdown-menu.mega-menu.v-2 {
+  .nav-card {
+    .btn-trans_justice {
+      border-color: $blue;
+    }
+  }
+  .trans_justice {
+    background-color: #60e4e3;
+
+
+    .sub-menu ul li a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #352935 !important;
+    }
+  }    
+}
+
+
+// allows embedded images to expand/contract with viewport
+
+img {
+  border: 0;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+//
+// Main parameters and basic structure //
+//
+
+
+
+.chromeframe {
+  background: #ccc;
+  color: #000;
+  margin: 0.2em 0;
+  padding: 0.2em 0;
+}
+
+
+.intro {
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 3em;
+
+  .intro {
+    margin-bottom: 1em;
+  }
+}
+
+.excerpt > .intro {
+  margin-bottom: 1em;
+}
+
+// message asking people to check their email to activate account
+
+.activation-message {
+  color: $theme-color-1;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+// style an image with rounded corners
+
+.img-rounded {
+  @include border-radius(6px);
+}
+
+// style an image with a sublte frame
+
+.img-polaroid {
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+}
+
+// style an image as a circle
+
+.img-circle {
+  @include border-radius(500px);
+}
+
+// add padding around an image
+
+.img-padleft {
+  margin: 5px 0 5px 15px;
+}
+
+.img-padright {
+  margin: 5px 15px 5px 0;
+}
+
+// javascript is used to wrap all iframes in a span called responsive-embed-wrapper to make them responsive
+
+.responsive-embed-wrapper {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative;
+
+  iframe {
+    display: block;
+  }
+
+  iframe,
+  object,
+  embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.vcard {
+  .tel {
+    display: block;
+  }
+}
+// breadcrumbs
+
+.breadcrumbs {
+  color: $theme-color-1;
+  list-style: none;
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+.breadcrumbs > li {
+  display: inline-block;
+}
+
+.breadcrumbs > li > .divider {
+  color: $shade-2;
+  padding: 0 .3em;
+}
+
+.breadcrumbs > .active {
+  color: $theme-color-1;
+}
+
+// site title shown in header
+
+.title {
+  color: $header-color;
+  a {
+    color: $header-color;
+  }
+}
+
+
+header {
+  text-align: center;
+  width: 100%;
+  &:after {
+    margin-left: -2.2455%;
+    margin-right: -2.195678%;
+  }
+  .header-image {
+    color:$theme-color-1;
+    a {
+      text-decoration:none;
+    }
+    h4 {
+    }
+  }
+}
+.header-image-wrap {
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .header-image-gradient {
+    background: $shademsec;
+    padding: 4vh 10%;
+    .header-image {
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 6vh auto;
+      width: 100%;
+    }
+  }
+}
+.page-headline {
+  &:after {
+    border-bottom: 2px solid $theme-color-1;
+    content: '';
+    display: block;
+    padding-bottom: 4px;
+    width: 70vw;
+  }
+}
+.main{
+  .headline {
+    &:after {
+      background-color:$theme-color-1;
+    }
+  }
+  @each $color, $value in $mdb-colors {
+    .headline-#{$color}:after {
+      background-color: ($value);
+    }
+  }
+}
+.headline.soft:after {
+
+  opacity:0.3;
+}
+.headline {
+  &:after {
+    content: "";
+    display: block;
+    height: 3px;
+    margin-bottom: 0;
+    margin-top: 5px;
+  }
+}
+
+.marginless.headline {
+  height: 24px;
+  margin-bottom: 0;
+}
+.header-image.headline:after, .header-image.headline:before {
+  background:$theme-color-1;
+}
+.header-image-gradient > a {
+  border: 0;
+  font-family: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-decoration:none;
+}
+.home header .header-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 10px auto 20px;
+  width: 100%;
+}
+
+
+
+.user-menu {
+  @include transition(all 0.7s cubic-bezier(.3,0,.2,1));
+  left: 0;
+  position: relative;
+  .menu-link {
+    outline: 0;
+    background: transparent;
+    border: 0;
+    float: left;
+    padding: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    .icon-menu {
+      font-size: 24px;
+      margin-right: .5em;
+    }
+  }
+  [class^="icon-"]:before, [class*=" icon-"]:before, .flex-next:before, .flex-prev:before {
+    margin-right: 0;
+  }
+}
+
+.user-menu-controls {
+  @include transition(all 0.7s cubic-bezier(.3,0,.2,1));
+  position: relative;
+}
+
+.user-menu-control .profile_image {
+  margin-bottom: 1em;
+}
+
+.user-menu-button {
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 16px 15px 14px 15px;
+  &.supporter-nav-toggle {
+  }
+  a {
+  }
+}
+
+.topnav.mobile-nav {
+  margin-left: 0;
+  width: 100%;
+  li {
+    border-bottom: 1px solid rgba(255, 225, 236, 0.2);
+    &:first-child {
+    }
+  }
+}
+
+
+@media (max-width: 772px){
+  .page-features .feature-slides.slides article.span4:not(.mobile-visible) {
+    display:none;
+  }
+  .article-grid.container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .content-pages-show-volunteer-signup.container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .container>article>section.blog {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .wrap.active nav {
+    margin-left:0em;
+  }
+  footer dd {
+    text-align: left;
+  }
+  .sub.mega {
+    display: none ;
+  }
+
+
+  aside .navigation {
+    padding: 10px 0;
+  }
+  dd aside {margin-left: -40px;width: calc(100% + 40px);}
+
+  h4.secondary-headline {padding: 15px 0 0;}
+}
+
+
+
+
+
+.box {
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  margin-bottom: 15px;
+  @include border-radius(5px);
+  padding: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// email signup which appears in right column if a user is signed out
+
+.email-signup {
+  input.text {
+    -moz-box-shadow: none;
+    -webkit-appearance: none;
+    -webkit-box-shadow: none;
+    border-right: 0;
+    box-shadow: none;
+    display: inline-block;
+    height: 39px;
+    @include border-radius-top-right(0);
+    @include border-radius-bottom-right(0);
+    min-height: none;
+    width: 73%;
+  }
+  .submit-button {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    width: 100%; // 81 by 300
+    @include border-radius-top-left(0);
+    @include border-radius-bottom-left(0);
+
+    &.disabled {
+      opacity: 0.45;
+    }
+  }
+}
+
+// flag link which allows user to report a post or comment
+
+.flag {
+  font-weight: normal ;
+}
+
+
+// site wide footer
+.footer-wrap {
+  background: $footer-background-2;
+  color: $footer-color-2;
+  ::-webkit-input-placeholder {
+    color: $shade-1-text;
+    opacity: .5 ;
+  }
+  :-moz-placeholder {
+    color: $shade-1-text;
+    @include opacity(.5);
+  }
+  ::-moz-placeholder {
+    color: $shade-1-text;
+    @include opacity(.5);
+  }
+  @if $link-decoration == underline or $theme == black or $theme == white {
+    a {
+      color: $shade-1-text;
+    }
+    .button, .submit-button, button, label.radio {
+      background: $button-background;
+      border-color: $shade-1-text;
+      color: $shade-1-text;
+      &:hover {
+        border-color: darken($shade-1-text,8);
+        color: darken($shade-1-text,8);
+      }
+      &:active {
+        border-color: darken($shade-1-text,15);
+        color: darken($shade-1-text,15);
+      }
+    }
+    footer {
+      a {
+        color: $footer-color;
+      }
+    }
+  }
+  h5 {
+    margin-bottom: 2em;
+  }
+  .submit-button {
+    float: right;
+  }
+  &:before {
+    content: "";
+    display: block;
+    height: 15px;
+    margin-bottom: 1.5em;
+  }
+}
+
+footer {
+  background: $footer-background;
+  color: $footer-color;
+  font-size: .83333333333em;
+  padding: 3.5em 0 3em 0;
+  position: relative;
+  text-align: center;
+  z-index: 5;
+  .footer-text {
+    margin-bottom: 2.5em;
+    p {
+      margin: 0;
+    }
+  }
+  .footer-right {
+    text-align: center;
+  }
+  &.clearfix:before {
+    border-right: 9999px solid $footer-background;
+    content: "";
+    display: block;
+    height: 100%;
+    left: -9998px;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    @include box-shadow(9999px 0 0 0 $footer-background);
+  }
+}
+
+.footer-signup.width-container {
+  background: $footer-background-2;
+  color: $footer-color-2;
+  margin: 4em auto 0;
+}
+
+.footer-form {
+  margin-bottom: 0em;
+}
+
+.footer-supporter-tiles {
+  img {
+    display: block;
+    float: left;
+    margin-bottom: 3.5%;
+    margin-right: 3.5%;
+    width: 22.3%;
+  }
+  & > a:nth-child(4n) img, & > img:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
+// supporter nav which is shown if a user is signed in
+
+.supporter-nav {
+  position: relative;
+}
+
+
+.supporter-nav-button {
+  font-size: 1.2em;
+  line-height: 1.5em;
+  margin: .3em 0 ;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+
+
+// follow page link shown in page stream
+
+.page-follow {
+  font-size: .7em;
+  font-weight: bold;
+  margin: 0 0 1.2em 0;
+  a.post, a.delete {
+    color: $text-color;
+  }
+  .icon-plus-squared:before {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0 0 0 .5em;
+    vertical-align: -6%;
+  }
+  .icon-cancel-circle:before {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0 0 0 .5em;
+    vertical-align: -10%;
+  }
+}
+
+//message that appears when a form is submitted
+.form-submitting {
+  padding: 15px 7px 0 0;
+  img {
+    margin-right: 6px;
+  }
+}
+// layout for share buttons at the bottom of most pages
+
+.sharetable {
+  min-height: 39px;
+  .facebook-cell,
+  .twitter-cell,
+  .gplus-cell {
+    float: left;
+    text-align: left;
+    vertical-align: top;
+  }
+  .facebook-cell {
+    padding: 0 20px 15px 0;
+    width: 350px;
+  }
+  .twitter-cell {
+    padding: 0 20px 0 0;
+    width: 75px;
+
+    a {
+      display: inline-block;
+      text-indent: -999em;
+    }
+  }
+  .gplus-cell {
+    width: 52px;
+  }
+}
+
+.like-page {
+  margin-top: 2em;
+}
+
+// political/social capital displayed next to names
+
+.pc {
+  background-color: $shade-1;
+  color: $shade-1-text;
+  font-size: .6em;
+  font-weight: 700;
+  padding: 1em 2em;
+  text-transform: uppercase;
+}
+
+// yes or no indicator on recuiter page
+
+.off-button-small {
+  color: $red;
+  font-size: .7em;
+}
+
+.on-button-small {
+  color: $green;
+  font-size: .7em;
+}
+
+.subhead {
+  @extend h4 !optional;
+  margin-bottom: 1.5em;
+}
+
+.subtext {
+  margin-bottom: 3em;
+}
+
+// applied to alerts or warnings
+
+.red {
+  color: $red;
+}
+
+small {
+  font-size: 85%;
+}
+
+// tags users can select on suggestion page
+
+.volunteer-capacity {
+  color: $theme-color-1;
+  display: block;
+  white-space: pre-wrap;
+  option {
+    display: block;
+    width: 100%;
+  }
+}
+.nomargin { margin:0px; padding:0px;}
+
+
+
+
+
+.footer-bottom {
+  min-height: 30px;
+  width: 100%;
+}
+.copyright {
+  color: #fff;
+  line-height: 30px;
+  min-height: 30px;
+  padding: 7px 0;
+}
+.design {
+  color: #fff;
+  line-height: 30px;
+  min-height: 30px;
+  padding: 7px 0;
+  text-align: right;
+}
+.design a {
+  color: #fff;
+}
+
+@import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+
+.social {
+  margin: 0;
+  padding: 0;
+}
+
+.social ul {
+  margin: 0;
+  padding: 5px;
+}
+
+.social ul li {
+  list-style: none outside none;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.social i {
+  line-height: 62px;
+  width: 60px;
+  height: 60px;
+  color: #FFF;
+  background-color: $theme-color-2;
+  font-size: 28px;
+  text-align:center;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  transition: all ease 0.3s;
+  -moz-transition: all ease 0.3s;
+  -webkit-transition: all ease 0.3s;
+  -o-transition: all ease 0.3s;
+  -ms-transition: all ease 0.3s;
+}
+
+.social i:hover {
+  color: #FFF;
+  text-decoration: none;
+  transition: all ease 0.3s;
+  -moz-transition: all ease 0.3s;
+  -webkit-transition: all ease 0.3s;
+  -o-transition: all ease 0.3s;
+  -ms-transition: all ease 0.3s;
+}
+
+.social .fa-facebook-square:hover {
+  background: #4060A5;
+}
+
+.social .fa-twitter:hover {
+  background: #00ABE3;
+}
+
+.social .fa-google-plus:hover {
+  background: #e64522;
+}
+
+.social .fa-github:hover {
+  background: #343434;
+}
+
+.social .fa-pinterest:hover {
+  background: #cb2027;
+}
+
+.social .fa-linkedin:hover {
+  background: #0094BC;
+}
+
+.social .fa-flickr:hover {
+  background: #FF57AE;
+}
+
+.social .fa-instagram:hover {
+  background: #375989;
+}
+
+.social .fa-vimeo-square:hover {
+  background: #83DAEB;
+}
+
+.social .fa-stack-overflow:hover {
+  background: #FEA501;
+}
+
+.social .fa-dropbox:hover {
+  background: #017FE5;
+}
+
+.social .fa-tumblr:hover {
+  background: #3a5876;
+}
+
+.social .fa-dribbble:hover {
+  background: #F46899;
+}
+
+.social .fa-skype:hover {
+  background: #00C6FF;
+}
+
+.social .fa-stack-exchange:hover {
+  background: #4D86C9;
+}
+
+.social .fa-youtube:hover {
+  background: #FF1F25;
+}
+
+.social .fa-xing:hover {
+  background: #005C5E;
+}
+
+.social .fa-rss:hover {
+  background: #e88845;
+}
+
+.social .fa-foursquare:hover {
+  background: #09B9E0;
+}
+
+.social .fa-youtube-play:hover {
+  background: #DF192A;
+}
+.marginless.social-media-footer {
+  background: $footer-color-2;
+  color: $theme-color-1;
+}
+.row-fluid.footer-nav {
+  padding-bottom: 2.6em;
+}
+
+.social-media-footer {
+  padding-top: 2.6em;
+  padding-bottom: 2.6em;
+}
+
+.footer-nav b, .footer-nav strong {
+  color:$theme-color-1;
+}
+.footer-nav ul li a {
+  color:$color_7;
+  text-decoration: none;
+}
+.footer-nav ul li a:hover{
+  color:$theme-color-1;
+  text-decoration: none;
+}
+.footer-nav ul li {
+  padding:3px 0;
+  list-style:none;}
+
+.social-media-footer.marginless {
+  .span4 {
+    padding-left: 1.762431%;
+  }
+}
+
+.supporter-nav-container {
+}
+
+
+.lead-page article section.lead-page {
+  padding-bottom:30px;
+}
+h3 > .submit-button {
+  width: 100%;
+}
+.shademain {
+  background:$shademain;
+  background-color: $shademain;
+  color:$text-color-2;
+}
+#signup_email:focus {
+  border-color: #D8BFD8;
+  color: #d8bfd8;
+}
+.form.small-signup {
+  input.text, input.submit-button {
+    max-width: 100%;
+    font-size: 24px;
+    font-size: 30px;
+  }
+  label.checkbox {
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  #signup_email {
+    :focus {
+      border-color: #D8BFD8;
+      color: #d8bfd8;
+    }
+  }
+}
+
+// featured content slider
+.features-container .site-logo header {
+}
+.flex-viewport {
+  -webkit-overflow-scrolling: touch;
+}
+
+.features-container {
+  position: relative;
+}
+
+.page-features {
+  position: relative;
+  z-index: 1;
+  .single-feature {
+    display: block;
+  }
+  .feature-image {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    height: 100vh;
+    width: 100%;
+  }
+  .feature-slides {
+    height: auto;
+    position: relative;
+  }
+  .slider-loading {
+    background: transparent url('ajax-loader.gif') center center no-repeat;
+    background-size: cover;
+    display: block;
+    height: auto;
+    left: 46%;
+    margin: 0 auto;
+    position: absolute;
+    top: 20%;
+    width: auto;
+    width: 8%;
+  }
+  .slides {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    a {
+      display: block;
+      z-index: 20;
+    }
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      &:before {
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+      }
+    }
+  }
+  .features-headline-wrap {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 30;
+    a {
+      text-decoration: none;
+    }
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      margin-right: -0.25em;
+      vertical-align: middle;
+    }
+  }
+  a.features-headline {
+    color: $header-color;
+    display: inline-block;
+    display: block;
+    font-family: $headline-font;
+    font-size: 1.5em;
+    line-height: 1.25;
+    padding: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 85%;
+    z-index: 2;
+  }
+  a.features-link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 40;
+  }
+  // If you want labels to display beneath your images, remove display: none; below //
+  .flex-control-paging {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: none;
+    height: 40px;
+    line-height: 40px;
+    li {
+      color: #000;
+      cursor: pointer;
+      display: inline-block;
+      margin-right: 5px;
+      a {
+        color: #000;
+        display: block;
+        padding: 0 15px;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    .flex-active a {
+      color: #fff;
+      display: block;
+    }
+    .flex-active {
+      background-color: $theme-color-1;
+    }
+  }
+  .feature-scroll-down {
+    bottom: 0;
+    cursor: pointer;
+    height: 60px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    width: 80px;
+    z-index: 40;
+    &:before {
+      color: $header-color;
+      content: '\f107';
+      display: block;
+      display: inline-block;
+      font-family: 'responsive';
+      font-size: 50px;
+      font-style: normal;
+      font-weight: normal;
+      height: 60px;
+      line-height: 65px;
+      speak: none;
+      /* fix buttons height, for twitter bootstrap */
+      text-align: center;
+      text-align: center;
+      text-decoration: inherit;
+      vertical-align: middle;
+      width: 80px;
+    }
+  }
+}
+
+// previous and next arrows on featured content slider
+
+.flex-direction-nav {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 9998;
+  li {
+    list-style: none;
+    position: absolute;
+    right: 0;
+    &:first-child {
+      left: 0;
+      right: auto;
+    }
+  }
+}
+
+.flex-prev, .flex-next {
+  display: none; // hides next/prev arrows in mobile viewport
+}
+.petition-slider {
+  .row-fluid {
+    position:relative;
+    *{
+      position:inherit;
+      z-index:9999;
+    }
+    .intro {
+      height: 10em;
+      h5,h3 {
+        margin-bottom:0;
+      }
+    }
+  }
+  .petition-image {
+    display: block;
+    height: 8em;
+    background-position-x: 30%;
+    overflow: hidden;
+    background-size: auto 150%;
+    background-repeat: no-repeat;
+    &:hover {
+      background-position-y: 100%;
+      .gradient {
+
+        background-color: rgba(0,0,0,0.6);
+      }
+
+    }
+    .gradient {
+      -webkit-transition: all 0.75s ease;
+      -moz-transition: all 0.75s ease;
+      -ms-transition: all 0.75s ease;
+      -o-transition: all 0.75s ease;
+      transition: all 0.75s ease;
+      padding: 2em 0 0;
+      background-color: rgba(0,0,0,0.3);
+      display: block;
+      width: 100%;
+      height: 100%;
+      .submit-button {
+        background-color: rgba(0,0,0,0.6);
+      }
+    }
+  }
+}
+.feature-scroll-down {
+  position:relative;
+}
+ul.flex-direction-nav {
+  display: none;
+}
+.main.has-background {
+  background-position: center center;
+  padding-top: 0px;
+  background-size: cover;
+  background-attachment: fixed;
+
+}
+.nonana .span6 {
+  height: 70vh;
+  .header-image-wrap {
+    background-position: center center;
+    height: 100%;
+    .header-image-gradient {
+      min-height: 100%;
+    }
+  }
+}
+@each $color, $value in $colors {
+  .swatch-#{$color} {
+    color: color-yiq($value);
+    background-color: #{$value};
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .swatch-#{$color} {
+    color: color-yiq($value);
+    background-color: #{$value};
+  }
+}
+
+@each $color, $value in $grays {
+  .swatch-#{$color} {
+    color: color-yiq($value);
+    background-color: #{$value};
+  }
+}
+.megamenu-li {
+	position: static;
+}
+
+.megamenu {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	right: 0;
+	padding: 15px;
+}
+.fade-in {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 0.3s;
+    -moz-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+@media screen and (min-width: 768px) {
+.splash {
+    background-attachment: fixed;
+}
+
+.splash .splash-background {
+    width: 95vw;
+}
+}
+.splash {
+    background: white;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 360px;
+    text-align: center;
+    padding: 54px 0;
+    opacity: 0;
+}
+
+.splash-wrapper {
+    opacity: 0;
+}
+.splash .splash-background {
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 54px;
+    left: 15px;
+    right: 15px;
+    bottom: 54px;
+    border-radius: 9px;
+    }
+.splash .splash-background .overlay {
+    background: #02004D;
+    background: rgba(2,0,77,0.3);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 9px;
+}
+.splash .splash-background h1 {
+    position: absolute;
+    top: 30%;
+    width: 98%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    text-shadow: 0 0 11px rgba(2,0,77,0.75);
+}
+a.splash-arrow {
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    margin-left: -12px;
+    -webkit-transition: all 0.1s ease;
+    -moz-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+    -webkit-animation-delay: 1.5s;
+    -moz-animation-delay: 1.5s;
+    animation-delay: 1.5s;
+}

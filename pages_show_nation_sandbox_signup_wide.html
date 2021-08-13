@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+      {% if request.sorta_logged_in? %}
+
+        <h2 class="headline">Hi {{ request.current_signup.name_or_email }}! Start your new nation.</h2>
+
+        {% if request.logged_in? == false %}
+        <div class="padtop text-content">
+          If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.
+        </div>
+        {% endif %}
+
+      {% else %}
+
+        <h2 class="headline">Start your sandbox nation.</h2>
+
+      {% endif %}
+
+      {% if page.nation_sandbox_signup.content.size > 0 %}
+      {{ page.nation_sandbox_signup.content }}
+      {% endif %}
+    </div>
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="form-wrap">
+        <div class="form">
+
+          {% form_for nation_sandbox_signup %}
+
+            <div class="form_errors">{% error_messages_for nation_sandbox_signup %}</div>
+
+            <div class="row">
+              <div class="col-md-!2"><div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="nation_sandbox_signup_first_name">Your First Name</label></div></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12"><div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="nation_sandbox_signup_last_name">Your Last Name</label></div></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12"><div class="form-group">{% email_field "email", class:"text form-control" %}<label for="nation_sandbox_signup_email">Your Email</label></div></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><div class="form-group">{% text_field "phone", class:"text form-control" %}<label for="nation_sandbox_signup_phone">Your Phone Number</label></div></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12"><div class="form-group">{% password_field "password", class:"text form-control" %}<label for="nation_sandbox_signup_password">Choose your password</label></div></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12"><div class="form-group">{% password_field "password_confirmation", class:"text form-control" %}<label for="nation_sandbox_signup_password_confirmation">Repeat password</label></div></div>
+            </div>
+
+            {% if request.logged_in? and request.current_signup.has_password? %}
+            <div class="row">
+              <div class="col-md-12">This password is for your personal administrator account on your sandbox nation.<br/> It is separate from your nationbuilder.com password.</div>
+            </div>
+            {% endif %}
+
+            <div class="row padtopmore">
+              <div class="col-md-12"><div class="checkbox"><label>{% check_box "accept_tos", class:"checkbox" %} I agree to the <a href="http://nationbuilder.com/tos" target="_blank">NationBuilder terms of service</a></label></div></div>
+            </div>
+
+            
+            {% if page.show_consent_form? %}
+            <div class="row padtopmore">
+              <div class="col-md-12">
+                {% include "consent_form" %}
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col-md-12">
+                {% submit_tag "Start your sandbox nation", class:"submit-button btn btn-default margintopmore" %}
+                <div class="form_submit"></div>
+              </div>
+            </div>
+
+          {% endform_for %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

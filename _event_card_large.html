@@ -1,0 +1,139 @@
+{% if event.has_meta_image? %}
+	<div class="card event-card event-card-large hidden-xs">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="image image-bg-{{ event.id }}"></div>
+			</div>
+			<div class="col-sm-4 center">
+
+				<h6 class="strong secondary">{{ event.event.local_start_at | date: '%B' }}</h6>
+				<h2 class="strong">{{ event.event.local_start_at | date: '%d' }}</h2>
+
+		 		<hr/>
+		 		<h4 class="strong marginbottommore"><a href="{{ event.url }}">{{ event.name }}</a></h4>
+
+
+			  {% if event.event.has_venue? %}
+			    <div>
+			    {% if event.event.has_venue_address? %}
+			      <a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a><br/>
+			      {{ event.event.venue_address.location }}
+			    {% else %}
+			      {{ event.event.venue_name }}
+			    {% endif %}
+			    </div>
+			  {% endif %}
+			  {{ event.event.local_start_at | date: '%I:%M %p' }}
+			  {% if event.event.is_multi_day? %}
+			  &mdash; {{ event.event.local_end_at | event_date }}
+			  {% endif %}
+			  <div>
+				  {% if event.event.is_maximum_capacity? %}
+					  <a class="btn btn-danger margintopmore" href="{{ event.url }}">Sold out</a>
+					{% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+					  <a class="btn btn-primary margintopmore" href="{{ event.url }}">RSVP</a>
+					{% else %}
+					  <a class="btn btn-primary margintopmore" href="{{ event.url }}">View event</a>
+				  {% endif %}
+			  </div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="card event-card event-card-large hidden-xs single-card">
+		<div class="row">
+			<div class="col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2">
+				<div class="event-headline">
+					<hr/>
+					<h4 class="strong"><a href="{{ event.url }}">{{ event.name }}</a></h4>
+					<hr/>
+				</div>
+			</div>
+			<div class="col-sm-5 col-md-4 ">
+				<div class="left">
+					<div class="card-content">{{ event.event.content | strip_html | truncatewords: 15 }}</div>
+					<!-- the same structure as the small event card -->
+					<div class="event-card">
+				    <a href="{{ event.url }}">
+				    <div class="event-date">
+				      <h6 class="strong secondary">{{ event.event.local_start_at | date: '%B' }}</h6>
+				      <h2 class="strong">{{ event.event.local_start_at | date: '%d' }}</h2>
+				    </div>
+				    </a>
+						<div class="margintop">
+						  {% if event.event.has_venue? %}
+						    <div>
+						    {% if event.event.has_venue_address? %}
+						      <a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a><br/>
+						      {{ event.event.venue_address.location }}
+						    {% else %}
+						      {{ event.event.venue_name }}
+						    {% endif %}
+						    </div>
+						  {% endif %}
+						  {{ event.event.local_start_at | date: '%I:%M %p' }}
+						</div>
+					  {% if event.event.is_multi_day? %}
+					  &mdash; {{ event.event.local_end_at | event_date }}
+					  {% endif %}
+					</div>
+
+				  {% if event.event.is_maximum_capacity? %}
+					  <a class="btn btn-danger" href="{{ event.url }}">Sold out</a>
+					{% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+					  <a class="btn btn-primary" href="{{ event.url }}">RSVP</a>
+					{% else %}
+					  <a class="btn btn-primary" href="{{ event.url }}">View event</a>
+				  {% endif %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+<div class="card event-card widget visible-xs">
+
+	<h6 class="strong secondary">{{ event.event.local_start_at | date: '%B' }}</h6>
+	<h2 class="strong">{{ event.event.local_start_at | date: '%d' }}</h2>
+
+  <hr/>
+
+  <div>
+	  <h4 class="strong"><a href="{{ event.url }}">{{ event.name }}</a></h4>
+	  {% if event.event.has_venue? %}
+	    <div>
+	    {% if event.event.has_venue_address? %}
+	      <a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a><br/>
+	      {{ event.event.venue_address.location }}
+	    {% else %}
+	      {{ event.event.venue_name }}
+	    {% endif %}
+	    </div>
+	  {% endif %}
+	  {{ event.event.local_start_at | date: '%I:%M %p' }}
+	  {% if event.event.is_multi_day? %}
+	  &mdash; {{ event.event.local_end_at | event_date }}
+	  {% endif %}
+	</div>
+
+  {% if event.event.is_maximum_capacity? %}
+  <a class="btn btn-danger margintopmore" href="{{ event.url }}">Sold out</a>
+  {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+  <a class="btn btn-primary margintopmore" href="{{ event.url }}">RSVP</a>
+  {% else %}
+  <a class="btn btn-primary margintopmore" href="{{ event.url }}">View event</a>
+  {% endif %}
+
+</div>
+
+
+<style type="text/css">
+	{% if event.has_meta_image? %}
+		@media screen and (min-width: 768px){
+			.event-card .image-bg-{{ event.id }}{
+				background-image: url({{ event.meta_image_url }});
+			}
+		}
+	{% endif %}
+</style>

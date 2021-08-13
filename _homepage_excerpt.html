@@ -1,0 +1,1055 @@
+<div class="homepage-excerpt page-{{ homepage_excerpt.id }}">
+
+  {% case homepage_excerpt.type_name %}
+
+  <!-- Activity stream page -->
+  {% when 'Activity Stream' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} gray-light">
+      <div class="container">
+        <div class="interior-widget">
+
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+
+              <h3 class="secondary"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+              <div class="hidden-xs">
+                <p>{{ homepage_excerpt.activity_stream.content }}</p>
+
+                {% if request.logged_in? %}
+
+                  <a href="{{ homepage_excerpt.url }}" class="btn btn-primary">See more</a>
+
+                {% else %}
+
+                  {% if request.logged_in? == false or request.current_signup.has_twitter_authorization? == false %}
+                    <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary margintopmore">Sign in with Twitter</a>
+                  {% endif %}
+                  {% if request.logged_in? == false or request.current_signup.has_facebook_authorization? == false %}
+                    <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary margintop">Sign in with Facebook</a>
+                  {% endif %}
+
+                {% endif %}
+
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+
+              {% if request.logged_in? %}
+
+                <div id="stream" class="margintopmore">
+                  <div class="reaction-wrap" id="reactions">
+
+                    <ul id="stream-activities" class="activities">
+                      {% for activity in homepage_excerpt.activity_stream.activities_following limit:3 %}
+                        {% include "activity_card" %}
+                      {% endfor %}
+                    </ul>
+
+                  </div>
+                </div>
+
+              {% endif %}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <!-- Basic page -->
+  {% when 'Basic' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8">
+            {% if page.headline.size > 0 %}
+              <h2 class="headline">{{ homepage_excerpt.headline }}</h2>
+            {% endif %}
+            <div id="content">
+
+              <div id="intro" class="intro">
+                <div class="text-content">
+                  {{ homepage_excerpt.basic.content }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Blog page -->
+  {% when 'Blog' %}
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+
+          {% for post in homepage_excerpt.blog.most_recent_blog_posts limit: 3 %}
+            <div class="col-sm-4">
+              {% include "blog_card_widget" %}
+            </div>
+          {% endfor %}
+
+        </div>
+        <div class="center">
+          <a class="btn btn-default submit-link margintop" href="{{ homepage_excerpt.url }}">See all posts</a>
+          {% if homepage_excerpt.blog.is_posting_public? %}
+            <a class="btn btn-primary submit-link margintop" href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.blog.public_posting_prompt }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  <!-- Blog post page -->
+  {% when 'Blog Post' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="hidden-xs">
+          {% if homepage_excerpt.has_meta_image? %}
+            <div class="row image-wrap">
+              <div class="col-sm-8">
+                <div class="image" style="background-image: url({{ homepage_excerpt.meta_image_url }})"></div>
+              </div>
+              <div class="col-sm-4">
+                <div class="interior-widget brand-primary">
+                  <hr/>
+                  <h4 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+                  <hr/>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="row">
+              <div class="col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                <div class="interior-widget brand-primary">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card blog-card">
+                        <hr/>
+                        <h4 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+                        <hr/>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="widget-fill"></div>
+                      <div class="hidden-xs">
+                        <p>{{ homepage_excerpt.blog_post.content | strip_html | truncatewords: 30}}</p>
+                        <a href="{{homepage_excerpt.url}}" class="btn btn-default margintop">Read more</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="visible-xs">
+          <div class="interior-widget brand-primary">
+            <hr/>
+            <h4 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Calendar page -->
+  {% when 'Calendar' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+
+          {% if homepage_excerpt.calendar.events_upcoming_count == 1 %}
+
+            <div class="col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
+
+              {% for event in homepage_excerpt.calendar.events_upcoming limit:1 %}
+                {% include "event_card_large" %}
+              {% endfor %}
+
+            </div>
+
+            {% if homepage_excerpt.calendar.allow_user_submitted? %}
+              <div class="col-sm-12">
+                <a class="btn btn-primary submit-link margintop" href="{{ homepage_excerpt.calendar.new_event_url }}">Host your own event</a>
+              </div>
+            {% endif %}
+
+          {% elsif homepage_excerpt.calendar.events_upcoming_count == 2 %}
+
+
+            {% for event in homepage_excerpt.calendar.events_upcoming limit:1 %}
+              <div class="col-sm-6{% unless event.has_meta_image? %} col-md-4 col-md-offset-2{% endunless %}">
+                {% include "event_card_widget" %}
+              </div>
+            {% endfor %}
+
+            {% for event in homepage_excerpt.calendar.events_upcoming limit:1 offset:1 %}
+              <div class="col-sm-6{% unless event.has_meta_image? %} col-md-4{% endunless %}">
+                <div class="hidden-xs">
+                  {% include "event_card_widget" %}
+                </div>
+              </div>
+            {% endfor %}
+
+            <div class="col-xs-12">
+              <div class="visible-xs">
+                {% for event in homepage_excerpt.calendar.events_upcoming limit:1 offset:1 %}
+                  {% include "event_card" %}
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="col-xs-12">
+            {% if homepage_excerpt.calendar.allow_user_submitted? %}
+              <a class="btn btn-primary submit-link margintop" href="{{ homepage_excerpt.calendar.new_event_url }}">Host your own event</a>
+            {% endif %}
+            </div>
+
+          {% elsif homepage_excerpt.calendar.events_upcoming_count > 2 %}
+
+            <div class="col-sm-6 col-md-4 col-md-offset-2">
+              {% for event in homepage_excerpt.calendar.events_upcoming limit:1 %}
+                {% include "event_card_widget" %}
+              {% endfor %}
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+              {% for event in homepage_excerpt.calendar.events_upcoming limit:2 offset:1 %}
+                {% include "event_card" %}
+              {% endfor %}
+            </div>
+
+            <div class="col-sm-12">
+
+              <a class="btn btn-default submit-link margintop" href="{{ homepage_excerpt.url }}">See all events</a>
+              {% if homepage_excerpt.calendar.allow_user_submitted? %}
+                <a class="btn btn-primary submit-link margintop" href="{{ homepage_excerpt.calendar.new_event_url }}">Host your own event</a>
+              {% endif %}
+
+            </div>
+
+          {% endif %}
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+  <!-- Donation page -->
+  {% when 'Donation' %}
+
+    <div class="exterior-widget text-color widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget">
+              <div class="row">
+                <div class="col-sm-6 left">
+
+                  <h3 class="excerpt-title accent"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+                  <a class="btn btn-primary btn-lg-tablet submit-link" href="{{ homepage_excerpt.url }}">Donate today</a>
+
+                </div>
+                <div class="col-sm-6">
+                  <div class="row left margintopmore">
+                    <div class="col-sm-6">
+
+                      {% if homepage_excerpt.donation.has_amount_goal? %}
+
+                        {% if homepage_excerpt.donations_count < 1 %}
+                        <div class="bar-text"><h2 class="strong accent">0%</h2>raised of a {{ homepage_excerpt.donation.amount_goal_format }} goal</div>
+                        {% else %}
+                        <div class="bar-text"><h2 class="strong accent">{{ homepage_excerpt.donations_amount_format }}</h2> raised of a {{ homepage_excerpt.donation.amount_goal_format }}</div>
+                        {% endif %}
+
+                      {% endif %}
+
+                    </div>
+                    <div class="col-sm-6">
+
+                      {% if homepage_excerpt.donation.has_donor_goal? %}
+
+                        {% if homepage_excerpt.donations_count < 2 %}
+                        <div class="bar-text"><h2 class="strong accent">0</h2> of a {{ homepage_excerpt.donation.donor_goal }} donor goal</div>
+                        {% else %}
+                        <div class="bar-text"><h2 class="strong accent">{{ homepage_excerpt.donations_count }}</h2>  of a {{ homepage_excerpt.donation.donor_goal }} donor goal</div>
+                        {% endif %}
+
+                      {% endif %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Donation v2 page -->
+  {% when 'Donation (v2)' %}
+
+  <div class="exterior-widget text-color widget-{{ homepage_excerpt.page_class_name }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+          <div class="interior-widget">
+            <div class="row">
+              <div class="col-sm-6 left">
+                <h3 class="excerpt-title accent center"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+              </div>
+              <div class="col-sm-6 right">
+                <a class="btn btn-primary btn-lg-tablet submit-link" href="{{ homepage_excerpt.url }}">Donate today</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endorsement page -->
+  {% when 'Endorsement' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget gray-lightest">
+              <div class="row">
+                <div class="col-sm-6">
+                  <hr/>
+
+                  <h3 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+                  <hr class="hidden-xs"/>
+                </div>
+                <div class="col-sm-6">
+
+                  <div class="widget-fill"></div>
+
+                  {% if homepage_excerpt.endorsement.has_goal? %}
+                  {% assign thermo_width = 100 %}
+                    <div class="clearfix">
+                      {% if homepage_excerpt.endorsement.endorsements_count < 2 %}
+                        <div class="bar-text"><h2 class="strong">0</h2> of a {{ homepage_excerpt.endorsement.goal | number_with_commas }} endorsements</div>
+                      {% else %}
+                        <div class="bar-text"><h2 class="strong">{{ homepage_excerpt.endorsement.endorsements_count | number_with_commas }}</h2> of a goal of {{ homepage_excerpt.endorsement.goal | number_with_commas }} endorsement goal</div>
+                      {% endif %}
+                      <div class="progress" style="width: {{ thermo_width }}%;">
+                        <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_excerpt.endorsement.percent_of_goal | times:100 }}%;">
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <a class="btn btn-default margintopmore" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">Read more</a>
+
+                  <div>
+                    <button type="button" class="btn btn-primary btn-lg-tablet margintopmore" data-toggle="modal" data-target="#endorsementModal">
+                      Endorse
+                    </button>
+                    <div class="modal fade" id="endorsementModal" tabindex="-1" role="dialog" aria-labelledby="endorsementModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            {% include "homepage_excerpt_endorsement" with homepage_excerpt.slug %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Event page -->
+  {% when 'Event' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
+
+            {% assign event = homepage_excerpt %}
+            {% include "event_card_large" %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- FAQ page -->
+  {% when 'FAQ' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} brand-primary">
+      <div class="container">
+        <div class="interior-widget">
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3">
+
+              <h3 class="excerpt-title secondary"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+            </div>
+            <div class="col-sm-4 col-md-3">
+
+              <div class="question-list">
+                {% for child in homepage_excerpt.children %}
+                  {% if child.type_name == 'Question' %}
+                    <h3 class="strong inverse"><a href="{{ child.url }}">{{ child.headline }}</a></h3>
+                    {% unless forloop.last %}<hr/>{% endunless %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <a class="btn btn-lg-tablet btn-default margintopmore" href="{{ homepage_excerpt.url }}">Read all FAQ's</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Feedback page -->
+  {% when 'Feedback' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} text-color">
+      <div class="container">
+
+          {% if homepage_excerpt.has_meta_image? %}
+            <div class="feedback-image-wrap">
+              <div class="hidden-xs feedback-image">
+                <div class="absolute-feedback-image" style="background-image: url({{ homepage_excerpt.meta_image_url }});"></div>
+              </div>
+              <div class="interior-widget">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <hr/>
+
+                    <h3 class="excerpt-title strong inverse"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+                    {% if homepage_excerpt.feedback.content.size > 0 %}
+                      {{ homepage_excerpt.feedback.content }}
+                    {% endif %}
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    {% include "homepage_excerpt_feedback" with homepage_excerpt.slug %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+                <div class="interior-widget">
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <hr/>
+
+                      <h3 class="excerpt-title strong inverse"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+                      {% if homepage_excerpt.feedback.content.size > 0 %}
+                        {{ homepage_excerpt.feedback.content }}
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      {% include "homepage_excerpt_feedback" with homepage_excerpt.slug %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+      </div>
+    </div>
+
+  <!-- Leaderboard page -->
+  {% when 'Leaderboard' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="interior-widget">
+
+          {% for leaderboard in homepage_excerpt.page_leaderboards %}
+            <div class="row">
+              {% if leaderboard.display_number_results > 0 %}
+                <div class="col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2">
+                  <h3 class="secondary">Top 3 {{ leaderboard.display_name }}</h3>
+                </div>
+                <div class="col-sm-5 col-md-4">
+                  {% for entry in leaderboard.entries limit: 3 %}
+                    {% include "leaderboard_card" %}
+                  {% endfor %}
+                  <a class="btn btn-default" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">See more</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  <!-- Moneybomb page -->
+  {% when 'Moneybomb' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="interior-widget text-color">
+              <div class="row">
+                <div class="col-sm-6 col-md-5 col-md-offset-1">
+                  <h3 class="excerpt-title"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+                  {% if homepage_excerpt.moneybomb.content.size > 0 %}
+                    <p>{{ homepage_excerpt.moneybomb.content | strip_html | truncatewords:30 }}</p>
+                  {% endif %}
+
+                  {% if homepage_excerpt.moneybomb.is_active? %}
+                    <a class="btn btn-lg btn-primary submit-link margintopmore hidden-xs" href="{{ homepage_excerpt.moneybomb.donation_page.url }}">Donate now</a>
+                  {% else %}
+                    <a class="btn btn-lg btn-primary submit-link margintopmore hidden-xs" href="{{ homepage_excerpt.url }}">Pledge now</a>
+                  {% endif %}
+
+                </div>
+                <div class="col-sm-6 col-md-5">
+
+                  <div class="widget-fill"></div>
+                  {% assign thermo_width = 100 %}
+
+                  {% if homepage_excerpt.moneybomb.has_amount_goal? %}
+                    <div class="clearfix">
+                      {% if homepage_excerpt.pledges_count < 1 %}
+                        <div class="bar-text"><h2 class="strong">0</h2> pledged of a {{ homepage_excerpt.moneybomb.amount_goal_format }} goal</div>
+                      {% else %}
+                        <div class="bar-text"><h2 class="strong">{{ homepage_excerpt.pledges_amount_format }}</h2> pledged of a {{ homepage_excerpt.moneybomb.amount_goal_format }} goal</div>
+                      {% endif %}
+                      <div class="progress" style="width: {{ thermo_width }}%;">
+                        <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_excerpt.moneybomb.percent_of_amount_goal | times:100 }}%;">
+                        </div>
+                      </div>
+                    </div>
+                  {% elsif homepage_excerpt.moneybomb.has_pledger_goal? %}
+                    <div class="clearfix">
+                      {% if homepage_excerpt.pledges_count < 2 %}
+                        <div class="bar-text"><h2 class="strong">0</h2> of a goal of {{ homepage_excerpt.moneybomb.pledger_goal }} pledgers</div>
+                      {% else %}
+                        <div class="bar-text"><h2 class="strong">{{ homepage_excerpt.pledges_count }}</h2> of a goal of {{ homepage_excerpt.moneybomb.pledger_goal }} pledgers</div>
+                      {% endif %}
+
+                      <div class="progress" style="width: {{ thermo_width }}%;">
+                        <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_excerpt.moneybomb.percent_of_pledger_goal | times:100 }}%;">
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <hr/>
+
+                  {% if homepage_excerpt.moneybomb.has_start_at? and homepage_excerpt.moneybomb.is_active? == false and homepage_excerpt.moneybomb.is_past? == false %}
+                    <h4 class="accent strong">Countdown {{ homepage_excerpt.moneybomb.local_start_at | moneybomb_time }}</h4>
+                    <div class="countdown-wrap">
+                      <h6 class="strong">Time Remaining</h6>
+                      <div id="pre-countdown-{{ homepage_excerpt.slug }}" class="countdown"></div>
+                    </div>
+                  {% elsif homepage_excerpt.moneybomb.is_active? %}
+                    <div class="event-detail">
+                      <div class="countdown-wrap">
+                        <h6>Time Remaining</h6>
+                        <div id="active-countdown-{{ homepage_excerpt.slug }}" class="countdown"></div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <!--[if IE]>
+                  <link rel="stylesheet" type="text/css" href="/stylesheets/countdown_ie.css" media="all"/>
+                  <![endif]-->
+
+                  <script type="text/javascript" src="/javascripts/jquery.countdown.min.js"></script>
+                  <script type="text/javascript" src="/assets/liquid/money-bomb.js"></script>
+                  <script type="text/javascript">
+                    $(function () {
+                      var moneyBomb = new NB.Liquid.MoneyBomb();
+
+                      moneyBomb.setCountdown({
+                        $el : $('#pre-countdown-{{ homepage_excerpt.slug }}'),
+                        until: +{{ homepage_excerpt.moneybomb.seconds_until }}
+                      });
+
+                      moneyBomb.setCountdown({
+                        $el : $('#active-countdown-{{ homepage_excerpt.slug }}'),
+                        until: +{{ homepage_excerpt.moneybomb.seconds_left }}
+                      });
+                    });
+                  </script>
+
+                  {% if homepage_excerpt.moneybomb.is_active? %}
+                    <a class="btn btn-primary submit-link margintopmore visible-xs" href="{{ homepage_excerpt.moneybomb.donation_page.url }}">Donate now</a>
+                  {% else %}
+                    <a class="btn btn-primary submit-link margintopmore visible-xs" href="{{ homepage_excerpt.url }}">Pledge now</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Petition page -->
+  {% when 'Petition' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget brand-primary-lighter">
+              <div class="row">
+                <div class="col-sm-6">
+                  <hr/>
+
+                  <h3 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+                  <hr class="hidden-xs"/>
+                </div>
+                <div class="col-sm-6">
+
+                  <div class="widget-fill"></div>
+
+                  {% if homepage_excerpt.petition.has_goal? %}
+                  {% assign thermo_width = 100 %}
+                    <div class="clearfix">
+                      {% if homepage_excerpt.petition.signatures_count < 2 %}
+                        <div class="bar-text"><h2 class="strong">0</h2> of a {{ homepage_excerpt.petition.goal | number_with_commas }} {{ homepage_excerpt.petition.signature_name | downcase }} goal</div>
+                      {% else %}
+                        <div class="bar-text"><h2 class="strong">{{ homepage_excerpt.petition.signatures_count | number_with_commas }}</h2> of a {{ homepage_excerpt.petition.goal | number_with_commas }} {{ homepage_excerpt.petition.signature_name | downcase }} goal</div>
+                      {% endif %}
+                      <div class="progress" style="width: {{ thermo_width }}%;">
+                        <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_excerpt.petition.percent_of_goal | times:100 }}%;">
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <a class="btn btn-default margintopmore" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">Read more</a>
+
+
+                  <div>
+                    <button type="button" class="btn btn-primary btn-lg-tablet margintopmore" data-toggle="modal" data-target="#petitionModal">
+                      Sign the petition
+                    </button>
+                    <div class="modal fade" id="petitionModal" tabindex="-1" role="dialog" aria-labelledby="petitionModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            {% include "homepage_excerpt_petition" with homepage_excerpt.slug %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Press release page -->
+  {% when 'Press Release' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget gray">
+              <div class="row">
+                <div class="col-sm-6">
+                  <hr/>
+                  <h6 class="strong secondary">Breaking</h6>
+                  <h3 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+                  <hr/>
+                </div>
+                <div class="col-sm-6">
+                  <div class="widget-fill"></div>
+                  <div class="hidden-xs">
+                    <p>{{ homepage_excerpt.press_release.content | strip_html | truncatewords:30 }}</p>
+                    <a class="btn btn-default" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">Read more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Question page -->
+  {% when 'Question' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} brand-primary">
+      <div class="container">
+        <div class="interior-widget">
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3">
+              <h3 class="secondary">Q</h3>
+              <h3 class="inverse strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+            </div>
+            <div class="col-sm-4 col-md-3">
+              <h3 class="secondary">A</h3>
+              {% if homepage_excerpt.question.content.size > 0 %}
+                <p>{{ homepage_excerpt.question.content | strip_html | truncatewords:30 }}</p>
+                <a class="btn btn-default" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">Read more</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Recruiting page -->
+  {% when 'Recruiting' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} text-color">
+      <div class="container">
+        <div class="interior-widget">
+
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3">
+
+              <h3 class="excerpt-title inverse"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+            </div>
+
+            <div class="col-sm-4 col-md-3">
+
+              {% if request.sorta_logged_in? %}
+                {% if request.sorta_logged_in? and homepage_excerpt.recruiting.show_followers? and request.current_signup.recruits_count > 0 %}
+                  <h6>You've recruited {{ request.current_user.recruits_count }} friend{% if request.current_signup.recruits_count > 1 %}s{% endif %}</h6>
+                  <div class="followers-truncated">
+                    {% for recruit in request.current_signup.recruits limit:6 %}
+                    {% assign signup = recruit %}
+                      {% include "signup_icon" %}
+                    {% endfor %}
+                    <a class="elipses" href="{{ homepage_excerpt.url }}" title="See more">&hellip;</a>
+                  </div>
+                {% endif %}
+                <a class="btn btn-primary margintopmore" href="http://www.facebook.com/share.php?u={{ homepage_excerpt.recruiting.featured_page.full_url_with_recruiter | urlencode }}">Invite friends on Facebook</a>
+                <a class="btn btn-primary margintop" href="{{ homepage_excerpt.recruiting.featured_page.tweet_url }}">Invite friends on Twitter</a>
+                <a class="btn btn-primary margintop" href="mailto:?body={{ homepage_excerpt.recruiting.featured_page.full_url_with_recruiter }}">Invite friends by email</a>
+              {% else %}
+                <p>Sign in to get a personal tracking link you can use to invite your friends.</p>
+                <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary margintopmore">Sign in with Facebook</a>
+                <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary margintop">Sign in with Twitter</a>
+              {% endif %}
+              {% if request.sorta_logged_in? %}
+                <h6 class="margintopmore">Here is your personal tracking link if you want to copy and paste it:</h6>
+                <form><input type="text" id="tracking_link" class="form-control" onclick="this.focus();this.select();" readonly="readonly" value="{{ homepage_excerpt.recruiting.featured_page.full_url_with_recruiter }}"></input></form>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Rules page -->
+  {% when 'Rules' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="interior-widget">
+
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-2 col-md-3">
+              <h3 class="excerpt-title secondary marginbottommore"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+            </div>
+            <div class="col-sm-4 col-md-3">
+              {% if homepage_excerpt.rule.content.size > 0 %}
+              {{ homepage_excerpt.rule.content }}
+              {% endif %}
+
+              <div class="rule-list">
+                {% for rule in homepage_excerpt.rule.rules %}
+                  <h4 class="strong">{{ rule.name }}</h4>
+                  {{ rule.content }}
+                  {% unless forloop.last %}<hr/>{% endunless %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- * Signup page -->
+  {% when 'Signup' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget text-color">
+              <div class="row">
+                <div class="col-sm-6">
+                  <hr/>
+
+                  <h3 class="excerpt-title"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+                  <hr class="hidden-xs"/>
+                </div>
+                <div class="col-sm-6">
+
+                  <div class="widget-fill"></div>
+
+                  <div>
+                    <button type="button" class="btn btn-primary btn-lg-tablet margintopmore" data-toggle="modal" data-target="#signupModal">
+                      Sign up
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="petitionModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    {% include "homepage_excerpt_signup" with homepage_excerpt.slug %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Suggestion box page -->
+  {% when 'Suggestion Box' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="interior-widget">
+          <div class="row">
+
+            {% assign suggestions = homepage_excerpt.suggestion_box.most_recent_suggestions %}
+            {% for post in suggestions limit:3 %}
+              <div class="col-sm-4">
+              {% include "suggestion_card_widget" %}
+              </div>
+            {% endfor %}
+
+            <a class="btn btn-default submit-link margintopmore" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">See more &amp; add your own</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Suggestion page -->
+  {% when 'Suggestion' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="hidden-xs">
+          {% if homepage_excerpt.suggestion.has_image? %}
+            <div class="row image-wrap">
+              <div class="col-sm-4 col-sm-offset-2">
+                <div class="image" style="background-image: url({{ homepage_excerpt.suggestion.image_url }})"></div>
+              </div>
+              <div class="col-sm-4">
+                <div class="interior-widget brand-primary-lighter">
+                  <hr/>
+                  <h6 class="secondary strong">From the community</h6>
+                  <h4 class="excerpt-title secondary strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+                  <hr/>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="row">
+              <div class="col-sm-10 col-sm-offset-1">
+                <div class="interior-widget brand-primary-lighter">
+                  <div class="suggestion-wrap">
+                    <div class="card suggestion-card widget">
+                      <hr/>
+                      <h6 class="secondary strong">From the community</h6>
+                      <h4 class="excerpt-title secondary strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+                      <hr/>
+                    </div>
+                    <div class="suggestion-content">
+                      <div class="widget-fill"></div>
+                      <div class="hidden-xs">
+                        <p>{{ homepage_excerpt.suggestion.content | strip_html | truncatewords: 30}}</p>
+                        <a class="btn btn-default margintop">Read more</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="visible-xs">
+          <div class="interior-widget brand-primary-lighter">
+            <hr/>
+            <h6 class="secondary strong">From the community</h6>
+            <h4 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h4>
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- * Survey page -->
+  {% when 'Survey' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }} gray-lighter">
+      <div class="container">
+        <div class="interior-widget">
+          <div class="row">
+            <div class="col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2">
+
+              <h3 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+
+              <hr/>
+
+              {% if homepage_excerpt.survey.content.size > 0 %}
+              {{ homepage_excerpt.survey.content }}
+              {% endif %}
+            </div>
+            <div class="col-sm-5 col-md-4">
+
+              <div class="widget-fill"></div>
+
+              <a class="btn btn-primary submit-link btn-lg-tablet margintopmore" href="{{ homepage_excerpt.url }}">Take the survey</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Volunteer signup page -->
+  {% when 'Volunteer Signup' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+
+            <div class="interior-widget brand-primary">
+
+              <div class="row">
+                <div class="col-sm-6">
+
+                  <hr/>
+
+                  <h3 class="excerpt-title strong"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+                  <p>{{ homepage_excerpt.volunteer_signup.content | strip_html | truncatewords:10 }}</p>
+
+                  <hr class="hidden-xs" />
+
+                </div>
+
+                <div class="col-sm-6">
+
+                  <div class="widget-fill"></div>
+
+                  <a class="btn btn-default margintopmore" href="{{ homepage_excerpt.url }}" title="{{ homepage_excerpt.name }}">Read more</a>
+
+                  <div>
+                    <button type="button" class="btn btn-default btn-lg-tablet margintopmore" data-toggle="modal" data-target="#volunteerModal">
+                      Sign up
+                    </button>
+                    <div class="modal fade" id="volunteerModal" tabindex="-1" role="dialog" aria-labelledby="volunteerModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            {% include "homepage_excerpt_volunteer_signup" with homepage_excerpt.slug %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- * Vote pledge page -->
+  {% when 'Vote Pledge' %}
+
+    <div class="exterior-widget widget-{{ homepage_excerpt.page_class_name }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="interior-widget">
+              <div class="row">
+                <div class="col-sm-6 left">
+
+                  <h3 class="excerpt-title secondary"><a href="{{ homepage_excerpt.url }}">{{ homepage_excerpt.headline }}</a></h3>
+                  <hr class="visible-xs" />
+                  {% if homepage_excerpt.vote_pledge.has_yes_goal? %}
+                  {% assign thermo_width = 100 %}
+                    <div class="clearfix padtopmore">
+                      {% if homepage_excerpt.vote_pledge.yes_votes_count < 2 %}
+                        <div class="bar-text"><h2 class="strong">0</h2> of a {{ homepage_excerpt.vote_pledge.yes_goal | number_with_commas }} pledge goal</div>
+                      {% else %}
+                        <div class="bar-text"><h2 class="strong">{{ homepage_excerpt.vote_pledge.yes_votes_count | number_with_commas }}</h2> of a {{ homepage_excerpt.vote_pledge.yes_goal | number_with_commas }} pledge goal</div>
+                      {% endif %}
+                      <div class="progress" style="width: {{ thermo_width }}%;">
+                        <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_excerpt.vote_pledge.percent_of_yes_goal | times:100 }}%;">
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="col-sm-6">
+                  {% include "homepage_excerpt_vote_pledge" with homepage_excerpt.slug %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endcase %}
+
+</div> <!-- .homepage-excerpt -->

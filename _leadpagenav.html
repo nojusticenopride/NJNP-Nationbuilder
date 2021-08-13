@@ -1,0 +1,185 @@
+<div class="row mt-0">
+  <div class="col mt-0"><button type="button" class="close right m-0 p-0  text-pink" aria-label="Close Navigation" data-target="navbarDropdownMenuContainer2" data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+    <span aria-hidden="true" class="text-pink pink-text m-0 h1 font-weight-lighter" style="font-family: &quot;muli&quot;,sans-serif;font-weight: 500;line-height: 0.65;">×</span>
+    </button>
+  </div>
+</div>
+<div class="row pb-1 py-md-2 pt-lg-3 pt-xl-4">
+  <div class="col-md-2 col-xl-3 border-right   py-1 py-md-1 pt-xl-3  d-none d-lg-block">
+    <h5 class="sub-title text-uppercase font-weight-bold white-text ">Campaigns:</h5>
+  </div>
+  <div class="col-md-2 border-right   py-1 py-md-1 pt-xl-3  d-none d-lg-block">
+    <h5 class="sub-title text-uppercase font-weight-bold white-text ">Actions:</h5>
+  </div>
+  <div class="col-md-6 col-xl-5  border-right   py-1 py-md-1 pt-xl-3  d-none d-lg-block">
+    <h5 class="sub-title text-uppercase font-weight-bold white-text">How to Plug In:</h5>
+  </div>
+  <div class="col-md-2   py-1 py-md-1 pt-xl-3  d-none d-lg-block">
+    <h5 class="sub-title text-uppercase font-weight-bold white-text">Resources:</h5>
+  </div>
+</div>
+<div class="accordion" id="accordionEx">
+  {% for child2 in child.nav_children %}
+
+  <div class="card  nav-card border-0  rgba-stylish-slight" >
+    <div class="card-header  rgba-stylish-slight  w-25 {{ child2.slug }} rgba-stylish-strong z-depth-1 mb-1" id="{{ child2.slug }}-heading">
+
+      <h6 class="text-uppercase font-weight-bold white-text pt-md-1 pb-0 m-0"><a href="{{ child2.url }}">{{ child2.name }}</a></h6>
+
+    </div>
+
+    <div class="card-body">
+      <div class="row {{ child2.slug }} py-2 my-1">
+        <div class="col-md-2 col-xl-3 sub-menu d-none d-lg-block border-right">
+          {% if child2.has_children? %}
+          <ul class="list-unstyled">
+            {% for child3 in child2.children %}
+            {% unless child3.slug contains "action" or child3.slug contains "plug" or child3.slug contains "resources" %}
+            <li>
+              <a class="menu-item pl-0" href="{{ child3.url }}">{{ child3.name }}
+              </a>
+            </li>
+            {% endunless %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% for child3 in child2.children %}
+        {% if child3.slug contains "action" %}
+        <div class="col-md-2 sub-menu  d-none d-lg-block border-right">
+          {% if child3.has_children? %}
+          <ul class="list-unstyled">
+            {% for child4 in child3.children | offset:1 %}
+            <li>
+              <a class="menu-item pl-0" href="{{ child4.url }}">{{ child4.name }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+
+          {% endif %}
+
+        </div>
+        {% elsif child3.slug contains "plug" %}
+        <div class="col-md-6 col-xl-5 sub-menu d-none d-lg-block border-right">
+
+          <ul class="list-unstyled center">
+            {% for child4 in child3.children limit:1 %}
+            <li>
+              <a class="menu-item pl-0 font-weight-bold" href="{{ child4.url }}">{{ child4.name }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+
+          {% if child2.slug contains "back_to_the" %}
+          <div class="row pt-1 py-md-1">
+            <div class="col pl-1 pl-md-3 pl-xl-5">
+              <ul class="list-unstyled">
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="http://bqic.net">	Columbus, OH - Black Queer & Intersectional Collective</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/charlotteuprising/">	Charlotte, NC - Charlotte Uprising</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.tqpueblo.org">	Phoenix, AZ - Trans Queer Pueblo</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/NoJusticeNoPrideSD/">	NJNP - San Diego, CA</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" href="https://www.facebook.com/nojusticenopridereno">	NJNP - Reno, NV</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col pr-1 pr-md-3 pr-xl-5">
+              <ul class="list-unstyled ">
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/BITSafehaus/">Black & Indigenous Transgender Safehaus</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/njnpseattle">	NJNP - Seattle, WA</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank"  href="https://www.facebook.com/nojusticenopridefarmington">	NJNP - Farmington, NM</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/njnpboston/">	NJNP - Boston, MA</a>
+                </li>
+                <li>
+                  <a class="menu-item pl-0" target="_blank" href="https://www.facebook.com/noprideinpolice/">	Melbourne, Australia</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="w-100"></div>
+          <ul class="list-unstyled  center mb-2 ">
+            <li>
+              <a class="menu-item pl-0" target="_blank" href="https://blacklivesmatter.ca">	Toronto, CA</a>
+            </li>
+          </ul>
+          {% endif %}
+          <div class="row">
+            <div class="col ">
+              <ul class="list-unstyled">
+                {% for child4 in child3.children | offset:1 limit:5 %}
+                {% if forloop.last == true %}
+                {% else %}
+                <li>
+                  <a class="menu-item pl-0 font-weight-bold" href="{{ child4.url }}">{{ child4.name }}
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col ">
+              <ul class="list-unstyled">
+                {% for child4 in child3.children | offset:6 limit:5 %}
+                {% if forloop.last == true %}
+                {% else %}
+                <li>
+                  <a class="menu-item pl-0 font-weight-bold" href="{{ child4.url }}">{{ child4.name }}
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% for child4 in child3.children | offset:1%}
+          {% if forloop.last == true %}
+          <ul class="list-unstyled center">
+            <li>
+              <a class="menu-item pl-0 font-weight-bold" href="{{ child4.url }}">{{ child4.name }}
+              </a>
+            </li>
+          </ul>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% elsif child3.slug contains "resources" %}
+        <div class="col-md-2  sub-menu d-none d-lg-block">
+          {% if child3.has_children? %}
+          <ul class="list-unstyled">
+            {% for child4 in child3.children %}
+            <li>
+              <a class="menu-item pl-0" href="{{ child4.url }}">{{ child4.name }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+
+
+  </div>
+  {% endfor %}
+
+</div>

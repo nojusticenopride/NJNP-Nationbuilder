@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ page_title }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="theme.scss" rel="stylesheet">
+        {{ content_for_header }}
+    
+    <script type="text/javascript">
+      NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
+    </script>
+    
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7abc7ba80b5763df0e4d683a0/1eedfa7e30358390f86cb1017.js");</script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+       n.queue=[];t=b.createElement(e);t.async=!0;
+       t.src=v;s=b.getElementsByTagName(e)[0];
+       s.parentNode.insertBefore(t,s)}(window, document,'script',
+                                       'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2026840024058396');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=2026840024058396&ev=PageView&noscript=1"
+                   /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7abc7ba80b5763df0e4d683a0/1eedfa7e30358390f86cb1017.js");</script>
+    {% unless page.type_name == "Donation" or page.type_name == "Donation (v2)" %}
+<link href="https://assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />
+    <style>juicer-feed .j-title {
+      font-size: 32px;
+    }</style>
+   <!-- <script src="//d.bablic.com/snippet/5ce417afc25069000121f168.js?version=3.9"></script> -->
+    {% endunless %}
+     {% if page.type_name == 'Donation' or page.type_name == 'Donation (v2)' %}
+        <script type="text/javascript" src="jquery.ui.effect.min.js"></script>
+    <script type="text/javascript" src="jquery.ui.effect-slide.min.js"></script>
+    
+    <script type="text/javascript" src="headliner.js"></script>
+    <script type="text/javascript" src="staged-donations.js"></script>
+    <style>.StripeElement {
+      background-color: white;
+      width: 100%;
+      height: calc(3.4rem + 0rem);
+      padding: 1rem .3rem;line-height: 1.4;
+      color: #564147;
+      background-color: transparent;
+      background-clip: padding-box;
+      border: 0rem solid transparent;
+      border-radius: 0;
+      box-shadow: inset 0 1px 1px rgba(34,25,28,0.075);
+      font-size: 1rem;
+      box-shadow: inset 0 -1px 0 #ddd;
+      transition: all 0.2s;
+    }
+
+      .StripeElement--focus {
+        color: #564147;
+        background-color: transparent;
+        border-color: #e3f7fb;
+        outline: 0;
+        box-shadow: inset 0 -2px 0 #74d6eb;
+      }
+
+      .StripeElement--invalid {
+        border-color: #fa755a;
+      }
+
+      .StripeElement--webkit-autofill {
+        background-color: rgba(116, 214, 235, 0.089) !important;
+      }
+    </style>
+
+    {% endif %}
+
+    {% if page.is_homepage? and site.has_header_image? %}
+      <script type="text/javascript" src="splashHeader.js"></script>
+    {% endif %}
+
+  </head>
+  <script>
+    fbq('track', 'ViewContent');
+    fbq('track', 'Donate');
+
+  </script>
+ 
+  {% include "page_varibles" %}
+  <body class="aware-theme v2-theme {{ page.page_class_name }}  page-{{ request.template | replace: '_', '-' }} js">
+    
+    {% assign squeeze = false %}
+    {% if page.type_name == "Donation" or page.type_name == "Donation (v2)" %}
+    {% assign squeeze = true %}
+    {% else %}
+    {% if page.name contains 'Share Your' %}
+    {% assign squeeze = true %}
+    {% endif %}
+    {% for tag in page.tags %}
+    {% if tag.slug == "squeeze_page" %}
+    {% assign squeeze = true %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% assign bg-color = 'false' %}
+    {% if page.slug contains 'ack_to' %}
+
+    {% assign bg-color = 'bg-pink' %}
+    {% elsif page.slug contains 'trans_justice' %}
+
+    {% assign bg-color = 'bg-success' %}
+    {% endif %}
+    {% unless bg-color == 'false' %}
+    <div class="m-0 p-0 {{ bg-color }}">
+      {% endunless %}
+      {% include "nav" %}
+
+      <div class="page-{{ request.template  | replace: '_', '-' }} main-container" id="middle">
+        <div class="main clearfix">
+
+          <div class="column content-{{ request.template  | replace: '_', '-' }} pb-md-5">
+            <div class="columns-1-flash">
+              <div class="container-fluid">
+                {{ content_for_notifications }}
+              </div>
+            </div>
+            {% yield %}
+          </div><!-- .column -->
+
+        </div>
+        <!-- .main -->
+      </div>
+      <!-- .main-container -->
+
+
+      {% unless squeeze == true or request.template == "user_sessions_new_wide" %} <!-- .main -->
+      {% include 'footer' %}
+      {% endunless %}
+      {% unless bg-color == 'false' %}
+    </div>
+    {% endunless %}
+    <!-- .main-transform-wrap -->
+    <!-- .main-container -->
+    {% if page.is_homepage? and site.has_header_image? %}
+    <!--    <script type="text/javascript" src="splashHeader.js"></script>-->
+    {% endif %}
+        {% if page.type_name == 'Donation' or page.type_name == 'Donation (v2)' or page.slug == "what_no_justice_no_pride_built_in_2018" %}
+
+    {% else %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  {% endif %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+   
+    <script type="text/javascript" defer src="mdb.js"></script>
+
+    <script type="text/javascript" defer src="action.js"></script>
+    <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+    <script>
+      $( function() {
+        $( ".effects-expand" ).click(function(event) {
+          event.preventDefault();
+          $( ".page-excerpt > .effects" ).toggleClass( "full", 1000 );
+        });
+      } );
+    </script>
+    {% if request.current_user.is_intern? %}
+    {% include "cp_nav" %}
+    {% endif %}
+    {% if site.has_background_image? %}
+    <!--[if lt IE 9]>
+<script type="text/javascript" src="/javascripts/jquery.backstretch.min.js"></script>
+<script type="text/javascript">
+jQuery.backstretch("{{ site.background_image_url }}", {speed: 0});
+</script>
+<![endif]-->
+    <style>
+      #main-transform-background {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        background: url('{{ site.background_image_url }}') no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    </style>
+    {% endif %}
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var $root = $('html, body');
+
+        $('.anchor').click(function () {
+          var $target = $('[role="' + $.attr(this, 'href').substr(1) + '"]')
+          if ($target.length) {
+            $root.animate({scrollTop:$target.offset().top}, 500);
+          } else {
+            $root.animate({
+              scrollTop: $( $.attr(this, 'href') ).offset().top
+            }, 500);
+          }
+          return false;
+        });
+
+        $('body').on('click', 'a.nexttab.submit-button', function(event) {
+          event.preventDefault();
+          var href = $(this).attr('href');
+          $('.tab-pan').removeClass('active');
+          $(href).addClass('active');
+        });
+        $('.nexttab.submit-button').click(function(event) {
+          event.preventDefault();
+        });
+
+
+
+      });
+
+    </script>
+    {{ content_for_footer }}
+    {% unless squeeze == true %}
+
+
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7abc7ba80b5763df0e4d683a0/5aadecbe422d7b6031e4b2635.js");</script>
+
+    {% endunless %}
+    {% if page.type_name == 'Donation' or page.type_name == 'Donation (v2)' or page.slug == "what_no_justice_no_pride_built_in_2018" %}
+    <script src="stepper.min.js"></script>
+    
+   
+
+    <script>
+      $(function() {
+        $('select#donation_billing_address_country_code,#donation_billing_address_state').addClass('select form-control browser-default');
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('.stepper').mdbStepper();
+      })
+    </script>
+    <script>
+      NB.payments.elementOptions = {
+        style: {
+          base: {
+            lineHeight: '0.92',
+            '::placeholder': {
+              color: '#564147',
+              fontSize: '.9082rem'
+
+            }
+          },
+          invalid: {
+            color: '#999'
+          }
+        }
+      };
+    </script>
+    {% endif %}
+    {% if page.type_name contains 'Feedback' or page.slug contains 'share-your' %}
+    <style>
+      input#petition_signup_custom_values_how_do_you_identify_enter_all_that_appl_custom {
+        display: none;
+      }
+
+      .form .text.tagput {
+        max-width: 96%;
+      }
+    </style>
+    {% include 'experiences' %}
+    <script type="text/javascript" defer src="tagify.js"></script>
+
+    <script type="text/javascript" defer src="jQuery.tagify.js"></script>
+
+
+    <script type="text/javascript" defer src="story.js"></script>
+    <script type="text/javascript" defer>
+
+      $(document).ready(function() {
+        $('#showquestions').closest('.btn').button('toggle');
+        var story_field_container = $('.tagify.textarea.experience-box');
+        var story_field = $('.tagify.textarea.experience-box #FeedBContent');
+        $('.tagify.textarea.experience-box').removeClass('d-none');
+        $('textarea.tagify.textarea').addClass('d-none');
+        $(".input-group-for-experiences").resizable({handles: {'n': '#handle'}});
+        (function( $ ){
+          $.fn.helperQuestions = function() {
+            $(this).html('');
+            var val = $("#petition_signature_signup_custom_values_select_an_experience_to_write_about__custom").val();
+            var excerpt = '#' + val;
+
+
+            {% for issue in issuesContent %}
+            {% assign issueTitle = issue | split: '//endquestionissue//' %}
+            {% assign questionsContent = issue | split:'//endquestion//' %}
+
+
+            {% assign p1 = '<p class="mb-1">' %}
+            {% assign p2A ='</p><p class="mb-1 d-flex flex-wrap">' %}
+            {% assign p2B = '<span class="question">'%}
+            {% assign p3 = '<label class="badge badge-white text-muted" contenteditable=false><sub>' %}
+
+            {% assign p4 = '</sub></label><!--endquestion-->' %}
+            {% assign p5 = '</span>'%}
+            {% assign p5A ='<br>' %}
+            {% assign p5B ='</p>' %}
+            {% assign p6 ='<kbd class="answer"><span class="d-inline-block" contenteditable></span></kbd>' %}
+            {% assign p6A ='<kbd class="answer"><span class="d-inline-block" contenteditable></span></kbd><kbd class="answer long-answer"><span class="d-inline-block" contenteditable></span></kbd>' %}
+            {% assign p6B ='<kbd class="answer"><span class="d-inline-block" contenteditable></span></kbd><kbd class="answer long-answer"><span class="d-inline-block" contenteditable></span><span class="d-inline-block" contenteditable></span></kbd>' %}
+
+            {% assign p6C ='<kbd class="short-answer answer"><span class="d-inline-block" contenteditable></span></kbd>' %}
+
+            if(val == '{{ forloop.index }}') {
+              $(this).html('{% for content in questionsContent %}{% if forloop.first == false %}{% assign qCount = content  %}{% assign question = content | strip %}{% assign field_slug = question | handleize %}{% if qCount.size > 2 %} {% if qCount.size < 48 %}{% if qCount.size > 14 %}{% assign tc = "md-answer minw-25 d-inline-block" %}{% else %}{% assign tc = "sm-answer inline minw-12" %}{% endif %}{% else %} {% if qCount.size < 72 %}{% assign tc = "lg-answer  minw-50 d-inline-block" %}{% else %}{% assign tc = "xl-answer  d-block" %}{% endif %}{% endif %}<samp class="d-none">{{ question }}</samp><kbd class="answer {{ tc }}" contenteditable for="{{ question | handleize }}" placeholder="{{ question }}"></kbd>{% endif %} {% endif %}{% endfor %}<samp class="d-none">If you could tell the DC elected leaders one thing about your experience, what would it be?</samp><kbd class="answer lg-answer d-block w-100" contenteditable for="default" placeholder="If you could tell the DC elected leaders one thing about your experience, what would it be?"></kbd><samp class="d-none">Share Your Story</samp><kbd class="answer lg-answer d-block w-100" contenteditable for="default" placeholder="What else would you like to share?"></kbd><kbd class="answer lg-answer d-block w-100" contenteditable for="default" placeholder=""></kbd><kbd class="answer lg-answer d-block w-100" contenteditable for="default" placeholder=""></kbd><kbd class="answer lg-answer d-block w-100" contenteditable for="default" placeholder=""></kbd><kbd class="answer d-block w-100 lg-answer" contenteditable for="default" placeholder=""></kbd>');
+              $(this).css({"height":"100%", "overflow-y": "scroll"});
+            }
+             {% endfor %}
+             return this;
+             };
+            })( jQuery );
+             $("#petition_signature_signup_custom_values_select_an_experience_to_write_about__custom").change(function() {
+               story_field.helperQuestions ();
+             });
+
+
+             //  $(".experience-box kbd.answer").on('keydown', function(e){
+
+             // doSomething(); // call your function on keydown
+
+             // });
+             $('.togglebtn').click(function(){
+
+               if($('#showquestions').is(':checked')){
+                 story_field.html('<samp class="d-none">Share Your Story</samp><kbd class="answer d-block lg-answer" contenteditable for="default" placeholder="Share Your Story"></kbd>');
+               }else if($('#removequestions').is(':checked')){
+                 story_field.helperQuestions ();
+               }
+             });
+             if($('#petition_signature_signup_custom_values_experiencewrite_about_a_different_issue_custom').prop('checked')) {
+               story_field.html('<samp class="d-none">Share Your Story</samp><kbd class="answer d-block lg-answer" contenteditable for="default" placeholder="Share Your Story"></kbd>');
+             }
+             $(".experience-box kbd.answer").on('click', function(e){
+               if ($('.experience-box kbd.answer').text().trim().length > 0) {
+                 $('.experience-box kbd.answer').addClass('filled');
+               }
+             }); // call your function on click
+            });
+
+    </script>
+    {% else %}
+    {% unless page.type_name == 'Donation' or page.type_name == 'Donation (v2)' %}
+    <script src="https://assets.juicer.io/embed.js" type="text/javascript"></script>
+    {% endunless%}
+
+
+    {% endif %}
+    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+    {% if page.slug == 'stories' or page.slug contains 'share-your' %}
+    <script defer src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+    <script  defer src="packery-mode.pkgd.min.js"></script>
+
+    <script defer type="text/javascript">                                                                                                                                                                                                                                                                                                                    
+      $(document).ready(function() {
+        $('.mix').addClass('loaded');
+        $('#petition_signature_signup_custom_values_signature_submitted_date_custom').val("{{ "now" | date: "%a, %b %d %Y" }}");
+
+
+    </script>
+    {% endif %}
+
+    {% if page.tags_count > 0 %}
+    {% include "medium_articles" with page %}
+
+
+
+    {% endif %}
+  </body>
+</html>

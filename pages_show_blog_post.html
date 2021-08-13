@@ -1,0 +1,80 @@
+<div class="container">
+  <!--Section: Blog v.4-->
+  <section class="section mt-5 pb-3 wow fadeIn">
+
+    <!--Grid row-->
+    <div class="row">
+      <div class="col-md-12" id="content">
+        <!-- Card -->
+        <div class="card card-cascade wider reverse">
+          {% if page.meta_image_url contains 'missing' %}
+          {% if page.attachments.size > 0 %}
+          {% for attachment in page.attachments %}
+          {% if attachment.content_type contains 'image' %}
+          {% assign headerimage = attachment.url %}
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          {% assign headerimage = site.meta_image_url %}
+          {% endif %}{% else %}
+          {% assign headerimage = page.meta_image_url %}
+          {% endif %}
+
+          <!-- Card image -->
+          <div class="view view-cascade " id="content" role="main">
+            <img class="card-img-top" src="{{ headerimage }}" alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Post data-->
+          <div class="card-body card-body-cascade text-center">
+            <header> <h2><a><strong>{{ page.headline }}</strong></a></h2>
+            <div class="d-none postmetadata">  <div class=”entry-meta”><a class=”entry-date published”>{{ page.published_at | date: '%b %d, %Y' }}</a></div>
+              </div>
+              <div class=”postmetadata”>
+  Posted on <span class=”updated”>{{ page.published_at | date: '%b %d, %Y' }}</span> 
+</div>
+            </header>
+            
+            {% if page.has_author? %}
+            {% include "page_byline" %}
+            {% endif %}
+
+
+            <!--Excerpt-->
+            <div class="excerpt intro mt-5 wow fadeIn" id="intro" data-wow-delay="0.3s">
+              <div class="intro" id="intro">
+                <div class=”entry-meta”><a class=”entry-date published”>{{ page.published_at | date: '%b %d, %Y' }}</a></div>
+                {{ page.blog_post.content_full  }}
+              </div>
+              {% if page.tags_count > 0 %}
+              <div class="mt-4 d-flex justify-content-end">
+                {% include "page_tags" with page %}
+              </div>
+              {% endif %}
+
+              {% include "like_page" %}
+            </div>
+            <!--Post data-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--Grid row-->
+
+  </section>
+
+  <!--Section: Blog v.4-->
+
+  <hr class="mb-5 mt-4">
+
+  <!--Section: Blog v.2-->
+  
+  <!--Section: Blog v.2-->
+
+
+
+</div>

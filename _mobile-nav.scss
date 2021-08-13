@@ -1,0 +1,45 @@
+@mixin mobile-nav {
+    background-color: $mobile-nav-background;
+    width: 15em;
+    position: absolute;
+    left: -15em;
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        list-style: none;
+        font-size: 1em;
+        display: block;
+        &.active, &:active {
+            background: $mobile-nav-active-background;
+            & > a {
+                color: $mobile-nav-active-color;
+            }
+        }
+        a {
+            display: block;
+            color: $mobile-nav-color;
+            padding: 1.25em .8em;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+    }
+    .sub {
+        display: none;
+        li {
+            background-color: $mobile-subnav-background;
+            border-bottom: 1px solid lighten($mobile-nav-background, 20);
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        a {
+            color: $mobile-nav-color;
+        }
+    }
+    .mobile-nav {
+        font-size: .83333333333em;
+    }
+}

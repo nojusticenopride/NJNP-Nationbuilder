@@ -1,0 +1,311 @@
+<h4 class="secondary-headline"><a href="{{page.url}}">{{ page.headline }}</a></h4>
+<small>     {{ page.volunteer_signup.content }}</small>
+<div class="form-wrap">
+  <div class="form">
+    {% form_for volunteer_signup %}
+
+
+    <div class="form-errors">{% error_messages_for volunteer_signup %}</div>
+
+    {% capture submitq %}
+    <p class="lead">Just a few more questions.</p>
+    {% unless page.show_consent_form? %}
+    <div class="row-fluid" style="display: none">
+      <div class="span12">
+        <label class="checkbox" for="volunteer_signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+      </div>
+      {% if site.ask_for_mobiles? %}
+      <div class="span12">
+        <label class="checkbox" for="volunteer_signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text messages</label>
+      </div>
+      {% endif %}
+    </div>
+    {% endunless %}
+
+    {% if page.volunteer_signup.is_phone? %}
+    <div class="row-fluid">
+      <div class="span12">
+        {% phone_field "phone_number", class:"text", placeholder:"Phone" %}
+      </div>
+      <div class="span12">
+        {% text_field "phone_time", class:"text", placeholder:"When is a good time to call?" %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if page.volunteer_signup.is_address? %}
+    {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+    <div class="row-fluid">
+      <div class="span12">
+        {% text_field "submitted_address", class:"text", placeholder:"Address" %}
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <div class="row-fluid">
+      <div class="span12">
+        {% text_field "availability", class:"text", placeholder:"When are you available? (optional)" %}
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <label for="volunteer_signup_content">Comments, other ideas, etc. (optional)</label>
+        {% text_area "content", class:"textarea autogrow" %}
+      </div>
+    </div>
+
+
+
+    {% if page.show_consent_form? %}<div style="display: none">{% include "consent_form" %}</div>{% endif %}
+
+    {% submit_tag "Get involved!", class:"submit-button center" %}
+    <div class="form-submit"></div>
+    {% endcapture %} 
+
+    {% if request.sorta_logged_in? %}
+
+    {% if request.current_signup.is_volunteer? %}
+    {% if request.sorta_logged_in? and request.current_signup.tags contains "socialmediaorganizer" %}
+    <div class="well center padbottommore padtop">
+      <h3 class="headline">Hi {{ request.current_signup.name_or_email }}, you indicated that you can't commit physical time and/or/but I want to help with online campaigning, graphics, email blasts and social media.</h3>
+
+
+      <div class="sub-role">
+        <p class="lead"><strong>Additionally, What do you want to help with?</strong></p>
+        <div class="row-fluid">
+          <div class="span12 check">
+            {% for cf in custom_fields.signup %}
+
+            {% assign custom_field = cf[1] %}
+            {% assign custom_field_id = 'signup.custom_values.' | append: custom_field.slug %}    
+
+            {% if custom_field.slug contains 'social' %}
+
+
+
+            {% if custom_field.is_boolean? %}
+            <label class="checkbox" for="volunteer_signup_signup_custom_values_{{ custom_field.slug }}_custom">{% check_box custom_field_id, class:"checkbox" %} {{ custom_field.name }}</label>
+
+            {% endif %}
+
+
+
+
+            {% endif %}
+
+
+
+            {% endfor %}
+          </div>
+        </div> 
+        {{ submitq }}
+      </div>
+
+
+    </div>
+    <div class="padbottommore padtop"></div>
+    {% endif %}
+
+    {% if request.sorta_logged_in? and request.current_signup.tags contains "supportthework" %}
+    <div class="well center padbottommore padtop">
+
+      <h3 class="headline">Hi {{ request.current_signup.name_or_email }}, You indicated that you have some time and/or looking to just plug into something and help the work move forward</h3>
+
+
+      <div class="sub-role">
+        <p class="lead"><strong>Here are some things that can help right now. Select any and all that intrests you and an organizer will reach out to you.</strong></p>
+        <div class="row-fluid">
+          <div class="span12 check">
+            {% for cf in custom_fields.signup %}
+
+            {% assign custom_field = cf[1] %}
+            {% assign custom_field_id = 'signup.custom_values.' | append: custom_field.slug %}    
+
+            {% if custom_field.slug contains 'supportthework' %}
+
+
+
+            {% if custom_field.is_boolean? %}
+            <label class="checkbox" for="volunteer_signup_signup_custom_values_{{ custom_field.slug }}_custom">{% check_box custom_field_id, class:"checkbox" %} {{ custom_field.name }}</label>
+
+            {% endif %}
+
+
+
+
+            {% endif %}
+
+
+
+            {% endfor %}
+          </div>
+        </div> 
+        {{ submitq }}
+      </div>
+
+
+
+
+    </div>
+    <div class="padbottommore padtop"></div>
+    {% endif %}
+
+    {% if request.sorta_logged_in? and request.current_signup.tags contains "volunteerwithmoney" %}
+
+    <div class="padbottommore padtop">
+      <h2 class="headline">Ways to give.</h2>
+    </div>
+    <div class="well center padbottommore padtop">
+      <p class="lead">Hi {{ request.current_signup.name_or_email }}, <a href="https://tgnc.nojusticenopride.org/contribute">here are some of the ways to Support No Justice No Pride.</a></p>
+
+
+    </div>
+
+    <div class="padbottommore padtop"></div>
+    {% endif %}
+    {% if request.sorta_logged_in? and request.current_signup.tags contains "anchor" %}
+
+    <div class="well center padbottommore padtop">
+      <h3 class="headline">Hi {{ request.current_signup.name_or_email }}, we need as many people helping push this work forward as possible, check out below for opportunities to plug in.</h3>
+
+      {% for cf in custom_fields.signup %}
+
+      {% assign custom_field = cf[1] %}
+      {% assign custom_field_id = 'signup.custom_values.' | append: custom_field.slug %}    
+
+      {% if custom_field.slug contains 'anchor' %}
+
+
+      <div class="row-fluid">
+        <div class="span12">
+
+          {% if custom_field.is_multiple_choice? %}
+          <label for="volunteer_signup_signup_custom_values_{{ custom_field.slug }}_custom"><h4>Join a working group or project!</h4><p><small>A working group takes on making pieces of the work happen such as Communications and Art. Working group members come and go as capacity allows.</small></p>
+            <p class="lead"> Join a working group below:</p></label>
+          {% collection_select custom_field_id, custom_fields.signup[custom_field.slug].multiple_choice_options, class:"select" %}
+          {% endif %}
+
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% for cf in custom_fields.signup %}
+
+      {% assign custom_field = cf[1] %}
+      {% assign custom_field_id = 'signup.custom_values.' | append: custom_field.slug %}    
+
+      {% if custom_field.slug contains 'anchor' %}                                                         
+      <div class="row-fluid">
+        <div class="span12 check">
+
+          {% if custom_field.is_boolean? %}
+          <label class="checkbox" for="volunteer_signup_signup_custom_values_{{ custom_field.slug }}_custom">{% check_box custom_field_id, class:"checkbox" %} {{ custom_field.name }}</label>
+          {% endif %}
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+      {{ submitq }}
+    </div>
+    <div class="padbottommore padtop"></div>
+    {% endif %}
+    {% else %}
+    <h4>Hi {{ request.current_signup.name_or_email }}, can you volunteer?</h4>
+    {% endif %}
+
+    {% if request.logged_in? == false %}
+    <div class="padtop">
+      If you're not {{ request.current_signup.name_or_email }},
+      <a href="{{ request.current_signup.logout_url }}">click here</a>.
+    </div>
+    {% endif %}
+    {% endif %}  
+
+
+
+    {% if request.sorta_logged_in? == false %}
+
+
+    <div class="form-errors">{% error_messages_for volunteer_signup %}</div>
+
+
+
+    {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+    <div class="row-fluid">
+      <div class="span6">
+        {% text_field "first_name", class:"text", placeholder:"First Name" %}
+      </div>
+      <div class="span6">
+        {% text_field "last_name", class:"text", placeholder:"Last Name" %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if request.sorta_logged_in? == false %}
+    <div class="row-fluid">
+      <div class="span6">{% email_field "email", class:"text", placeholder:"Email" %}
+      </div>
+      {% if site.ask_for_mobiles? %}
+      <div class="span6">
+        {% phone_field "mobile_number", class:"text", placeholder:"Mobile Phone (optional)" %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% unless page.show_consent_form? %}
+    <div class="row-fluid">
+      <div class="span6">
+        <label class="checkbox" for="volunteer_signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+      </div>
+      {% if site.ask_for_mobiles? %}
+      <div class="span6">
+        <label class="checkbox" for="volunteer_signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text messages</label>
+      </div>
+      {% endif %}
+    </div>
+    {% endunless %}
+    {% endif %}
+    {% if page.volunteer_signup.is_phone? %}
+    <div class="row-fluid">
+      <div class="span6">
+        {% phone_field "phone_number", class:"text", placeholder:"Phone" %}
+      </div>
+      <div class="span6">
+        {% text_field "phone_time", class:"text", placeholder:"When is a good time to call?" %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if page.volunteer_signup.is_address? %}
+    {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+    <div class="row-fluid">
+      <div class="span12">
+        {% text_field "submitted_address", class:"text", placeholder:"Address" %}
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+  
+    {% if site.ask_to_publish_to_stream? %}
+    <div class="row-fluid">
+      <div class="span12">
+        <label class="checkbox" for="volunteer_signup_is_private">{% check_box "is_private", class:"checkbox" %} Don't publish this on the website</label>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+
+    {% submit_tag "Sign up!", class:"submit-button" %}
+    <div class="form-submit"></div>
+
+
+
+    {% endif %}
+        {% endform_for %}
+  </div>
+</div>

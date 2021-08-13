@@ -1,0 +1,19 @@
+<div id="flashModal" class="notice {{ flash.key }} modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+				<div class="clearfix">
+					<div class="image"></div>
+					<p>{{ flash.message }}</p>
+        	<button type="button" class="btn btn-default close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#flashModal').modal('show');
+  });
+</script>

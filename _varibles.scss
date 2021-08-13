@@ -1,0 +1,160 @@
+
+//* style variables *//
+$theme: blue_starry;
+
+
+// headline font
+$headline-font: 'tk-montserrat-i9', sans-serif; 
+
+// main font
+$font: 'Muli', sans-serif;
+
+
+//dark- main bg and purple pink neon pallette
+$text-color: #fff4fa;
+$theme-color-2: #74D6EB;
+$purple1: #60E4E3;
+$purple2: #028090; /*formally #BDA5AC */
+$purple3: #114B5F;
+
+//Light BG pink neon pallette
+$text-color-2: #15151b;
+$theme-color-1: #FF6C47;
+$neon1: #FF8E72;
+$neon2: #FF7BAC;
+$neon3: #FF8995;
+
+//greys
+$grey1: #FFF4FA;
+$grey2: #eaebeb;
+$grey3: #2f2f34;
+$grey5: $text-color-2;
+
+$color_3: #FF7BAC;
+$color_4: $grey1;
+$color_5: $text-color-2;
+$color_6: $grey2;
+$color_7: $purple1;
+$border_color_1: $grey1;
+// form input area focus color
+$theme-color-3: rgba(0, 180, 205, 0.6);
+$theme-color-5: rgba(25, 23, 29, 0.9);
+
+// links
+$link-color: $theme-color-1;
+$link-decoration: underline;
+
+// body and containers
+$background: #444349;
+$background-texture: #444349 0 0 / 50% repeat url("background-stardust.png");
+$shade-1: $neon1;
+$shade-1-text: $color_5;
+$shade-2: $theme-color-2;
+$shade-3: #7782D9;
+$shademain: rgba(255, 123, 172, 0.5);
+
+$shademsec: rgba(53, 41, 53, 0.86);
+// general success and error colors
+$red: $neon3;
+$green: #006E6B;
+
+// header and footer
+$header-texture: none;
+$header-background: #15151b;
+$header-color: $shade-1;
+$slider-content-background-1: rgba(68, 67, 73, 0.8);
+$slider-content-background-2: rgba(0, 0, 0, 0.75);
+$slider-arrow-left: url("slider-arrow-blue-left.png");
+$slider-arrow-right: url("slider-arrow-blue-right.png");
+
+// controls
+$button-color: $text-color-2;
+$button-background: transparent;
+$button-border: 3px solid $text-color-2;
+$button-hover-color: darken($text-color-2, 15);
+$button-hover-background: transparent;
+$button-hover-border: 3px solid darken($text-color-2, 15);
+$button-active-color: $text-color-2;
+$button-active-background: rgba(0, 180, 205, 0.6);
+$button-active-border: 3px solid $text-color-2;
+$tag-color: $button-active-color;
+$tag-background: $button-active-background;
+$tag-background: $button-active-background;
+$facebook-color: #4763b8;
+$twitter-color: #49b5e7;
+
+// forms
+$form-color: $theme-color-1;
+$form-border-width: 0 0 3px 0;
+$form-select-border-width: 3px;
+$form-border-color: $theme-color-1;
+$form-padding: 0.5em 0.65em;
+$form-background: rgba(0, 0, 0, 0.1);
+$textarea-background: rgba(0, 0, 0, 0.1);
+
+// navigation
+$nav-background: $grey3;
+$nav-color: $neon2;
+$nav-hover-color: $theme-color-2;
+$nav-active-color: $purple1;
+$nav-active-background: transparent;
+$nav-2-background:  $text-color-2;
+$nav-2-color: $neon2;
+
+$dropdown-background: $theme-color-2;
+$dropdown-color: $text-color-2;
+$dropdown-hover-color: $theme-color-1;
+$mobile-nav-background: $nav-background;
+$mobile-nav-active-background: $nav-active-background;
+$mobile-subnav-background: $dropdown-background;
+$mobile-nav-color: $text-color-2;
+$mobile-nav-active-color: $nav-active-color;
+$user-menu-social-button-background: transparent;
+$user-menu-social-button-color: #444349;
+
+// footer
+$footer-background: $grey3;
+$footer-color:$text-color;
+$footer-background-2: $neon2;
+$footer-color-2: $text-color-2;
+
+
+// misc
+$dropdown-background-1: url("arrow-down-blue.png") no-repeat 98.5% center;
+$dropdown-background-2: url("arrow-down-gray.png") no-repeat 98.5% center;
+$highlight-border: none;
+$highlight-background: transparent;
+
+// fixed admin nav
+$cd_admin_nav_background: #62B6CF;
+$cd_admin_nav_border_color: #4b9db5;
+
+//colors
+$color_pumice_approx: #ff2f7c;
+$color_alto_approx: $color_7;
+$white: $text-color;
+$color_mine_shaft_approx: $footer-color-2;
+$color_black_haze_approx: $text-color;
+$color_tundora_approx: $footer-color-2;
+$color_celeste_approx: $color_7;
+$color_gallery_approx: $color_6;
+$color_baltic_sea_approx: $footer-background !important;
+$color_danube_approx: $shade-3;
+$color_blue_ribbon_approx: $footer-background;
+$azure_radiance: $theme-color-1;
+$color_confetti_approx: $red;
+$color_witch_haze_approx: lighten($red,20%);
+$color_crete_approx: darken($red,20%);
+$color_mona_lisa_approx: $theme-color-1;
+$color_pippin_approx: darken($text-color,20%);
+$color_kabul_approx: $color_3;
+$color_silver_chalice_approx: $shade-2;
+$color_storm_dust_approx: $footer-color-2;
+
+//fonts
+$font_0: 'Muli';
+$font_1: 'tk-montserrat-i9';
+$font_2: 'sans-serif';
+$font_3: 'montserrat';
+$font_4: 'muli';
+$font_5: 'sans-serif';

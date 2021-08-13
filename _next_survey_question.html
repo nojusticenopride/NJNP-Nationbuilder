@@ -1,0 +1,59 @@
+{% if page.survey.is_next_question? %}
+
+  {% form_for survey_question_response %}
+
+    <div class="form-errors">{% error_messages_for survey_question_response %}</div>
+
+    {% hidden_field_tag 'survey_question_response[survey_question_id]', page.survey.next_question.id %}
+
+    <h3 class="headline">{{ page.survey.next_question.content }}</h3>
+
+    {% if page.survey.next_question.intro.size > 0 %}
+      <div class="row">
+        <div class="col-md-12">
+          <p>{{ page.survey.next_question.intro | new_line_to_br }}</p>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if page.survey.next_question.is_multiple_choice? %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="radio-inline">
+          {% for possible_response in page.survey.next_question.possible_responses %}
+            <div class="radio-inline form-group">{{possible_response.radio_button }}<label for="survey-choice-{{possible_response.id}}" class="radio">{{ possible_response.name }}</label></div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% elsif page.survey.next_question.is_yes_no? %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="radio-inline">
+            <div class="radio-inline form-group">{{ page.survey.next_question.yes_radio_button }}<label for="radio-btn-yes" class="radio">Yes</label></div>
+            <div class="radio-inline form-group">{{ page.survey.next_question.no_radio_button }}<label for="radio-btn-no" class="radio">No</label></div>
+          </div>
+        </div>
+      </div>
+    {% elsif page.survey.next_question.is_text? %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">{% text_area "content", class:"textarea form-control" %}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="row padtop">
+      <div class="col-md-12">
+        {% submit_tag "Next", class:"submit-button btn btn-lg btn-default margintopmore" %}
+        <div class="form_submit"></div>
+      </div>
+    </div>
+
+  {% endform_for %}
+
+{% else %}
+
+  <h3>Thanks for answering all our questions!</h3>
+
+{% endif %}

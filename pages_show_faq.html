@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-8"> 
+
+      {% if page.headline.size > 0 %}
+      <h2 class="headline">{{ page.headline }}</h2>
+      {% endif %}
+
+      <div id="content">
+
+        {% if page.faq.content.size > 0 %}
+        <div id="intro" class="intro">
+          {{ page.faq.content }}
+        </div>
+        {% endif %}
+        <ul>
+          {% for child in page.children %}
+          {% unless forloop.last == true %}
+          {% if child.type_name == 'Question' %}
+          <li><h3><a href="{{ child.url }}">{{ child.headline }}</a></h3>
+            {% capture filterd %}
+ {%endcapture%}
+            {% if child.question.content.size > 0 %} {{ child.question.content | strip | rstrip | lstrip }}{% endif %}
+            {% if child.question.answer.size > 0 %}{{child.question.answer | strip | rstrip | lstrip | remove:'<p>' | remove: filterd }}{% endif %}
+          </li>
+          {% endif %}
+          {%endunless%}
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="faq faq-{{ page.id }}">
+    <div class="row"> 
+      {% for child in page.children %}
+      <div class="col-sm-6 col-md-4"> 
+        {% include "question_card" %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

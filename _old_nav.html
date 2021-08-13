@@ -1,0 +1,81 @@
+{% if squeeze == true or request.template == "user_sessions_new_wide" or page.is_homepage? %} <!-- .main -->
+<nav class="navbar w-100 pt-2 pb-1 px-md-0 navbar-header navbar-light bg-warning d-none d-sm-flex intro-nav navbar-expand-lg squeeze-{{squeeze}}" role="navigation" style="left:0;">
+
+
+  <div class="container-fluid pr-3 align-items-end big-logo-row  bg-warning ">
+
+
+    {% if site.has_meta_image? %}
+    <a class="navbar-brand fade show big-logo-container {% if squeeze == true %}position-relative{% endif %} pt-0 col pb-0 align-bottom px-0 mx-0" href="/"><img alt="{{ site.long_name }}" src="{{ site.meta_image_url }}" class="big-logo pr-4 "></a>
+    {% else %}
+    <a class="navbar-brand" href="/"><h3 class="strong">{{ site.long_name }}</h3></a>
+    {% endif %}
+
+    {% unless squeeze == true or request.template == "user_sessions_new_wide" %}
+    {% include "header_buttons" %}
+
+    {% endunless %}
+  </div>
+</nav>
+
+    {% endif %}
+<nav class="navbar top-nav navbar-light navbar-expand-lg sticky-top main-nav p-md-0 squeeze-{{squeeze}}" style="background-color: #ffda65" role="navigation">
+  {% unless squeeze == true or request.template == "user_sessions_new_wide" %}
+  <div class="container-fluid pt-2 pl-4 pr-3 pb-2">
+    <a href="/" class="navbar-brand d-inline-block fade {% unless page.is_homepage? %}show{% endunless %} mr-0 mr-md-2 sm-tgnc-logo small-logo-container "><img src='//d3n8a8pro7vhmx.cloudfront.net/themes/5b6cf0bc45de94c5aa6feda8/attachments/original/1530916965/community_support_and_response_lightdrop.png?1530916965'  class=" small-logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="menu-collapse" class="justify-content-end navbar-collapse collapse{% if site.broadcaster.has_facebook? or site.broadcaster.has_twitter? %} nav-follow-padding{% endif %}">
+      <ul class="navbar-nav font-weight-bold text-uppercase">
+        {% for child in site.root_nav_pages %}
+        {% unless child.id == site.donation_page.id %}
+        {% if child.leaf? or child.nav_children.size == 0 %}
+        <li {% if child.is_or_is_ancestor_of_current_page? %}class="nav-item active"{% endif %}>
+          <a class="nav-link" href="{{ child.url }}">{{ child.name }}</a>
+        </li>
+        {% else %}
+        <li class="{% if child.is_or_is_ancestor_of_current_page? %}active{% endif %} nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dd{{ child.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ child.name }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dd{{ child.id }}" role="menu">
+
+            <a class="dropdown-item" href="{{ child.url }}">{{ child.name }}</a>
+            {% for child2 in child.nav_children %}
+            <a class="dropdown-item" href="{{ child2.url }}">{{ child2.name }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        {% endif %}
+
+
+
+        {% endunless %}
+        {% endfor %}
+
+        <div class="d-sm-none">
+          {% include "header_buttons" %}
+        </div>
+
+      </ul>
+
+      {% if site.broadcaster.has_facebook? or site.broadcaster.has_twitter? %}
+      <div class="follow-buttons lead px-1 py-1 mt-2 ml-3 mr-1 pb-2 d-none d-sm-inline-block right">
+        {% if site.broadcaster.has_facebook? %}
+        <a href="{{ site.broadcaster.facebook_page_profile_url }}"><i class="icon-facebook-squared text-dark"></i></a>
+        {% endif %}
+        {% if site.broadcaster.has_twitter? %}
+        <a href="{{ site.broadcaster.twitter_profile_url }}"><i class=" icon-twitter-squared text-dark"></i></a>
+        {% endif %}
+        <a href="https://nojusticenopride.org" class="align-top d-inline-block mx-0 py-0" target="_blank" style="margin-top: -0.15rem; width: 1.4rem;">
+          <img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/5b12ba9945de94ddbf000000/attachments/original/1529020606/NJNP_Black.png?1529020606">
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    {% endunless %}
+  </div>
+</nav>
+
+<div class="nav-fill"></div>

@@ -1,0 +1,116 @@
+<aside class="small-text" role="complementary">
+    {% case page.type_name %}
+    
+    {% when 'Basic' %}
+     <h4 class="secondary-headline padtopmore">Featured Links</h4>
+        <ul class="question-list">
+          <li><a href="{{ child.url }}">{{ child.headline }}</a>
+
+            {% if child.has_children %}
+            <ul>
+              {% for child2 in child.children %}
+
+              <li><a href="{{ child2.url }}">{{ child2.headline }}</a>
+                {% if child2.has_children %} 
+                <ul>
+                  {% for child3 in child2.children %}
+                  <li><a href="{{ child3.url }}">{{ child3.headline }}</a>{% if child3.has_children %} 
+                <ul>
+                  {% for child4 in child3.children %}
+                  <li><a href="{{ child4.url }}">{{ child4.headline }}</a></li>
+                  {% endfor %}
+                </ul>
+                {% endif %}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+
+            {% endif %}
+          </li>
+        </ul>
+    
+    {% when 'Blog' %}
+    
+      <div class="center">
+        <img src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1531414914/largelogo-768x249.png?1531414914" width="250">
+      </div>
+      <div class="padtopmore padbottommore"></div>
+      <h4 class="secondary-headline">For Media and Contact Inquiries</h4>
+      <ul class="unstyled">
+        <li><strong><i class="fas fa-phone"></i>
+          Voicemail:</strong> &nbsp;<a href="tel:2096515614">(209) 651-5614</a>
+        </li>
+        <li><strong><i class="fas fa-envelope"></i>
+          Media:</strong> &nbsp; media@nojusticenopride.org
+        </li>
+        <li><strong><i class="fas fa-envelope"></i> General Contact and Fundraising:<br></strong> &nbsp; 
+          contact@nojusticenopride.org
+        </li>
+
+      </ul>
+      <div class="padtopmore padbottommore"></div>
+      <h4 class="secondary-headline">Latest Reports and Statements</h4>
+      <ul>
+        {% for post in site.most_recent_blog_post_pages %}
+        {% if post.name contains "tatement" or post.name contains 'DC' or post.name contains 'estimony' %}
+        <li> <a href="{{ post.url }}">{{ post.headline }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>  
+    
+    {% when 'Blog Post' %}
+          <div class="center">
+        <img src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1531414914/largelogo-768x249.png?1531414914" width="250">
+      </div>
+      <div class="padtopmore padbottommore"></div>
+      <h4 class="secondary-headline">For Media and Contact Inquiries</h4>
+      <ul class="unstyled">
+        <li><strong><i class="fas fa-phone"></i>
+          Voicemail:</strong> &nbsp;<a href="tel:2096515614">(209) 651-5614</a>
+        </li>
+        <li><strong><i class="fas fa-envelope"></i>
+          Media:</strong> &nbsp; media@nojusticenopride.org
+        </li>
+        <li><strong><i class="fas fa-envelope"></i> General Contact and Fundraising:<br></strong> &nbsp; 
+          contact@nojusticenopride.org
+        </li>
+
+      </ul>
+      <div class="padtopmore padbottommore"></div>
+      <h4 class="secondary-headline">Latest Reports and Statements</h4>
+      <ul>
+        {% for post in site.most_recent_blog_post_pages %}
+        {% if post.name contains "tatement" or post.name contains 'DC' or post.name contains 'estimony' %}
+        <li> <a href="{{ post.url }}">{{ post.headline }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>  
+    {% when 'Redirect' %}
+    {% endcase %}
+
+
+
+    {% if site.has_button1? %}
+    <a class="button supporter-nav-button" href="{{ site.button1_page.full_url_with_profile_recruiter }}">{{ site.button1_text }}</a>
+    {% endif %}
+
+    {% if site.has_button2? %}
+    <a class="button supporter-nav-button" href="{{ site.button2_page.full_url_with_profile_recruiter }}">{{ site.button2_text }}</a>
+    {% endif %}
+
+    {% if site.has_button3? %}
+    <a class="button supporter-nav-button" href="{{ site.button3_page.full_url_with_profile_recruiter }}">{{ site.button3_text }}</a>
+    {% endif %}
+
+    <ul class="supporter-nav">
+        {% if page and page.has_rss? %}
+        <li><a href="{{ page.rss_url }}"><i class="icon-rss"></i> Subscribe with RSS</a></li>
+        {% elsif page and page.has_parent? and page.parent.has_rss? %}
+        <li><a href="{{ page.parent.rss_url }}"><i class="icon-rss"></i> Subscribe with RSS</a></li>
+        {% endif %}
+    </ul>
+
+</aside> 

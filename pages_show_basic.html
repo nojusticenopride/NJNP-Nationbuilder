@@ -1,0 +1,117 @@
+{% if page.is_homepage? == true and site.page_tags contains "homepage" %}
+{% assign headerimage = site.header_image_url_980 %}
+
+<div class="header-image-wrap"  style="background-image:url('{{ headerimage }}')">
+  <div class="header-image-gradient center"> 
+    <div class="container">
+
+      <div class="col">
+
+        <header style="padding-bottom:0;" class="padtopmore">
+          <img src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1532964023/NJNP_White.png?1532964023" class="header-image" border="0" width="250"/>
+
+          <div id="content">
+
+            <div id="intro" class="intro truncate-500  text-white" data-truncate="500"><small>{{ page.basic.content}}</small></div>
+
+          </div>
+        </header>
+        {% subpage 'join' with "small_signup" %}
+      </div>
+    </div>
+  </div>
+</div>
+{% include "breadcrumbs" %}
+{% tag "homepage" with "homepage_widget" %}
+<script src="https://assets.juicer.io/embed.js" type="text/javascript"></script>
+<link href="https://assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />
+<style>juicer-feed .j-title {
+  font-size: 32px;
+}</style>
+<div class="container">
+  <ul class="juicer-feed" data-feed-id="nojusticenopride"><h1 class="referral"><a href="https://www.juicer.io">Powered by Juicer</a></h1></ul>
+</div>
+<div class="container">
+  <h3 class="center">Take Action and Get Involved!</h3>
+
+  <div class="homepage_excerpt-list list-unstyled row">
+    {% for page in site.most_recent_petition_pages %}
+
+    {% subpage page with "actionfeed" %}
+    {% endfor %}
+  </div>
+  <div class="homepage_excerpt-list list-unstyled row">
+    {% for page in site.most_recent_pages limit:50 %}
+
+    {% subpage page with "actionfeed" %}
+    {% endfor %}
+  </div>
+</div>
+{% elsif page.is_supporter_nav?  %}
+<header style="margin-top:-28vh; margin-bottom:-12vh;">
+  <div class="view">
+    <img src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}" class="img-fluid" alt="smaple image" style="width:100%">
+    <div class="mask flex-center hm-gradient">
+    </div>
+    
+  </div>
+
+
+</header>
+{% include "supporter_nav" %}
+    <div class="container pt-5 mt-3">
+<div class="d-flex flex-column justify-content-center align-items-center h-100 pt-5 pl-sm-1 pl-xl-2">
+  <h1 class="display-2 h4 heading"> {{ page.name }}</h1>
+
+        <div id="intro" class="intro">
+          <div class="text-content">
+            {{ page.basic.content }}
+          </div>
+        </div>
+</div>
+      </div>
+<div class="container-fluid px-3">
+ 
+{% subpage page with "leadpage" %}
+</div>
+  {% if page.tags_count > 0 %}
+
+  <div id="page-tags" class="page-tags">
+    {% include "page_tags" with page %}
+  </div>
+  {% endif %}
+{% else %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"> 
+
+      {% if page.headline.size > 0 %}
+      <h2 class="headline">{{ page.headline }}</h2>
+      {% endif %}
+
+      <div id="content">
+
+        <div id="intro" class="intro">
+          <div class="text-content">
+            {{ page.basic.content }}
+          </div>
+        </div>
+  {% if page.tags_count > 0 %}
+
+  <div id="page-tags" class="page-tags">
+    {% include "page_tags" with page %}
+  </div>
+  {% endif %}
+        {% unless page.is_homepage? == true and site.page_tags contains "homepage" %}
+
+        {% include "like_page" %}
+
+        {% endunless %}
+
+      </div>
+
+    </div>
+  </div>
+</div> 
+{% endif %}

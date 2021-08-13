@@ -1,0 +1,55 @@
+<nav id="menu" role="navigation" class="navbar sub-nav navbar-dark bg-dark sticky-top navbar-expand-lg d-none d-lg-flex p-md-3">
+  <div id="subnav" class="justify-content-around w-88">
+
+    <ul class="navbar-nav mr-auto subnav center justify-content-around">
+      {% for child in site.supporter_pages %}
+      {% if forloop.first == true %}
+      <li class="nav-item m-0 p-0"><h4 class="m-0 pt-3 px-3 h4 pb-0 display-1 text-white">{{ page.name }}</h4></li>
+
+      {% endif %}
+      {% if child.is_or_is_descendant_of_current_page? %}
+
+      <li class="nav-item ">
+        <a  class="nav-link  text-pink px-4 font-weight-bold" href="{{ child.url }}">{{ child.name }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% for child in site.root_nav_pages %}
+      {% if child.is_or_is_descendant_of_current_page? %}
+      {% assign cusna = false %}
+      {% for child2 in child.children %}
+      {% if child2.name contains "bout" %}
+
+      {% if child2.is_nav? %}
+      <li class="nav-item active">
+        <a  class="nav-link text-pink px-4 font-weight-bold" href="{{ child2.url }}">About {{ page.name }}</a>
+      </li>
+      {% assign cusna = true %}
+      {% endif %} {% endif %}
+      {% endfor %}
+      {% unless cusna %}
+      {% if child2.is_nav? %}
+      <li class="nav-item active">
+        <a  class="nav-link  text-pink px-4 font-weight-bold" href="{{ page.url }}">{{ page.name }}</a>
+      </li>
+      {% endif %}
+      {% endunless %}
+      {% for child2 in child.children %}
+      {% if child2.is_nav? %}
+      {% if child2.name contains "bout" %}
+      {% else %}
+      <li class="nav-item ">
+        <a  class="nav-link  text-pink px-4 font-weight-bold" href="{{ child2.url }}">{{ child2.name }}</a>
+      </li>
+      {% endif %}
+
+      {% endif %}
+      {% endfor %}
+      {% else %}
+
+      {% endif %}
+      {% endfor %}
+
+    </ul>
+  </div>
+</nav>

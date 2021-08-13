@@ -1,0 +1,64 @@
+<header style="margin-top:-7vh">
+  <section class="view mb-5">
+
+    <div class="row">
+
+      <div class="press-release col-md-6 offset-lg-1 col-xl-7  px-md-3 pl-lg-5 pt-2">
+
+        <div class="header d-flex flex-column justify-content-center align-items-center gray h-100 pl-sm-1 pl-xl-5">
+
+
+          <div class="released-at">
+            <h6 class="strong">{{ page.published_at | date: '%B %d, %Y' }}</h6>
+          </div>
+
+          <div class="heading">
+
+            <h1 class="display-2 px-lg-2 px-xl-2 h2 headline"> {{ page.name }}</h1>
+            <h3 class="px-lg-3 px-xl-2 subheading  display-2 h4 heading"> {{ page.headline }}</h3>
+          </div>
+
+          <div id="intro" class="intro">
+            {{ page.press_release.content }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-6 col-lg-5 col-xl-4">
+        <div class="view">
+          <img src="{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}" class="img-fluid" alt="smaple image">
+          <div class="mask flex-center hm-gradient">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- Intro -->
+
+</header>
+<div class="container">
+
+  {% include "age_ptaggers" with page %}
+
+
+  {% if page.tags_count > 0 %}
+
+  <div id="page-tags" class="page-tags">
+    {% include "page_tags" with page %}
+  </div>
+  {% endif %}
+
+  {% include "like_page" %}
+
+
+</div>
+
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

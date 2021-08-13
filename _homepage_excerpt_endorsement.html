@@ -1,0 +1,208 @@
+{% if page.endorsement.is_signed? %}
+
+  {% form_for endorsement %}
+  	{% hidden_field_tag "page_id", homepage_excerpt.id %}
+
+	  <div class="form-wrap">
+	    <div class="form">
+
+	      <h3 class="padbottommore">Thank you for signing!</h3>
+
+	      <div class="form-errors">{% error_messages_for endorsements %}</div>
+
+	      {% if page.is_commentable? %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% text_area "content", class:"textarea form-control" %}<label for="endorsement_content">Change your comment</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_image? %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% file_field "image", class:"file" %}<label for="endorsement_image">Upload a {% if page.endorsement.require_organization? %}logo{% else %}picture{% endif %} (140x140)</label></div></div>
+
+	      </div>
+	      {% if endorsement.has_image? %}
+	      <div class="row">
+
+	        <div class="col-md-12"><img src="{{ endorsement.large_square_image_url }}" width="140" height="140" border="0"/></div>
+
+	      </div>
+	      {% endif %}
+	      {% endif %}
+
+	      {% if page.is_commentable? %}
+	      {% submit_tag "Update endorsement", class:"btn btn-primary submit-button" %}
+	      {% endif %}
+
+	      {{ page.endorsement.current_endorsement | delete_link message: "Remove endorsement" class_name: "btn btn-danger"}}
+
+	      <div class="form-submit"></div>
+
+	    </div>
+	  </div>
+	{% endform_for %}
+
+{% else %}
+
+  {% form_for endorsement %}
+
+	  <div class="form-wrap">
+	    <div class="form">
+
+	      {% if request.sorta_logged_in? %}
+	      <h4 class="padbottommore">Hi {{ request.current_signup.name_or_email }}, will {% if page.endorsement.require_organization? %}your organization{% else %}you{% endif %} endorse?</h4>
+
+	      {% if request.logged_in? == false %}
+	      <div class="padbottommore">
+	        If you're not {{ request.current_signup.name_or_email }},
+	        <a href="{{ request.current_signup.logout_url }}">click here</a>.
+	      </div>
+	      {% endif %}
+
+	      {% else %}
+
+	      <h4 class="padbottommore">Will {% if page.endorsement.require_organization? %}your organization{% else %}you{% endif %} endorse?</h4>
+
+	      {% endif %}
+
+	      <div class="form-errors">{% error_messages_for endorsement %}</div>
+
+	      {% if page.endorsement.require_organization? %}
+
+	      {% if page.endorsement.is_organization? %}
+	      <div class="row">
+
+	        <div class="col-md-6"><div class="form-group">{% text_field "employer", class:"text form-control" %}<label for="endorsement_employer">Organization / Company</label></div></div>
+	        <div class="col-md-6"><div class="form-group">{% text_field "occupation", class:"text form-control" %}<label for="endorsement_occupation">Your Title</label></div></div>
+
+	      </div>
+
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="checkbox">{% check_box "is_organization", class:"checkbox" %}<label for="endorsement_is_organization">My organization is making the endorsement</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+	      <div class="row">
+
+	        <div class="col-md-6"><div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="endorsement_first_name">First Name</label></div></div>
+	        <div class="col-md-6"><div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="endorsement_last_name">Last Name</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% else %}
+
+	      {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+	      <div class="row">
+
+	        <div class="col-md-6"><div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="endorsement_first_name">First Name</label></div></div>
+	        <div class="col-md-6"><div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="endorsement_last_name">Last Name</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% endif %}
+
+	      {% if request.sorta_logged_in? == false %}
+	      <div class="row">
+
+	        <div class="col-md-6"><div class="form-group">{% email_field "email", class:"text form-control" %}<label for="endorsement_email">Email</label></div></div>
+	        {% if site.ask_for_mobiles? %}
+	        <div class="col-md-6"><div class="form-group">{% phone_field "mobile_number", class:"text form-control" %}<label for="endorsement_mobile_number">Mobile phone (optional)</label></div></div>
+	        {% endif %}
+
+	      </div>
+
+	      <div class="row">
+
+	        <div class="col-md-6"><div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %} <label for="endorsement_email_opt_in">Send me email updates</label></div></div>
+	        {% if site.ask_for_mobiles? %}
+	        <div class="col-md-6"><div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %} <label for="endorsement_mobile_opt_in">Send me text message updates</label></div></div>
+	        {% endif %}
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_organization? and page.endorsement.require_organization? == false %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% text_field "employer", class:"text form-control" %}<label for="endorsement_employer">Organization / Company (optional)</label></div></div>
+
+	      </div>
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% text_field "occupation", class:"text form-control" %}<label for="endorsement_occupation">Your Title (optional)</label></div></div>
+
+	      </div>
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="checkbox">{% check_box "is_organization", class:"checkbox" %} <label for="endorsement_is_organization">My organization is making the endorsement</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_phone? %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% phone_field "phone_number", class:"text form-control" %}<label for="endorsement_phone_number">Phone</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_address? %}
+	      {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="form-group">{% text_field "submitted_address", class:"text form-control" %}<label for="endorsement_submitted_address">Address (Street, City, State, Zip)</label></div></div>
+
+	      </div>
+	      {% endif %}
+	      {% endif %}
+	      {% if page.is_commentable? %}
+	      <div class="row">
+
+	        <div class="col-md-12">{% text_area "content", class:"textarea form-control" %}<div class="form-group"><label for="endorsement_content">Comments (optional)</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_image? %}
+	      <div class="row">
+
+	        <div class="col-md-12">{% file_field "image", class:"file" %}<div class="form-group"><label for="endorsement_image">Upload a {% if page.endorsement.require_organization? %}logo{% else %}picture{% endif %} (140x140)</label></div></div>
+
+	      </div>
+	      {% endif %}
+
+	      {% if page.endorsement.is_volunteer? and site.ask_for_volunteers? %}
+	      {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+	      <div class="row">
+
+	        <div class="col-md-12"><div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %} <label for="endorsement_is_volunteer">I want to volunteer</label></div></div>
+
+	      </div>
+	      {% endif %}
+	      {% endif %}
+
+	      {% submit_tag "Add endorsement", class:"btn btn-primary submit-button" %}
+	      <div class="form-submit"></div>
+
+	    </div>
+
+	    {% if page.text_keyword_instructions.size > 0 %}
+	    <div class="padbottom padtopmore">
+	      or {{ page.text_keyword_instructions }}
+	    </div>
+	    {% endif %}
+
+	  </div>
+
+  {% endform_for %}
+
+{% endif %}

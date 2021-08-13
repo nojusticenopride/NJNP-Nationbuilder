@@ -1,0 +1,31 @@
+<div class="card border-purple blog-card widget{% if post.has_meta_image? %} image-bg image-bg-{{ post.id }}{% else %} {% cycle 'text-color', 'brand-primary', 'gray', 'gray-light' %}{% endif %}">
+
+	{% if post.has_meta_image? %}
+		
+		<div class="image visible-xs" style="background-image: url({{ post.meta_image_url }});"></div>
+
+		<div class="overlay"></div>
+
+		<h4><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+
+	{% else %}
+
+		<h4 class="inverse strong"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+
+	{% endif %}
+
+	<hr class="hidden-xs"/>
+
+	<hr class="hidden-xs"/>
+
+</div>
+
+<style type="text/css">
+	{% if post.has_meta_image? %}
+		@media screen and (min-width: 768px){
+			.blog-card.image-bg-{{ post.id }}{
+				background-image: url({{ post.meta_image_url }});
+			}
+		}
+	{% endif %}
+</style>

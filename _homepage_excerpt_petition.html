@@ -1,0 +1,153 @@
+{% if homepage_excerpt.petition.is_signed? %}
+
+  {% form_for petition_signature %}
+    {% hidden_field_tag "page_id", homepage_excerpt.id %}
+
+    <div class="form">
+
+      <h3>Thank you for signing!</h3>
+
+      <div class="form-errors">{% error_messages_for petition_signatures %}</div>
+
+      {% if homepage_excerpt.is_commentable? %}
+      <div class="form-group">
+        {% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Change your comment</label>
+      </div>
+      {% endif %}
+
+      {% if homepage_excerpt.petition.is_image? %}
+       {% file_field "image", class:"file" %} <label for="petition_signature_image">Upload a picture (140x140)</label>
+        {% if petition_signature.has_image? %}
+          <p><img src="{{ petition_signature.large_square_image_url }}" width="140" height="140" border="0"/></p>
+        {% endif %}
+      {% endif %}
+
+      {% if homepage_excerpt.is_commentable? %}
+        {% capture signature_name %}Update {{ homepage_excerpt.petition.signature_name }}{% endcapture %}
+        {% submit_tag signature_name, class:"submit-button btn btn-primary margintop" %}
+      {% endif %}
+
+      {% capture signature_name %}Remove {{ homepage_excerpt.petition.signature_name }}{% endcapture %}
+      {{ homepage_excerpt.petition.current_signature | delete_link message: signature_name class_name: "btn btn-danger margintop"}}
+
+      <div class="form-submit"></div>
+
+    </div>
+
+  {% endform_for %}
+
+{% else %}
+
+  {% form_for petition_signature %}
+
+    <div class="form">
+
+      {% if request.sorta_logged_in? %}
+        <h4>Hi {{ request.current_signup.name_or_email }}, will you sign?</h4>
+
+        {% if request.logged_in? == false %}
+          <div class="padtop">
+            If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.
+          </div>
+        {% endif %}
+
+      {% else %}
+
+        <h4>Will you sign?</h4>
+
+      {% endif %}
+
+      <div class="form-errors">{% error_messages_for petition_signature %}</div>
+
+      {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+      
+        <div class="form-group">{% text_field "first_name", class:"text form-control" %}<label for="petition_signature_first_name">First Name</label></div>
+        <div class="form-group">{% text_field "last_name", class:"text form-control" %}<label for="petition_signature_last_name">Last Name</label></div>
+
+      {% endif %}
+
+      {% if request.sorta_logged_in? == false %}
+
+        <div class="form-group">{% email_field "email", class:"text form-control" %}<label for="petition_signature_email">Email</label></div>
+        {% if site.ask_for_mobiles? %}
+        <div class="form-group">{% phone_field "mobile_number", class:"text form-control" %}<label for="petition_signature_mobile_number">Mobile phone</label></div>
+        {% endif %}
+
+      {% endif %}
+
+      {% if homepage_excerpt.petition.is_phone? %}
+      
+        <div class="form-group">{% phone_field "phone_number", class:"text form-control" %}<label for="petition_signature_phone_number">Phone</label></div>
+
+      {% endif %}
+
+      {% if homepage_excerpt.petition.is_address? %}
+        {% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+
+          <div class="form-group">
+            {% if homepage_excerpt.petition.require_address? %}
+              {% text_field "submitted_address", class:"text form-control", required: "required" %}
+            {% else %}
+              {% text_field "submitted_address", class:"text form-control" %}
+            {% endif %}
+            <label for="petition_signature_submitted_address">Address (Street, City, State, Zip)</label>
+          </div>
+
+          <div class="form-group">
+            {% collection_select "country_code", homepage_excerpt.petition.countries, "code", "name", class:"select form-control" %}<label for="petition_signature_country_code">Country</label>
+          </div>
+
+        {% endif %}
+      {% endif %}
+
+      {% if homepage_excerpt.is_commentable? %}
+
+        <div class="form-group">{% text_area "content", class:"textarea form-control autogrow" %}<label for="petition_signature_content">Comments (optional)</label></div>
+        
+      {% endif %}
+
+      {% if homepage_excerpt.petition.is_image? %}
+
+        <div class="form-group">{% file_field "image", class:"file" %}<label for="petition_signature_image">Upload a picture (140x140)</label>
+        </div>
+
+      {% endif %}
+
+      {% if site.ask_to_publish_to_stream? %}
+      
+        <div class="checkbox">{% check_box "is_private", class:"checkbox" %} <label for="petition_signature_is_private">Don't publish this on the website</label></div>
+      
+      {% endif %}
+
+      {% capture signature_name %}Add {{ homepage_excerpt.petition.signature_name }}{% endcapture %}
+      {% submit_tag signature_name, class:"submit-button btn btn-primary btn-lg-tablet margintopmore" %}
+
+      {% if homepage_excerpt.petition.is_volunteer? and site.ask_for_volunteers? %}
+        {% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+        
+          <div class="checkbox">{% check_box "is_volunteer", class:"checkbox" %} <label for="petition_signature_is_volunteer">I want to volunteer</label></div>
+          
+        {% endif %}
+      {% endif %}
+
+      {% if request.sorta_logged_in? == false %}
+        <div class="checkbox">{% check_box "email_opt_in", class:"checkbox" %} <label for="petition_signature_email_opt_in">Send me email updates</label></div>
+        {% if site.ask_for_mobiles? %}
+          <div class="checkbox">{% check_box "mobile_opt_in", class:"checkbox" %} <label for="petition_signature_mobile_opt_in">Send me text message updates</label>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="form-submit"></div>
+
+    </div>
+
+  {% endform_for %}
+
+  {% if homepage_excerpt.text_keyword_instructions.size > 0 %}
+  <div class="padbottom padtopmore">
+    or {{ homepage_excerpt.text_keyword_instructions }}
+  </div>
+  {% endif %}
+
+{% endif %}

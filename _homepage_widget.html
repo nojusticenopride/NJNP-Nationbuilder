@@ -1,0 +1,469 @@
+
+{% for homepage_widget in page.children reversed %}
+{% if homepage_widget.has_children? %}
+{% case homepage_widget.type_name %}
+{% when 'Basic' %}
+<!-- Section: Magazine v.2 -->
+<section class="magazine-section my-5 order-1 white  py-5 px-5">
+
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold text-center my-5 pink-text"><a href="{{ homepage_widget.url }}">{{ homepage_widget.name}} - {{ homepage_widget.headline }}</a></h2>
+  <!-- Section description -->
+  <p class="text-center dark-grey-text w-responsive mx-auto mb-5">{{ homepage_widget.basic.content}}</p>
+
+  <!-- Grid row -->
+  <div class="row">
+    {% for page in homepage_widget.children | limit:1 %}
+    <!-- Grid column -->
+    {% if page.meta_image_url contains 'missing' %}
+    {% if page.attachments.size > 0 %}
+    {% for attachment in post.attachments limit:1 %}
+    {% assign headerimage = attachment.url %}
+    {% endfor %}
+    {% else %}
+    {% assign headerimage = site.header_image_url_980 %}
+    {% endif %}
+    {% else %}
+
+    {% assign headerimage = page.meta_image_url %}
+    {% endif %}
+    <div class="col-lg-6 col-md-12">
+
+      <!-- Featured news -->
+      <div class="single-news mb-lg-0 mb-4">
+
+        <!-- Image -->
+        <div class="view overlay rounded z-depth-1-half mb-4">
+          <img  class="img-fluid" alt="{{ page.name }}" src="{{ headerimage | strip }}">
+          <a href="{{ page.url }}">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+        <!-- Data -->
+        <div class="news-data d-flex justify-content-between"> {% if page.tags_count > 0 %}
+
+          <div id="page-tags" class="page-tags">
+            {% include "page_tags" with page %}
+          </div>
+          {% endif %}
+          <p class="font-weight-bold dark-grey-text"><i class="fas fa-clock-o pr-2"></i>{{ page.published_at | date: '%b %d, %Y %l:%M %p' }}</p>
+        </div>
+
+        <!-- Excerpt -->
+        <h3 class="font-weight-bold dark-grey-text mb-3"><a href="{{ page.url }}">{{ page.headline }}</a></h3>
+        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{ page.excerpt}}</p>
+
+      </div>
+      <!-- Featured news -->
+
+    </div>
+    <!-- Grid column -->
+    {% endfor %}
+    <div class="col-lg-6 col-md-12">
+      {% for page in homepage_widget.children | offset:1 %}
+      <!-- Grid column -->
+      {% if page.meta_image_url contains 'missing' %}
+      {% if page.attachments.size > 0 %}
+      {% for attachment in post.attachments limit:1 %}
+      {% assign headerimage = attachment.url %}
+      {% endfor %}
+      {% else %}
+      {% assign headerimage = site.header_image_url_980 %}
+      {% endif %}
+      {% else %}
+
+      {% assign headerimage = page.meta_image_url %}
+      {% endif %}
+      <!-- Grid column -->
+
+
+      <!-- Small news -->
+      <div class="single-news mb-4">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-3">
+
+            <!--Image-->
+            <div class="view overlay rounded z-depth-1 mb-4">
+              <img class="img-fluid" alt="{{ page.name }}" src="{{ headerimage | strip }}">
+              <a href="{{ page.url }}">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-9">
+
+            <!-- Excerpt -->
+            <p class="font-weight-bold dark-grey-text">{{ page.published_at | date: '%b %d, %Y %l:%M %p' }}</p>
+            <div class="d-flex justify-content-between">
+              <div class="col-11 text-truncate pl-0 mb-3">
+                <a href="{{ page.url }}" class="dark-grey-text"><strong>{{page.name}}</strong> - {{ page.excerpt | truncatewords:25 }}....</a>
+              </div>
+              <a href="{{ page.url }}"><i class="fas fa-angle-double-right"></i></a>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+      <!-- Small news -->
+      {% endfor %}
+      <!-- Small news -->
+
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!-- Grid row -->
+
+</section>
+
+{% when 'redirect' %}
+
+<!-- Section heading -->
+<h2 class="h1-responsive font-weight-bold my-5"><a href="{{ homepage_widget.url}}">{{ homepage_widget.headline}}</a></h2>
+<!-- Section description -->
+<p class="grey-text w-responsive mx-auto mb-5">{{ homepage_widget.excerpt }}</p>
+
+<!-- Grid row -->
+<div class="row d-flex justify-content-center">
+  {% for page in homepage_widget.children %}
+  <!-- Grid column -->
+  {% if page.meta_image_url contains 'missing' %}
+  {% if page.attachments.size > 0 %}
+  {% for attachment in post.attachments limit:1 %}
+  {% assign headerimage = attachment.url %}
+  {% endfor %}
+  {% else %}
+  {% assign headerimage = site.header_image_url_980 %}
+  {% endif %}
+  {% else %}
+
+  {% assign headerimage = page.meta_image_url %}
+  {% endif %}
+  <!-- Grid column -->
+  <div class="col-md-6 col-xl-5 mb-4">
+    <!--Featured image-->
+    <div class="view overlay rounded z-depth-2">
+      <img src="{{ headerimage }}" class="img-fluid" alt="{{ page.name }}">
+      <a href="{{ page.url }}">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <!--Excerpt-->
+    <div class="card-body">
+      <a href="{{ page.url }}" class="green-text">
+        <h5 class="font-weight-bold mt-2 mb-3">{{ page.name }}</h5>
+      </a>
+      <h4 class="font-weight-bold mb-3">{{ page.headline }}</h4>
+      <p>{{ page.excerpt | truncatewords:40 }}....</p>
+      <a href="{{ page.url }}" class="btn btn-success btn-rounded btn-md"> View more</a>
+    </div>
+  </div>
+  <!-- Grid column -->
+  {% cycle '','</div><div class="row d-flex justify-content-center">' %}
+<!-- Grid row -->
+{% endfor %}
+
+<!-- Grid row -->
+<!-- Section: Magazine v.2 -->
+
+
+{% when 'FAQ' %}
+<section class="team-section text-center my-5">
+
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold my-5"><a href="{{ homepage_widget.url}}">{{ homepage_widget.headline}}</a></h2>
+  <!-- Section description -->
+  <p class="grey-text w-responsive mx-auto mb-5">{{ homepage_widget.faq.content }}</p>
+
+  <div class="list-group list-group-flush">
+    {% for child in homepage_widget.children %}
+    {% if child.type_name == 'Question' %}
+    <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2 h5">{{ child.headline }}</h5>
+        <small>{{ child.question.content }}</small>
+      </div>
+      <p class="mb-2">{{ child.question.answer | strip_html | truncatewords:30 }}</p>
+
+      <small>
+        <i>
+          Read More 
+        </i>
+      </small>
+    </a>
+    {% endif%}
+    {% endfor %}
+  </div>
+</section>
+
+{% endcase %}
+
+{% endif %}
+
+{% endfor %}
+<div class="row" id="medium-articles">
+  {% for homepage_widget in page.children %}
+  <div class="col col-sm-6 col-lg-4 order-{{ forloop.index }}">
+
+  {% case homepage_widget.type_name %}
+    {% when 'Donation (v2)' %}
+
+    <!-- Material form register -->
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} card-form mt-2 mb-4">
+
+      <!--Card content-->
+      <div class="card-body rounded-top pink darken-4">
+        {% include "donation_form" %}
+      </div>
+    </div>
+
+    <!-- Endorsement page -->
+    {% when 'Endorsement' %}
+
+    <!-- Material form register -->
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} mimosa mb-4 white-text">
+      <!--Card content-->
+      <div class="card-body rounded-top pink darken-4">
+
+        <h3 class="font-weight-bold text-center text-uppercase text-white mt-4"><a href="{{ homepage_widget.url }}">{{ homepage_widget.headline }}</a></h3>
+
+        <!-- Form -->
+        {% if homepage_widget.endorsement.has_goal? %}
+        {% assign thermo_width = 100 %}
+        <div class="clearfix">
+          {% if homepage_widget.endorsement.endorsements_count < 2 %}
+          <div class="bar-text"><h2 class="strong">0</h2> of a {{ homepage_widget.endorsement.goal | number_with_commas }} endorsements</div>
+          {% else %}
+          <div class="bar-text"><h2 class="strong">{{ homepage_widget.endorsement.endorsements_count | number_with_commas }}</h2> of a goal of {{ homepage_widget.endorsement.goal | number_with_commas }} endorsement goal</div>
+          {% endif %}
+          <div class="progress" style="width: {{ thermo_width }}%;">
+            <div class="bar progress-bar" role="progressbar" style="min-width:2em; width: {{ homepage_widget.endorsement.percent_of_goal | times:100 }}%;">
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <a class="btn btn-default margintopmore" href="{{ homepage_widget.url }}" title="{{ homepage_widget.name }}">Read more</a>
+
+        <div>
+          <button type="button" class="btn btn-primary btn-lg-tablet margintopmore" data-toggle="modal" data-target="#endorsementModal">
+            Endorse
+          </button>
+          <div class="modal fade" id="endorsementModal" tabindex="-1" role="dialog" aria-labelledby="endorsementModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  {% include "homepage_excerpt_endorsement" with homepage_widget.slug %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Form -->
+
+      </div>
+    </div>
+    <!-- Material form register -->
+
+    <!-- Event page -->
+    {% when 'Event' %}
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} map-card mb-4">
+      {% assign event = homepage_excerpt %}
+      {% include "event_card_large" %}
+    </div>
+
+    <!-- Petition page -->
+    {% when 'Petition' %}
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} map-card mb-4">
+
+      <div class="view overlay">
+        <img class="card-img-top" src="{{ headerimage }}">
+        <a href="{{ homepage_widget.url }}">
+          <div class="mask rgba-red-slight"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title strong"><a href="{{ homepage_widget.url }}">{{ homepage_widget.headline }}</a></h3>
+
+
+        {{ homepage_widget.excerpt | truncatewords:150 }}
+
+      </div>
+      <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} card-form-2 mb-0 z-depth-0">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col order-xl-2 order-xs-1">
+              <a class="btn btn-default margintopmore" href="{{ homepage_widget.url }}" title="{{ homepage_widget.name }}">Read more</a>
+            </div>
+            <div class="col order-xl-1 order-xs-2">
+              <button type="button" class="btn btn-warning btn-lg-tablet margintopmore" data-toggle="modal" data-target="#petitionModal">
+                Sign the petition
+              </button>
+              <div class="modal fade" id="petitionModal" tabindex="-1" role="dialog" aria-labelledby="petitionModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                      {% include "homepage_excerpt_petition" with homepage_widget.slug %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Press release page -->
+    {% when 'Press Release' %}
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} promoting-card mb-4">
+
+      <!-- Card content -->
+      <div class="card-body d-flex flex-row">
+
+
+        <!-- Content -->
+        <div>
+
+          {% if homepage_widget.headline.size > 0 %}
+          <!-- Title -->
+          <h4 class="card-title font-weight-bold mb-2">
+            <a href="{{ homepage_widget.url }}">{{ homepage_widget.headline }}</a></h4>
+          {% endif %}
+          <!-- Subtitle -->
+          <p class="card-text"><i class="far fa-clock pr-2"></i>{{ homepage_widget.published_at | date: '%b %d, %Y %l:%M %p' }}</p>
+
+        </div>
+
+      </div>
+      {% if homepage_widget.meta_image_url contains 'missing' %}
+      {% if homepage_widget.attachments.size > 0 %}
+      {% for attachment in post.attachments limit:1 %}
+      {% assign headerimage = attachment.url %}
+      {% endfor %}
+      {% else %}
+      {% assign headerimage = site.header_image_url_980 %}
+      {% endif %}
+      {% else %}
+
+      {% assign headerimage = homepage_widget.meta_image_large_url %}
+      {% endif %}
+
+
+
+
+      <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top rounded-0" src="{{ headerimage | strip }}" alt="{{post.name}}">
+        <a href="{{ homepage_widget.url }}">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body">
+
+        <div class="collapse-content">
+
+          <!-- Text -->
+          <div class="card-text collapse" id="collapseContent{{ forloop.index}}">
+            {{ homepage_widget.press_release.content }}</div>
+          <!-- Button -->
+          <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent{{ forloop.index}}" aria-expanded="false" aria-controls="collapseContent{{ forloop.index}}"></a>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- * Signup page -->
+    {% when 'Signup' %}
+
+    <div class="card  exterior-widget widget-{{ homepage_widget.page_class_name }} map-card mb-4">
+
+      <div class="view overlay">
+        <img class="card-img-top" src="{{ headerimage }}">
+        <a href="{{ homepage_widget.url }}">
+          <div class="mask rgba-red-slight"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title strong"><a href="{{ homepage_widget.url }}">{{ homepage_widget.headline }}</a></h3>
+
+
+        {{ homepage_widget.excerpt | truncatewords:150 }}
+
+      </div>
+      <div class="card order-{{ order }}    exterior-widget widget-{{ homepage_widget.page_class_name }} card-form-2 mb-0 z-depth-0">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col order-xl-2 order-xs-1">
+              <a class="btn btn-default margintopmore" href="{{ homepage_widget.url }}" title="{{ homepage_widget.name }}">Read more</a>
+            </div>
+            <div class="col order-xl-1 order-xs-2">
+              <button type="button" class="btn btn-primary btn-lg-tablet margintopmore" data-toggle="modal" data-target="#signupModal">
+                Sign up
+              </button>
+              <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="petitionModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                      {% include "homepage_excerpt_signup" with homepage_widget.slug %}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endcase %}
+    </div>
+     {% endfor %}
+     
+    {% for homepage_widget in page.children %}
+  {% case homepage_widget.type_name %}
+{% when 'Blog' %}
+<!-- Section: Blog v.2 -->
+    
+    {% for post in homepage_widget.blog.most_recent_blog_posts limit: 9 %}
+   
+  <div class="col col-sm-6 col-lg-4">
+      {% include "blog_card_widget" %}
+     </div>
+    {% endfor %}
+    {% endcase %}
+
+  {% endfor %}
+
+</div>

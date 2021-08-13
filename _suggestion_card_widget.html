@@ -1,0 +1,30 @@
+<div class="card suggestion-card widget{% if post.suggestion.has_image? %} image-bg image-bg-{{ post.id }}{% endif %} {% cycle 'brand-primary','text-color','gray' %}">
+
+	<hr class="hidden-xs"/>
+
+{% if post.suggestion.has_image? %}
+
+	<div class="overlay"></div>
+	
+	<div class="image visible-xs" style="background: url({{ post.suggestion.image_url }});"></div>
+	<h4>{{ post.headline }}</h4>
+
+{% else %}
+	<div class="gray">
+		<h4 class="inverse strong"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+	</div>
+{% endif %}
+
+	<hr class="hidden-xs"/>
+
+</div>
+
+<style type="text/css">
+	{% if post.suggestion.has_image? %}
+		@media screen and (min-width: 768px){
+			.suggestion-card.image-bg-{{ post.id }}{
+				background-image: url({{ post.suggestion.image_url }});
+			}
+		}
+	{% endif %}
+</style>

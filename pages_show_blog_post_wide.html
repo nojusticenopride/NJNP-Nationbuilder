@@ -1,0 +1,146 @@
+<div class="container">
+  <!--Section: Blog v.4-->
+  <section class="section mt-5 pb-3 wow fadeIn">
+
+    <!--Grid row-->
+    <div class="row">
+      <div class="col-md-12" id="content">
+        <!-- Card -->
+        <div class="card card-cascade wider reverse">
+          {% if page.meta_image_url contains 'missing' %}
+          {% if page.attachments.size > 0 %}
+          {% for attachment in page.attachments %}
+          {% if attachment.content_type contains 'image' %}
+          {% assign headerimage = attachment.url %}
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          {% assign headerimage = site.meta_image_url %}
+          {% endif %}{% else %}
+          {% assign headerimage = page.meta_image_url %}
+          {% endif %}
+
+          <!-- Card image -->
+          <div class="view view-cascade ">
+            <img class="card-img-top" src="{{ headerimage }}" alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Post data-->
+          <div class="card-body card-body-cascade text-center">
+            <h2><a><strong>{{ page.headline }}</strong></a></h2>
+            {% if page.has_author? %}
+            {% include "page_byline" %}
+            {% endif %}
+
+
+            <!--Excerpt-->
+            <div class="excerpt intro mt-5 wow fadeIn" id="intro" data-wow-delay="0.3s">
+              <div class="content">
+                {{ page.blog_post.content_full }}
+              </div>
+              {% if page.tags_count > 0 %}
+              <div class="mt-4 d-flex justify-content-end">
+                {% include "page_tags" with page %}
+              </div>
+              {% endif %}
+
+              {% include "like_page" %}
+            </div>
+            <!--Post data-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--Grid row-->
+
+  </section>
+
+  <!--Section: Blog v.4-->
+
+  <hr class="mb-5 mt-4">
+
+  <!--Section: Blog v.2-->
+  <section class="section container-fluid extra-margins pb-3 wow fadeIn" data-wow-delay="0.3s">
+
+    <!--Section heading-->
+    <h3 class="text-center my-5 text-center h3 pt-3">Recent posts</h3>
+
+    <!--Grid row-->
+    <div class="row">
+
+
+
+
+
+
+
+      {% for page in site.most_recent_pages limit:3 offset:0 %}
+
+      {% if page.meta_image_url contains 'missing' %}
+      {% if page.attachments.size > 0 %}
+      {% for attachment in page.attachments %}
+      {% if attachment.content_type contains 'image' %}
+      {% assign cheaderimage = attachment.url %}
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      {% assign cheaderimage = site.meta_image_url %}
+      {% endif %}{% else %}
+      {% assign cheaderimage = page.meta_image_url %}
+      {% endif %}
+      {% assign typename = page.type_name %}
+
+      <div class="col-lg-4 col-md-12 mb-4">
+
+        <!--Card Light-->
+        <div class="card">
+          <!--Card image-->
+          <div class="view overlay">
+            <img src="{{ hceaderimage }}" class="card-img-top" alt="">
+            <a>
+              <div class="mask"></div>
+            </a>
+          </div>
+          <!--/.Card image-->
+          <!--Card content-->
+          <div class="card-body">
+            <div class="byline">
+              {{ page.published_at | date: '%b %d, %Y' }}
+            </div>
+            <!--Social shares button-->
+            <a class="activator mr-3"><i class="fa fa-share-alt"></i></a>
+            <!--Title-->
+            <h4 class="card-title"><a href="{{ page.url }}">{{ page.headline }}</a></h4>
+            <hr>
+            <!--Text-->
+            <p class="card-text blog_teaser">
+              {% if page.excerpt.size > 0 %}
+              {{ page.excerpt }}
+              {% else %}
+              {{ page.typename.content | strip_html | truncatewords:50 }}
+              {% endif %}
+            </p>
+            <a class="link-text"><h5>Read more <i class="fa fa-chevron-right"></i></h5></a>
+          </div>
+          <!--/.Card content-->
+        </div>
+        <!--/.Card Light-->
+
+      </div>
+      <!--Grid column-->
+
+      {% endfor %}
+
+    </div>
+    <!--Grid row-->
+
+  </section>
+  <!--Section: Blog v.2-->
+
+
+
+</div>

@@ -1,0 +1,16 @@
+{% if post.has_meta_image? %}
+
+	<div class="card blog-card image-bg" style="background-image: url({{ post.meta_image_url }});">
+		<div class="overlay"></div>
+		<h4 class="strong inverse"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+	</div>
+
+{% else %}
+
+	<div class="card blog-card {% cycle 'text-color', 'brand-primary', 'gray', 'gray-light' %}">
+		<hr/>
+		<h4 class="strong inverse"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+		<hr/>
+	</div>
+
+{% endif %}

@@ -1,0 +1,51 @@
+{% subpage 'updates' with 'homepage_excerpt' %}
+
+
+<article class="padtopmore lead-page desktop-visible petition-slider padbottommore" role="complementary">
+    <header class='padtopmore padbottom'>
+        <h2 class="headline">Action</h2>
+    </header>
+    {% include "petition_slider" %}
+</article>
+</div>
+<div class="container-fluid">
+<section class="row-fluid nonana padtopmore lead-page padbottommore" role="complementary">
+
+    {% for page in site.root_nav_pages %}
+    {% capture randompagebgurl %}{% if page.meta_image_url contains 'missing' %}{{ random_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}{% endcapture %}
+
+    {% if page.name contains "ack To The Roots" or page.name contains 'rans Justice' %}
+    <div class="span6">
+        <div class="header-image-wrap"  style=" background-image:url('{{ randompagebgurl   | strip  }}');">
+            <div class="header-image-gradient">    
+
+                <div class="padtopmore padbottommore"></div>
+                <header>
+
+                    <h2 style="margin-bottom:0;"><a href="{{ page.url }}">{{ page.name }}</a></h2>
+                    <div class="intro">
+                        <div class="small-text" ><small>{{ page.excerpt |  truncatewords:54 }} <a href="{{ page.url }}">
+                            <i>continue reading</i></a></small></div>
+
+                    </div>
+                    <div class="continue padbottommore center ">
+                        <a href="{{ page.url }}" class="submit-button ">View {{ page.name }} &rarr;</a>      
+
+                    </div>
+                    <div class="continue padbottommore center "></div>
+                </header>
+            </div>
+        </div>
+    </div>
+
+
+    {% endif %}
+    {% endfor %}    
+
+</section>
+</div>
+<div class="container">
+<section class="padtopmore lead-page padbottommore" role="complementary">
+    {% subpage 'what_no_justice_no_pride_built_in_2017' with 'homepage_excerpt' %}
+</section>
+</div>

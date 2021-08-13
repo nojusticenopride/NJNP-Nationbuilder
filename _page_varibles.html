@@ -1,0 +1,294 @@
+<!-- Custom Liquid Page Variables -->
+<!-- includes and subpages --->
+{% subpage "filter_images" with "random_images" %}
+
+<!-- Varable basics -->
+{% assign header_on = true %}
+{% assign page_style = 'basic' %}
+{% assign topnav = '' %}
+{% assign subnav = nav_style_1 %}
+
+<!-- page style varibles -->
+{% if page.is_supporter_nav? %}
+{% assign page_style = 'lead' %}
+{% endif %}
+
+{% if page.type_name contains 'Donation' %}
+{% assign page_style = 'minimal' %}
+{% endif %}
+
+{% if page.is_homepage? == true %}
+{% assign page_style = 'home' %}
+{% endif %}
+{% if page.type_name == 'Petition' or page.type_name == 'Sign Up' %}
+{% unless request.is_sidebar? %}
+
+{% assign page_style = 'minimal' %}
+
+{% endunless %}
+{% unless page.show_stream? %}
+
+{% assign page_style = 'minimal' %}
+
+{% endunless %}
+{% endif %}
+
+<!-- navbars -->
+{% capture nav %} 
+{% endcapture %}
+{% capture nav_style_1 %} 
+{% include "nav" %}
+{% endcapture %}
+{% capture nav_style_2 %} 
+{% include "supporter_nav" %}
+{% endcapture %}
+{% capture nav_style_3 %} 
+{% endcapture %}
+
+
+<!-- header style variables -->
+
+{% capture headerText %} 
+{% assign headerEqName = true %}
+{% unless page.headline == page.name %}
+{% assign headerEqName = false %}
+{% endunless %}
+{% unless page.name == page.headline %}
+{% assign headerEqName = false %}
+{% endunless %}
+{% unless page.headline contains page.name %}
+{% assign headerEqName = false %}
+{% endunless %}
+{% unless page.headline contains page.name %}
+{% assign headerEqName = false %}
+{% endunless %}
+{% assign headlineCount = page.headline | split:' ' %}
+<header class="header-image padtopmore padbottommore">   
+
+    {% if headlineCount.size > 15 %}
+    <h4 class="padtop excerpt-title center">
+        <a href="{{ page.url }}">{{ page.headline }}</a>
+    </h4>
+    {% elsif headlineCount.size > 9 %}
+
+    <h2><a href="{{ page.url }}">{{ page.headline }}</a></h2>
+    {% elsif headlineCount.size > 6 %}
+
+    <h1><a href="{{ page.url }}">{{ page.headline }}</a>
+    </h1>      
+    {% else %}
+
+    {% if headerEqName == true %}
+    <h1>
+        <a href="{{ page.url }}">{{ page.headline }}</a>
+    </h1>
+    {% else %}
+    
+    {% if page.has_parent? %}
+    <h2 class="padbottom">{{ page.headline }}</h2>
+    <a href="/{{ page.parent.slug}}"><h4>&raquo; {{ page.parent.name }}</h4></a>
+    {% else %}
+    <h2 class="padbottom">{{ page.headline }}</h2>
+    <a href="/{{ page.slug}}"><h4>&raquo; {{ page.name }}</h4></a>
+    {% endif %}
+    
+    {% endif %}
+    
+    {% endif %}
+</header>
+{% endcapture %}
+
+
+{% assign headerlogo = site.meta_image_url %}
+{% capture pageimageurl %}{% if page.meta_image_url contains 'missing' %}{{ site.meta_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}{% endcapture %}
+{% capture pagebgurl %}{% if page.meta_image_url contains 'missing' %}{{ site.header_image_url_980 }}{% else %}{{ page.meta_image_url }}{% endif %}{% endcapture %}
+{% capture randompagebgurl %}{% if page.meta_image_url contains 'missing' %}{{ random_image_url }}{% else %}{{ page.meta_image_url }}{% endif %}{% endcapture %}
+
+{% capture pageheadline %}
+{% if page.headline.size > 0 %}<h1 class="headline">{{ page.headline }}</h1>{% endif %}
+{% endcapture %}
+
+
+{% assign headerimage = site.header_image_url_980 %}
+{% assign headerGradientClass = 'header-image-gradient' %}
+
+<!-- header style 1 -->
+{% capture header_style_1 %}
+<div class="header-image-wrap"  style="background-image:url('{{ headerimage }}')">
+    {% unless page.features_count > 0 %}
+    <div class="{{ headerGradientClass }}">
+        <img src="{{ headerlogo }}" class="header-image" border="0" srcset="" /> 
+    </div>
+    {% endunless %}
+</div>
+{% endcapture %}
+
+<!-- header style 2 -->
+{% capture header_style_2 %}
+<div class="header-image-wrap"  style="background-image:url('{{ headerimage }}')">
+    {% unless page.features_count > 0 %}
+    <div class="{{ headerGradientClass }}">
+        <img src="{{ pageimageurl }}" class="header-image" border="0" srcset="" /> 
+    </div>
+    {% endunless %}
+</div>
+{% endcapture %}
+
+<!-- header style 3 -->
+{% capture header_style_3 %}
+<div class="header-image-wrap"  style="background-image:url('{{ headerimage }}')">
+    {% unless page.features_count > 0 %}
+    <div class="{{ headerGradientClass }}">
+        {{ headerText }}
+    </div>
+    {% endunless %}
+</div>
+
+{% endcapture %}
+<!--header bg images -->
+
+
+
+<!--page variables -->
+{% if page_style == 'home' %} 
+
+{% assign article_grid = 'article-grid' %}
+{% capture topnav %}
+<div class="home-nav topnavcontainer  desktop-visible clearfix">
+    {{ nav_style_3 }}
+</div>
+{% endcapture %}
+
+{% capture subnav %} 
+
+<div class="nav-container clearfix">
+    {{ nav_style_1 }}
+</div>
+{% endcapture %}
+
+{% endif %}
+
+
+
+
+
+{% if page_style == 'basic' %}
+{% capture pagebgurl %}{% if page.meta_image_url contains 'missing' %}{{ page.meta_image_large_url }}
+{% else %}{{ site.header_image_url_980 }}{% endif %}{% endcapture %}
+{% if request.is_sidebar? %}
+
+{% if page.is_commentable? %}
+{% else %}
+{% capture headerstyle %} {{ header_style_2 }} {% endcapture %}
+{% endif %}
+
+{% else %}
+
+{% if page.is_commentable? %}
+{% capture headerstyle %} {{ header_style_3 }} {% endcapture %}
+{% else %}
+{% capture headerstyle %} {{ header_style_2 }} {% endcapture %}
+{% endif %}
+
+{% if page.attachments.size > 0 %}
+{% for attachment in page.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign headerimage = attachment.url %}
+{% assign headerGradientClass = 'header-image-gradient shademain' %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% endif %}
+
+
+
+{% capture topnav %}
+
+{% endcapture %}
+{% assign headerstyle = header_style_1 %}
+{% capture subnav %}
+    {{ nav_style_1 }}
+
+{% endcapture %}
+
+{% endif %}
+
+
+
+
+{% if page_style == 'minimal' %} 
+
+{% if page.attachments.size > 0 %}
+{% for attachment in page.attachments %}
+{% if attachment.content_type contains 'image' %}
+{% assign headerimage = attachment.url %}
+{% assign headerGradientClass = 'header-image-gradient shademain' %}
+{% endif %}
+{% endfor %}
+
+{% endif %}
+
+{% capture topnav %}
+{% endcapture %}
+
+{% capture subnav %} 
+<div class="home-nav topnavcontainer clearfix">
+    {{ nav_style_3 }}
+</div>
+{% endcapture %}
+{% endif %}
+
+
+
+
+<!-- lead page-->
+{% if page_style == 'lead' %}
+
+
+
+
+{% if page.is_commentable? %}
+
+{% capture headerstyle %} {{ header_style_3 }} {% endcapture %}
+
+{% assign pageheadline = '' %}
+{% else %}
+
+{% capture headerstyle %} {{ header_style_2 }} {% endcapture %}
+{% endif %}
+
+
+{% capture topnav %}
+    {{ nav_style_1 }}
+
+{% endcapture %}
+{% capture subnav %}
+<div class="nav-container secondarynav  desktop-visible clearfix">
+    {% include "supporter_nav" %}
+</div>
+{% endcapture %}
+
+{% endif %}
+
+
+
+{% if request.is_sidebar? %}
+{% capture sidebar %}
+{% subpage page with "sidebar" %}
+{% endcapture %}
+{% else %}
+{% capture sidebar %}{% endcapture %}
+{% endif %}
+
+
+{% assign article_grid = '' %}
+{% if request.is_sidebar? %}
+{% assign article_grid = 'article-grid' %}
+{% endif %}
+{% if page.type_name contains 'onation' %}
+{% assign article_grid = 'article-grid article-grid-fixed' %}
+{% endif %}
+<!--page Variables-->
+{% capture pagetype %}{{ page.type_slug }}{% endcapture %}
+{% capture childtype %}{{ child.type_slug }}{% endcapture %}

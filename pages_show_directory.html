@@ -1,0 +1,56 @@
+{% if request.logged_in? or page.directory.not_user_specific? %}
+
+  <div class="container"> 
+
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        {% if page.headline.size > 0 %}
+        <h2 class="headline">{{ page.headline }}</h2>
+        {% endif %}
+        <div id="content">
+          <div id="intro">
+            <div class="text-content">
+            {{ page.directory.content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="signup-wrap margintop marginbottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h6 class="strong secondary">{{ page.directory.listings_count }} directory listings</h6>
+          <div class="row">
+            {% for signup in page.directory.listings %}
+              <div class="col-sm-6">
+                {% include "signup_show" %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      {{ page.directory.listings | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+    </div>
+  </div>
+    
+{% else %}
+
+  <div class="container"> 
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        {% if page.headline.size > 0 %}
+        <h2 class="headline">{{ page.headline }}</h2>
+        {% endif %}
+        <div class="marginbottommore">
+          {% include "user_session_form" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endif %}

@@ -1,0 +1,66 @@
+<div class="container padbottommore">
+
+  {% if page.headline.size > 0 %}
+  <h2 class="headline">{{ page.headline }}</h2>
+  {% endif %}
+
+  <div id="content">
+    {% if request.logged_in? %}
+
+      <div class="row">
+        <div class="col-sm-6">
+    
+          {% if request.current_signup.has_facebook_authorization? %}
+          
+            <!-- facebook connected -->
+            <h6 class="strong secondary margintopmore">You connected your Facebook account.</h6>
+            
+            <div class="form-wrap facebook-box">
+              {% include "find_friends_facebook" %}
+            </div>
+          
+          {% else %}
+        
+            <!-- not connected to facebook -->
+          
+            <h6 class="strong secondary margintopmore">You have not connected your Facebook account.</h6>
+            <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary">Sign in with Facebook</a>
+        
+          {% endif %}
+        </div>
+        <div class="col-sm-6">
+        
+          {% if request.current_signup.has_twitter_authorization? %}
+            
+            <!-- twitter connected -->
+            <h6 class="strong secondary margintopmore">You connected your Twitter account.</h6>
+           
+            <div class="form-wrap twitter-box">         
+              {% include "find_friends_twitter" %}
+            </div>
+          
+          {% else %}
+          
+            <!-- not connected state -->
+            
+            <h6 class="strong secondary margintopmore">You have not connected your Twitter account.</h6>
+            <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary">Sign in with Twitter</a>
+          
+          {% endif %}
+
+        </div>
+    
+    {% else %}
+    
+      <!-- not connected state -->
+      
+      <h6 class="strong secondary margintopmore">You have not connected your Facebook account.</h6>
+      <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary">Sign in with Facebook</a>
+      
+      <h6 class="strong secondary margintopmore">You have not connected your Twitter account.</h6>
+      <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary">Sign in with Twitter</a>
+    
+    {% endif %}
+  </div>
+
+</div>

@@ -1,0 +1,137 @@
+<div class="container padbottommore">
+
+  {% if page.headline.size > 0 %}
+    <h2 class="headline">{{ page.headline }}</h2>
+  {% endif %}
+
+  <div id="content">
+
+    {% if request.logged_in? %}
+
+      <div class="marginbottommore">
+    
+        <h5 class="strong accent">You have</h5>
+        <h1 class="strong accent">{{ request.current_signup.followers_count }}</h1>
+        <h5 class="strong accent">followers.</h5>
+
+      </div>
+      
+      {% if site.has_friends_page? %}
+  
+        {% if request.current_signup.has_facebook_authorization? == false %}
+        
+          <!-- not connected to facebook -->
+          
+          <h6 class="strong secondary margintopmore">You have not connected your Facebook account.</h6>
+          <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary">Sign in with Facebook</a>
+        
+        {% endif %}
+        
+        {% if request.current_signup.has_twitter_authorization? == false %}
+        
+          <!-- not connected state -->
+          
+          <h6 class="strong secondary margintopmore">You have not connected your Twitter account.</h6>
+          <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary">Sign in with Twitter</a>
+        
+        {% endif %}
+        
+      {% endif %}
+
+      <div class="row margintopmore">
+        {% for follower in request.current_signup.followers %}
+        {% assign signup = follower.follower %}
+          <div class="col-sm-6">
+            {% include "signup_show" %}
+          </div>
+        {% endfor %}  
+      </div>
+      
+      {{ request.current_signup.followers | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+
+    {% else %}
+      <div class="row">
+        <div class="col-sm-8 col-md-6">
+
+          {% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
+
+            {% form_for user_session %}
+
+              <div class="form-errors danger">{% error_messages_for user_session %}</div>
+
+              {% hidden_field_tag "user_session[email]", request.current_signup.email %}
+
+              <div class="form-group">
+                {% password_field "password", class:"text form-control" %}<label for="user_session_password">Password</label>
+              </div>
+
+              {% submit_tag "Sign in with password", class:"submit-button btn btn-default margintop" %}
+
+              <div class="form-submit"></div>
+
+              <div class="margintopmore">
+                <p><a href="{{ request.new_password_reset_url }}">Forgot your password?</a></p>
+              </div>
+
+              {% if request.current_signup.has_facebook_info? or request.current_signup.has_twitter_info? %}
+                {% if request.current_signup.has_facebook_info? %}<a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary margintop">Sign in with Facebook</a>{% endif %}
+
+                {% if request.current_signup.has_twitter_info? %}<a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary margintop">Sign in with Twitter</a>{% endif %}
+              {% endif %}
+
+              <div class="margintopmore">
+                <p>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+              </div>
+
+            {% endform_for %}     
+          {% elsif request.sorta_logged_in? and request.current_signup.has_password? == false %}  
+          {% else %}
+            <div class="user-session-form-container">
+              <div class="sign-in-with-email">
+                {% form_for user_session %}
+
+                  <p class="danger">You are not logged in. Please log in <span class="or-create-account">or <a href="#" class="create-account-link strong">Create an Account</a></span>.</p>
+
+                  {% error_messages_for user_session %}
+
+                  <div class="row">  
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        {% email_field "email", class:"text form-control" %}<label for="user_session_email">Email Address</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-7">
+                      <div class="form-group">
+                        {% password_field "password", class:"text form-control" %}<label for="user_session_password">Password</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                      {% submit_tag "Submit", class:"submit-button btn btn-lg-tablet btn-default post-comment" %}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 remember-me clearfix">
+                      <div class="checkbox">{% check_box "remember_me" %}<label for="user_session_remember_me">Remember me</label></div>
+                      <input type="hidden" name="ajax" value="true">
+                      <ul class="errors warning"></ul>
+                   </div>
+                  </div>
+
+                  {% include "oauth_login_links" %}
+
+                  <div class="form-submitting"></div>
+
+                {% endform_for %}
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    {% endif %}
+    
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+{% if request.logged_in? %}
+  {% if profile.id != request.current_signup.id %}
+    <div id="follow_person_{{signup_follow.id}}">
+      <a href="{{ signup_follow.unfollow_url }}" class="delete{% if request.current_signup.following_ids contains signup_follow.id %} show{% else %} hidden{% endif %}"><img src="check-secondary.png"></a>
+      <a href="{{ signup_follow.follow_url }}" class="post{% unless request.current_signup.following_ids contains signup_follow.id %} show{% else %} hidden{% endunless %}"><img src="plus.png"></a>
+    </div>
+    
+  {% endif %}
+{% endif %}
+
+
+

@@ -1,0 +1,17 @@
+ {% if post.suggestion.has_image? %}
+
+	<div class="card suggestion-card image-bg" style="background-image: url({{ post.suggestion.image_url }});">
+		<div class="overlay"></div>
+		<h4 class="strong inverse"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+	</div>
+
+{% else %}
+
+	<div class="card suggestion-card {% cycle 'text-color', 'brand-primary', 'gray', 'gray-light' %}">
+		<hr/>
+		<h4 class="strong inverse"><a href="{{ post.url }}">{{ post.headline }}</a></h4>
+		<hr/>
+	</div>
+
+{% endif %}
+

@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      {% if page.headline.size > 0 %}
+      <h2 class="headline">{{ page.headline }}</h2>
+      {% endif %}
+
+      <div id="content">
+        {% if page.suggestion_box.content.size > 0 %}
+        <div id="intro" class="intro">
+          {{ page.suggestion_box.content }}
+        </div>
+        {% endif %}
+      </div>
+  
+      <div class="form-wrap">
+        <div class="form">
+          
+            {% form_for suggestion_page %}
+            
+            <div class="form-errors">{% error_messages_for suggestion_page %}</div>
+            
+            <div id="suggestion-page-page-headline-input" class="suggestion-headline">
+              <div class="row">
+                <div class="col-md-12"><div class="form-group">{% text_field "page_headline", class:"text form-control", required: "required" %}<label for="suggestion_page_page_headline">Add your suggestion</label></div></div>
+              </div>
+            </div>
+            
+            <div id="suggestion-page-form-expanded" class="suggestion-page-form-expanded padbottom">
+              <div class="row">
+                <div class="col-md-12"><div class="form-group">{% text_area "content_editable", class:"form-control" %}</div></div>
+              </div>
+              
+              {% if page.suggestion_box.is_image? %}
+              <div class="row">
+                <div class="col-md-12"><div class="form-group">{% file_field "image", class:"file" %}<label for="suggestion_page_image">Upload a picture ({% if page.suggestion_box.require_image? == false %}optional, {% endif %}600px wide)</label></div></div>
+              </div>
+              {% endif %}
+
+              {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+              
+              {% submit_tag "Post", class:"submit-button btn btn-primary" %}
+              <div class="form-submit"></div>
+            </div>
+            
+            {% endform_for %}
+
+        </div>
+        {% unless request.logged_in? %}
+        <div class="user-session-form-container hide">
+          {% include "user_session_form" %}
+        </div>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+  
+  <ul class="tag-list nav nav-pills padtopmore" role="tablist">
+    <li role="presentation" class="{% if request.url_path == page.url or request.url_path == '/' + page.slug %}active{% endif %}"><a href="{{ page.url }}"><h6 class="strong">Most recent</h6></a></li>
+    {% capture alphabetical_url %}/{{ page.slug }}/alphabetical{% endcapture %}
+    <li role="presentation" class="{% if request.url_path == alphabetical_url %}active{% endif %}"><a href="{{ alphabetical_url }}"><h6 class="strong">Alphabetical</h6></a></li>
+    {% for tag_name in page.suggestion_box.tag_names %}
+    {% capture tag_url %}/{{ page.slug }}/tags/{{ tag_name }}{% endcapture %}       
+    <li role="presentation" class="{% if request.url_path == tag_url %}active{% endif %}"><a href="{{ tag_url }}"><h6 class="strong">{{ tag_name | capitalize }}</h6> </a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="padtop suggestion-box content-list" id="suggestion-box-page-{{ page.id }}">
+
+    {% if request.url_path == page.url or request.url_path == '/' + page.slug %} <!-- show most recent -->
+    {% assign suggestions = page.suggestion_box.most_recent_suggestions %}
+    {% elsif request.url_path == alphabetical_url %} <!-- show alphabetical -->
+    {% assign suggestions = page.suggestion_box.alphabetical_suggestions %}
+    {% else %} <!-- show tagged -->
+    {% assign suggestions = page.suggestion_box.tagged_suggestion_pages %}
+    {% endif %}
+
+    <div class="row">        
+      {% for post in suggestions %}
+        <div class="col-sm-6 col-md-4">
+        {% include "suggestion_card" %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if request.url_path == page.url %} <!-- show most recent -->
+    {{ page.suggestion_box.most_recent_suggestions | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+    {% elsif request.url_path == alphabetical_url %}
+    {{ page.suggestion_box.alphabetical_suggestions | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+    {% else %}
+    {{ page.suggestion_box.tagged_suggestions | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+    {% endif %}
+
+  </div>
+</div>
+
+<script src="/assets/liquid/suggestions.js"></script>
+<script type="text/javascript">
+  $(function(){
+    new NB.Liquid.Suggestions();
+  });
+</script>

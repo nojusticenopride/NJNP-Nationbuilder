@@ -1,0 +1,60 @@
+{% if medium_articles.tags_count > 0 %}
+
+{% for tag in medium_articles.tags %}
+{% assign tagslug = tag.slug %}
+
+       <script defer type="text/javascript">                                                                                                                                                                                                                                                                                                                    
+      $(document).ready(function() {
+ 
+$(function () {
+	var $rootcontent = $('#medium-articles');
+	var rdata = {
+    rss_url: 'https://medium.com/feed/nojusticenopride/tagged/{{ tagslug }}'
+	};
+	$.get('https://api.rss2json.com/v1/api.json', rdata, function (response) {
+		if (response.status == 'ok') {
+			var routput = '';
+       var rupdateLink = '';
+			$.each(response.items, function (k, item) {
+				var visibleSm;
+				var itemOrder = k + 1;
+				if(k < 1){
+					visibleSm = 'active';
+				 } else {
+					 visibleSm = ' ';
+				 }
+				routput += '<div class="col col-sm-6 col-lg-4 order-'+itemOrder+'"><div class="card exterior-widget widget-'+ item.title +' promoting-card mb-4"><div class="card-body d-flex flex-row">';
+        routput += '<h4 class="card-title font-weight-bold mb-2">'+ item.title +'</h4>';
+        routput += '<p class="card-text"><i class="far fa-clock pr-2"></i>' + $.format.date(item.pubDate, "MM/dd/yyyy") +'</p></div>';
+ 				var tagIndex = item.description.indexOf('<img');
+				var srcIndex = item.description.substring(tagIndex).indexOf('src=') + tagIndex; // Find where the src attribute starts
+                                                                         
+				var srcStart = srcIndex + 5; 
+				var srcEnd = item.description.substring(srcStart).indexOf('"') + srcStart; // Find where the URL ends
+				var src = item.description.substring(srcStart, srcEnd); // Extract just the URL
+				 	routput += '<div class="view overlay"><img class="card-img-top rounded-0" src="' + src + '" alt="Card image cap"><a href="#!"><div class="mask rgba-purple-slight"></div></a></div>';
+
+				
+
+				var yourString = item.description.replace(/<img[^>]*>/g,""); 
+				var maxLength = 450;
+				var trimmedString = yourString.substr(0, maxLength);
+				
+				trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+				routput += ' <div class="card-body"><p class="card-text">' + trimmedString + '...<br /><a class="btn btn-danger text-dark btn-lg-tablet margintopmore waves-effect waves-light" href="'+ item.link + '">Read Full Article</a></p></div><div class="card-footer">';
+        routput += '<span class="float-right "><a href="https://www.facebook.com/sharer/sharer.php?u='+ item.link + '" class="white-text text-muted p-1 my-1">Share <i class="fab fa-facebook-f pr-1"> </i></a>';
+        routput +='<a href="https://twitter.com/home?status=' + item.title + '%21%20-%20'+ item.link + '" class="white-text  text-muted p-1 my-1 mr-3">Tweet <i class="fab fa-twitter pr-1"> </i></a></span></div></div></div>';
+				return k < 8;
+			});
+      
+                                                                                                                                                                                                          
+			$rootcontent.append(routput);
+		}
+	});
+});
+      });
+
+                      </script>                                                                                                                                       
+   
+{% endfor %}
+{% endif %}

@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"> 
+
+      <div id="content">
+        
+        <div class="press-release">
+          
+          <div class="header">
+            
+            <div class="released-at">
+              <h6 class="strong">{{ page.published_at | date: '%B %d, %Y' }}</h6>
+            </div>
+
+            <h2 class="headline">{{ page.headline }}</h2>
+            
+          </div>
+          
+        </div>
+        
+        <div id="intro" class="intro">
+          {{ page.press_release.content }}
+        </div>
+        
+        {% if page.tags_count > 0 %}
+        <div id="page-tags" class="page-tags">
+          {% include "page_tags" with page %}
+        </div>
+        {% endif %}
+        
+        {% include "like_page" %}
+
+        
+      </div>
+    </div>
+    <div class="col-sm-4 col-sm-offset-1 col-md-3 col-md-offset-2">
+      {% if page.has_author? %}
+        {% include "page_byline" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

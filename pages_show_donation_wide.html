@@ -1,0 +1,557 @@
+<div class="container">
+  <div class="visible-xs">
+
+    {% if page.headline.size > 0 %}
+      <h2 class="headline">{{ page.headline }}</h2>
+    {% endif %}
+
+    {% assign thermo_width = 100 %}
+
+    {% if page.donation.has_amount_goal? %}
+      <div class="clearfix">
+        {% if page.donations_count < 1 %}
+          <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+        {% else %}
+          <div class="bar-text"><h2 class="strong">{{ page.donations_amount_format }}</h2> raised of a {{ page.donation.amount_goal_format }} goal</div>
+        {% endif %}
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_amount_goal | times:100 }}%;">
+          </div>
+        </div>
+      </div>
+
+    {% elsif page.donation.has_donor_goal? %}
+
+      <div class="clearfix">
+        {% if page.donations_count < 2 %}
+          <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+        {% else %}
+          <div class="bar-text"><h2 class="strong">{{ page.donations_count }}</h2> donors of a {{ page.donation.donor_goal }} donor goal</div>
+        {% endif %}
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_donor_goal | times:100 }}%;">
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="donation-container marginbottommore">
+
+        <div class="donation-left">
+          {% form_for donation autocomplete:off %}
+            <div class="form-wrap">
+
+              <div class="form">
+
+                <div class="form-errors">
+                  {% error_messages_for donation %}
+                </div>
+
+                <div class="header">
+                  <div class="form-progress-indicator">
+                    <ul class="progress-indicator-stages clearfix">
+                      <li class="progress-indicator-stage stage-1 active"><span>1</span></li>
+                      <li class="progress-indicator-stage stage-2"><span>2</span></li>
+                      <li class="progress-indicator-stage stage-3"><span>3</span></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="body progress-stages">
+
+                  <div class="progress-stage stage-1 active" data-stageID="1">
+
+                    {% if request.current_order %}
+                      {% for item in request.current_order.items %}
+                        {% if item.num_time_periods and item.time_period_type %}
+                          <p>
+                          {{ item.quantity }} {{ item.name }} @ {{ item.amount }} - billed automatically every {{ item.num_time_periods }} {{item.time_period_type }}
+                          </p>
+                        {% else %}
+                          <p>
+                          {{ item.quantity }} {{ item.name }} @ {{ item.amount }}
+                          </p>
+                        {% endif %}
+                      {% endfor %}
+                      <a class="btn btn-default" href="{{ page.donation.clear_order_url }}">Clear order</a>
+                    {% elsif page.donation.donation_frequency == "monthly" %}
+                      {% if page.donation.amount_in_cents != 0 %}
+                        <h6 class="inverse strong">Your credit card will be billed automatically every month</h6>
+                        <h4>{{ page.donation.amount_formatted }}</h4>
+                      {% else %}
+                        <h6 class="inverse strong">Your credit card will be billed automatically every month</h6>
+                        <div class="radio-inline">{{ page.donation.form_amount_options }}</div>
+                      {% endif %}
+                    {% else %}
+                      {% if page.donation.max_installments > 1 %}
+                        <h6 class="strong inverse">I want to pay the following in {% collection_select "num_installments", page.donation.installment_collection, class:"select" %} installments</h6>
+                      {% endif %}
+                      {% if page.donation.amount_in_cents != 0 %}
+                        <h4>{{ page.donation.amount_formatted }}</h4>
+                      {% else %}
+                        <div class="radio-inline">{{ page.donation.form_amount_options }}</div>
+                      {% endif %}
+                    {% endif %}
+
+                    <div class="clearfix padbottommore">
+                      <span class="progress-stage-button-next btn btn-primary margintopmore">Continue</span>
+                    </div>
+
+                  </div><!-- .progress-stage-1 -->
+
+                  <div class="progress-stage stage-2" data-stageID="2">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "first_name", class:"text form-control" %}<label for="donation_first_name">First name</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "last_name", class:"text form-control" %}<label for="donation_last_name">Last name</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% collection_select "billing_address.country_code", page.donation.countries, "code", "name", class:"select form-control" %}<label for="donation_billing_address_country_code">Country</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "billing_address.address1", class:"text form-control" %}<label for="donation_billing_address_address1">Address 1</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "billing_address.address2", class:"text form-control" %}<label for="donation_billing_address_address2">Address 2</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "billing_address.city", class:"text form-control" %}
+                          <label for="donation_billing_address_city">City</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 us-or-canada us-only hide">
+                        <div class="form-group">
+                          {% collection_select "billing_address.state", page.donation.us_states, "code", "name", class:"select form-control" %}<label for="donation_billing_address_state">State</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 us-or-canada canada-only hide">
+                        <div class="form-group">
+                          {% text_field "billing_address.state", class:"text form-control" %}<label for="donation_billing_address_state">State</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "billing_address.zip", class:"text form-control" %}
+                          <label for="donation_billing_address_zip">Postal code</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% email_field "email", class:"text form-control" %}
+                          <label for="donation_email">Email address</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% phone_field "billing_address.phone_number", class:"text form-control" %}
+                          <label for="donation_billing_address_phone_number">Phone Number</label>
+                        </div>
+                      </div>
+                    </div>
+                    {% unless page.show_consent_form? %}
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="checkbox">
+                          {% check_box "email_opt_in", class:"checkbox" %}<label for="donation_email_opt_in">Send email updates</label>
+                        </div>
+                      </div>
+                    </div>
+                    {% endunless %}
+                    {% if page.donation.merchant_account.is_employer_and_occupation_required? %}
+                      <h4>Employer Info</h4>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            {% text_field "employer", class:"text form-control" %}
+                            <label for="donation_employer">Employer</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            {% text_field "occupation", class:"text form-control" %}
+                            <label for="donation_occupation">Occupation</label>
+                          </div>
+                        </div>
+                      </div>
+                      {% if page.donation.merchant_account.is_employer_address_required? %}
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% collection_select "work_address.country_code", page.donation.countries, "code", "name", class:"select form-control" %}
+                              <label for="donation_work_address_country">Employer country</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.address1", class:"text form-control" %}
+                              <label for="donation_work_address_address1">Employer address 1</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.address2", class:"text form-control" %}
+                              <label for="donation_work_address_address2">Employer address 2</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.city", class:"text form-control" %}
+                              <label for="donation_work_address_city">City</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12 work-us-or-canada">
+                            <div class="form-group">
+                              {% text_field "work_address.state", class:"text form-control", placeholder:"State" %}
+                              <label for="donation_work_address_state">State</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.zip", class:"text form-control" %}
+                              <label for="donation_work_address_zip">Postal code</label>
+                            </div>
+                          </div>
+                        </div>
+                      {% elsif page.donation.merchant_account.is_employer_city_required? %}
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% collection_select "work_address.country_code", page.donation.countries, "code", "name", class:"select form-control" %}
+                              <label for="donation_work_address_country_code">Employer country</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.city", class:"text form-control" %}
+                              <label for="donation_work_address_city">City</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12 work-us-or-canada hide">
+                            <div class="form-group">
+                              {% text_field "work_address.state", class:"text form-control" %}
+                              <label for="donation_work_address_state">State</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              {% text_field "work_address.zip", class:"text form-control" %}
+                              <label for="donation_work_address_zip">Postal code</label>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <p>Law requires we ask for your employer and occupation. If you don't have an employer or are retired, put N/A, and if you are self-employed put "self-employed" in employer and describe your occupation.</p>
+                        </div>
+                      </div>
+
+                    {% endif %}
+
+                    {% if page.donation.merchant_account.is_corporate_contribution_required? %}
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="checkbox">
+                            {% check_box "is_corporate_contribution", class:"checkbox" %}<label for="donation_is_corporate_contribution">This is a contribution from a business.</label>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+
+                    {% for cf in custom_fields.donation %}
+                      {% assign custom_field = cf[1] %}
+                      {% assign custom_field_id = 'custom_values.' | append: custom_field.slug %}
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          {% if custom_field.is_text? or custom_field.is_number? %}
+                            <div class="form-group">
+                              {% text_field custom_field_id, class:"text form-control" %}<label for="donation_custom_values_{{ custom_field.slug }}_custom">{{ custom_field.name }}</label>
+                            </div>
+                          {% elsif custom_field.is_boolean? %}
+                            <div class="checkbox">
+                              {% check_box custom_field_id, class:"checkbox" %}<label for="donation_custom_values_{{ custom_field.slug }}_custom">{{ custom_field.name }}</label>
+                            </div>
+                          {% elsif custom_field.is_multiple_choice? %}
+                            <div class="form-group">
+                              {% collection_select custom_field_id, custom_fields.donation[custom_field.slug].multiple_choice_options, class:"select form-control" %}<label for="donation_custom_values_{{ custom_field.slug }}_custom">{{ custom_field.name }}</label>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                    <div class="clearfix">
+                      <span class="progress-stage-button-next btn btn-primary margintopmore">Continue</span>
+                      <a class="progress-stage-button-prev btn btn-default btn-ghost margintopmore" href="#">Back</a>
+                    </div>
+
+                  </div><!-- .progress-stage-2 -->
+
+                  <div class="progress-stage stage-3" data-stageID="3">
+
+                    {% if page.donation.has_merchant_account? and page.donation.merchant_account.is_paypal_express? == false %}
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "card_number", class:"text form-control" %}
+                          <label for="donation_card_number">Credit card number</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 cc">
+                        {{ page.donation.merchant_account.accepted_card_icons }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h6 class="strong inverse">Expires</h6>
+                        <div class="form-group">
+                          <label for="donation_card_expires_on"></label>
+                          {{ page.donation.form_card_expires_on }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          {% text_field "card_verification", class:"text form-control" %}
+                          <label for="donation_security_code">Security code</label>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        {% if page.donation.merchant_account.has_contribution_rules? %}
+                          <h6 class="strong secondary">Contribution rules</h6>
+                          {{ page.donation.merchant_account.contribution_rules }}
+
+                          <div class="checkbox">
+                          {% check_box "is_confirmed", class:"checkbox" %}<label for="donation_is_confirmed">I confirm that the above statements are true and accurate.</label>
+                          </div>
+                        {% endif %}
+
+                        {% if page.donation.merchant_account.is_de? %}
+                          <div class="checkbox">
+                            {% check_box "is_de_confirmed", class:"checkbox" %}
+                            <label for="donation_is_de_confirmed">
+                              {{ page.donation.merchant_account.de_tos }}
+                            </label>
+                          </div>
+                        {% endif %}
+
+                        {% if site.ask_to_publish_to_stream? %}
+                          <div class="checkbox">
+                            {% check_box "is_private", class:"checkbox" %}<label for="donation_is_private">Don't publish my donation on the website.</label>
+                          </div>
+                        {% endif %}
+
+                        {% if page.donation.has_merchant_account? and page.donation.merchant_account.is_paypal_express? %}
+
+                          <div class="padtopmore">{{ page.donation.merchant_account.accepted_card_icons }}</div>
+
+                          {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+                          
+                          <div class="clearfix">
+                            {% submit_tag "Continue to Paypal", class:"success-button btn btn-primary" %}
+                            <a class="progress-stage-button-prev btn btn-ghost" href="#">Back</a>
+                          </div>
+
+                        {% else %}
+
+                        <div class="row tax-info">
+                          {% if page.donation.merchant_account.is_taxable? %}
+                            <div class="col-sm-12">
+                              <h6 class="inverse strong">Contributions are <i>not</i> tax deductible.</h6>
+                            </div>
+                          {% else %}
+                            <div class="col-sm-12">
+                              <h6 class="inverse strong">Contributions are tax deductible.</h6>
+                            </div>
+                          {% endif %}
+                        </div>
+
+                        {% if page.show_consent_form? %}{% include "consent_form" %}{% endif %}
+
+                        <div class="clearfix">
+                          {% submit_tag "Process Donation", class:"submit-button btn btn-primary margintopmore" %}
+                          <a class="progress-stage-button-prev btn btn-ghost margintopmore" href="#">Back</a>
+                        </div>
+
+                        {% endif %}
+                      </div>
+                    </div>
+
+                  </div><!-- .progress-stage-3 -->
+
+                </div><!-- .progress-stages -->
+
+              </div><!-- .form -->
+            </div>
+          {% endform_for %}
+        </div>
+
+        <div class="donation-right hidden-xs">
+
+          {% if page.donation.has_merchant_account? == false %}
+            <p class="danger">No bank account:This page will not work until you add a bank account</p>
+          {% elsif page.donation.merchant_account.is_test_mode? %}
+            <p class="danger">Testing mode: Transactions will not be processed. Use your regular credit card to test, you will not actually be charged.</p>
+          {% endif %}
+
+          {% if page.headline.size > 0 %}
+          <h2 class="headline">{{ page.headline }}</h2>
+          {% endif %}
+
+          {% assign thermo_width = 100 %}
+
+          {% if page.donation.has_amount_goal? %}
+            <div class="clearfix">
+              {% if page.donations_count < 1 %}
+                <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+              {% else %}
+                <div class="bar-text"><h2 class="strong">{{ page.donations_amount_format }}</h2> raised of a {{ page.donation.amount_goal_format }} goal</div>
+              {% endif %}
+              <div class="progress" style="width: {{ thermo_width }}%;">
+                <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_amount_goal | times:100 }}%;">
+                </div>
+              </div>
+            </div>
+
+          {% elsif page.donation.has_donor_goal? %}
+
+            <div class="clearfix">
+              {% if page.donations_count < 2 %}
+                <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+              {% else %}
+                <div class="bar-text"><h2 class="strong">{{ page.donations_count }}</h2> donors of a {{ page.donation.donor_goal }} donor goal</div>
+              {% endif %}
+              <div class="progress" style="width: {{ thermo_width }}%;">
+                <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_donor_goal | times:100 }}%;">
+                </div>
+              </div>
+            </div>
+
+          {% endif %}
+
+          {% if page.donation.content.size > 0 %}
+          <div id="intro" class="intro">
+            {{ page.donation.content }}
+          </div>
+          {% endif %}
+
+          {% if page.show_social_slider? and page.public_activities_count > 0 %}
+          {% include "social_slider" %}
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="visible-xs">
+    {% assign thermo_width = 100 %}
+
+    {% if page.donation.has_amount_goal? %}
+      <div class="clearfix">
+        {% if page.donations_count < 1 %}
+          <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+        {% else %}
+          <div class="bar-text"><h2 class="strong">{{ page.donations_amount_format }}</h2> raised of a {{ page.donation.amount_goal_format }} goal</div>
+        {% endif %}
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_amount_goal | times:100 }}%;">
+          </div>
+        </div>
+      </div>
+
+    {% elsif page.donation.has_donor_goal? %}
+
+      <div class="clearfix">
+        {% if page.donations_count < 2 %}
+          <div class="bar-text"><h6 class="strong secondary">Just started</h6></div>
+        {% else %}
+          <div class="bar-text"><h2 class="strong">{{ page.donations_count }}</h2> donors of a {{ page.donation.donor_goal }} donor goal</div>
+        {% endif %}
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar progress-bar progress-bar-success" style="width: {{ page.donation.percent_of_donor_goal | times:100 }}%;">
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+
+    {% if page.donation.content.size > 0 %}
+    <div id="intro" class="intro">
+      {{ page.donation.content }}
+    </div>
+    {% endif %}
+
+    {% if page.show_social_slider? and page.public_activities_count > 0 %}
+    {% include "social_slider" %}
+    {% endif %}
+  </div>
+</div>
+
+{% if page.show_stream? %}
+{% include "page_stream" %}
+{% endif %}

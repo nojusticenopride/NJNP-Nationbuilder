@@ -1,0 +1,180 @@
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+@if $enable-grid-classes {
+  .container {
+    @include make-container();
+    @include make-container-max-widths();
+  }
+}
+
+// Fluid container
+//
+// Utilizes the mixin meant for fixed width containers, but with 100% width for
+// fluid, full width layouts.
+
+@if $enable-grid-classes {
+  .container-fluid {
+    @include make-container();
+  }
+}
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
+
+@if $enable-grid-classes {
+  .row {
+    @include make-row();
+  }
+
+  // Remove the negative margin from default .row, then the horizontal padding
+  // from all immediate children columns (to prevent runaway style inheritance).
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+@if $enable-grid-classes {
+  @include make-grid-columns();
+}
+
+.container:not(.main-transform-wrap),
+.container-fluid:not(.main-transform-wrap), {
+    position: relative;
+}
+
+
+.container > article {
+> header {
+        display: block;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-left: 2.127659574468085%;
+        padding-right: 2.127659574468085%;
+        *padding: 2.074468085106383%;
+
+    }
+}
+.container > article, .container-fluid > article, .row-fluid {
+    width: 100%;
+    *zoom: 1;
+    > section {
+        width: 100%;
+    }
+    > section, > aside, {
+        display: block;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-left: 2.127659574468085%;
+        padding-right: 2.127659574468085%;
+        *padding: 2.074468085106383%;
+
+    }
+      > section[class*="span"], > aside[class*="span"] {
+          padding-left: auto;
+          padding-right: auto;
+    }
+}
+.container > article, .container-fluid > article, .row-fluid {
+&:before, &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+&:after {
+    clear: both;
+    margin-bottom: 5px;
+}
+    [class*="span"] {
+        display: block;
+        width: 100%;
+        min-height: 30px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        float: left;
+    }
+    [class*="span"]:first-child {
+        margin-left: 0;
+    }
+    .controls-row [class*="span"] + [class*="span"] {
+        margin-left: 2.127659574468085%;
+    }
+   
+}
+[class*="span"],
+.uneditable-input[class*="span"] .row-fluid [class*="span"] {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 0; }
+.span12,
+.row-fluid .span12 {
+    width: 100%; }
+.row-fluid [class*="offset"]:first-child {
+    margin-left: 0; }
+.input-large,
+.input-xlarge,
+.input-xxlarge,
+input[class*="span"],
+select[class*="span"],
+textarea[class*="span"],
+.uneditable-input {
+    display: block;
+    width: 100%;
+    min-height: 30px; }
+
+.aware-theme.v2-theme .responsive-embed-wrapper iframe {
+    display: block;
+}
+
+.follow-error {
+    display: block;
+    color: #B94A48;
+}
+
+.icon-tumblr32,
+.icon-reddit32,
+.icon-digg32 {
+    width: 32px;
+    height: 32px;
+    display: block;
+    background-repeat: no-repeat;
+}
+
+.icon-tumblr32 {
+    background-image: url('/assets/icons/tumblr32.png');
+}
+
+.icon-reddit32 {
+    background-image: url('/assets/icons/reddit32.png');
+}
+
+.icon-digg32 {
+    background-image: url('/assets/icons/digg32.png');
+}
+
+.content-pages-show-recruiting {
+    a[href*="reddit"],
+    a[href*="tumblr"],
+    a[href*="digg"] {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+    }
+}

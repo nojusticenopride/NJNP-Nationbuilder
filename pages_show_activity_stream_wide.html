@@ -1,0 +1,47 @@
+<div class="container">
+
+  {% if page.headline.size > 0 %}
+  <h2 class="headline padbottom">{{ page.headline }}</h2>
+  {% endif %}
+
+  <div id="content">
+
+    {% if site.has_friends_page? %}
+
+      {% if request.logged_in? == false or request.current_signup.has_facebook_authorization? == false %}
+        <h6 class="secondary margintopmore">Connect to find your friends.</h6>
+        <a href="{{ request.facebook_connect_url }}" class="btn btn-lg btn-primary">Sign in with Facebook</a>
+      {% endif %}
+
+      {% if request.logged_in? == false or request.current_signup.has_twitter_authorization? == false %}
+        <h6 class="secondary margintopmore">Connect to find your friends.</h6>
+        <a href="{{ request.twitter_connect_url }}" class="btn btn-lg btn-primary">Sign in with Twitter</a>
+      {% endif %}
+
+    {% endif %}
+  </div>
+</div>
+
+
+{% if request.logged_in? %}
+
+  <div id="stream" class="margintopmore">
+    <div class="reaction-wrap" id="reactions">
+      <div class="container">
+        <div id="stream-activities" class="activities">
+          <div class="row">
+            {% for activity in page.activity_stream.activities_following %}
+              <div class="col-sm-6">
+                {% include "activity_stream_card" %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {{ page.activity_stream.activities_following | paginate prev_label: "Previous" next_label: "Next" | replace:'<div class="pagination">','<nav class="pagination-container">' | replace:'<ul>','<ul class="pagination">' | replace:'</div>','</nav>' }}
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+

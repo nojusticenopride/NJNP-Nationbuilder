@@ -1,0 +1,65 @@
+<div class="form small-signup">
+
+  {% form_for signup %}
+  {% hidden_field_tag "page_id", page.id %}
+
+  {% if request.sorta_logged_in? %}
+
+  {% if request.logged_in? == false %}
+  <div class="padbottommore"><small>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here to signup</a>.</small></div>
+  {% endif %}
+
+  {% endif %}
+
+  <div class="form-errors">{% error_messages_for signup %}</div>
+  <div class="form-row">
+    <div class="col col-sm-7 col-lg-9">
+      <!-- First name -->
+      <div class="form-group pt-sm-2 px-5">
+        {% email_field "email", class:"text form-control text-light", placeholder:"Email" %}
+      </div>
+      <div class="form-row text-light">
+        <div class="col">
+          <div class="form-check">
+            {% check_box "is_volunteer", class:"checkbox form-check-input" %}
+            <label class="form-check-label" for="signup_is_volunteer">I want to volunteer</label>
+          </div>
+        </div>    
+
+        <div class="col">
+
+          <div class="form-check">
+            {% check_box "email_opt_in",  class:"checkbox form-check-input" %}
+            <label class="form-check-label" for="signup_email_opt_in">Send me email updates</label>
+          </div>
+          <label style="display:none;" class="checkbox" for="signup_activity_is_private">{% check_box "activity_is_private", class:"checkbox" %} Don't publish this on the website</label>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-5 col-lg-3">
+
+      {% if page.signup.is_all_info_collected? == false %}
+      {% if request.sorta_logged_in? %}
+      {% submit_tag "Update info", class:"submit-button btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" %}
+      {% else %}
+      {% submit_tag "Signup", class:"submit-button btn btn-outline-primary btn-rounded btn-block my-4 waves-effect z-depth-0" %}
+      {% endif %}
+      {% endif %}
+      <div class="form-submit"></div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+  {% endform_for %}
+
+
+
+
+</div>

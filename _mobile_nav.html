@@ -1,0 +1,53 @@
+<div class="user-menu clearfix">
+    <div class="user-menu-controls left">
+        <a href="#menu" class="menu-link  mobile-visible tablet-visible"><i class="icon-menu"></i></a>
+
+    </div>
+    <div class="user-menu-controls mobile-visible tablet-visible medpad flush right">
+
+        <a href="http://nojusticenopride.org" target="_blank" class="njnplogo">
+            <img width="120" src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1531414914/largelogo-768x249.png?1531414914" border="0"/>
+        </a>
+        <a href="/donate" class="btn donate-button">Donate</a>
+    </div>
+
+</div>
+<nav id="menu" role="navigation">
+  <div class="nav-menu">
+    <div id="topnav-wrap" class="topnav-wrap width-container">
+      <ul id="topnav" class="topnav mobile-nav">
+        <li class="njnplogo">
+          <a href="/"><img width="180" src="//d3n8a8pro7vhmx.cloudfront.net/themes/5b227f174764e8becc000000/attachments/original/1531414914/largelogo-768x249.png?1531414914" border="0" /></a>
+        </li>  
+        {% for child in site.root_nav_pages %}
+
+        {% if child.leaf? or child.nav_children.size == 0 %}
+        <li class="toplevel{% if child.is_or_is_ancestor_of_current_page? %} active{% endif %}">
+          <a href="{{ child.url }}">{{ child.name }}</a>
+        </li>
+        {% else %}
+        <li class="toplevel{% if child.is_or_is_ancestor_of_current_page? %} active{% endif %} drop">
+          <a href="{{  child.url }}">{{ child.name }} <i class="icon-angle-down"></i></a>
+            <div class="mobile-visible tablet-visible">
+              <ul class="sub ">
+                {% if site.show_parent_in_nav_dropdown? %}
+                <li class="show-parent"><a href="{{ child.url }}">{{ child.name }}</a></li>
+                {% else %}
+                <li class="show-parent mobile-visible"><a href="{{ child.url }}">{{ child.name }}</a></li>
+                {% endif %}
+                {% for child2 in child.nav_children %}
+
+                <li><a href="{{ child2.url }}">{{ child2.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+
+          </li>
+          {% endif %}
+          {% endfor %}
+         
+      </ul>
+    </div>
+  </div>
+
+</nav>

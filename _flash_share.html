@@ -1,0 +1,47 @@
+<div id="flashModal" class="flash-share modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="share-left">
+          <img src="share.png">
+          <h2 class="headline">{{ flash.message }}</h2>
+          Tell all your friends, they should join you! A link will be included. 
+        </div>
+        <div class="share-right">
+          <small>(<span id="face-tweet-content-charsleft"></span> chars left)</small>
+          <div class="form padtopless">
+            {% form_for face_tweet %}
+              {% hidden_field_tag "face_tweet[page_id]", flash.page_id %}
+              <div class="form-errors">{% error_messages_for face_tweet %}</div>
+              <div class="row">
+                <div class="col-md-12"><div class="form-group">{% text_area "content", class:"face-tweet-content share-url textarea form-control" %}</div></div>
+              </div>
+              <div class="row margintopless">
+                <div class="col-xs-6">
+                  <label for="face_tweet_is_twitter" class="switch">
+                    {% check_box "is_twitter", class:"checkbox" %}
+                    <div class="slider round twitter"></div>
+                  </label>
+                  <label for="face_tweet_is_facebook" class="switch">
+                    {% check_box "is_facebook", class:"checkbox" %}
+                    <div class="slider round facebook"></div> 
+                  </label>
+                </div>
+                <div class="col-xs-6">
+                  {% submit_tag "Post", class:"submit-button btn btn-default" %}
+                  <button type="button" class="h6 close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">CLOSE</span></button>
+                </div>
+              </div>
+            {% endform_for %}
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+  $(window).load(function(){
+    $('#flashModal').modal('show');
+  });
+</script>

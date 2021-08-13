@@ -1,0 +1,89 @@
+<section id="page-features" class="page-features" style="max-height: 75vh">
+    <div id="feature-slides" class="feature-slides">
+        <div class="slider-loading"></div>
+
+        <ul class="slides clearfix" >
+            {% for child in site.most_recent_petition_pages | limit:9 %}
+            {% subpage child with "petition_slider_ind" %}
+            {% endfor %}
+
+            {% for page in site.root_nav_pages %}
+            {% if page.name contains "ack To The Roots" or page.name contains "rans Justice" %}
+            {% for child in page.children %}
+            <!-- child number	2	-->
+            {% unless child.name contains 'upport'' %}
+            <!--bundle -->
+            {% if child.type_name == 'Redirect' %}
+
+
+            {% subpage child with "petition_slider_ind" %}
+
+
+            {% endif %}
+            {% if child.has_children %}
+
+            {% for child in child.children %}
+
+            <!-- child number	3	-->
+
+
+            {% if child.type_name == 'Redirect' %}
+            {% subpage child with "petition_slider_ind" %}
+
+            {% endif %}
+
+            {% if child.has_children %}
+
+            {% for child in child.children %}
+
+            <!-- child number	4-->
+
+
+            {% if child.type_name == 'Redirect' %}
+            {% subpage child with "petition_slider_ind" %}
+
+            {% endif %}
+            {% if child.has_children %}
+
+            {% for child in child.children %}
+
+            <!-- child number 5	-->
+
+            {% if child.type_name == 'Redirect' %}
+            {% subpage child with "petition_slider_ind" %}
+
+            {% endif %}
+
+
+            <!-- child number	5	-->
+            {% endfor %}
+            {% endif %}
+
+
+            <!-- child number	4	-->
+            {% endfor %}
+            {% endif %}
+
+            <!-- child number	3	-->
+            {% endfor %}
+            {% endif %}
+
+            <!--bundle -->
+            {% endunless %}
+
+            <!-- child number	2-->
+            {% endfor %}
+            <!-- child number	1	-->
+            {% endif %}
+            {% endfor %}
+
+        </ul>
+
+
+    </div>
+    <div class="continue center "><a href="/action" class="submit-button ">View all actions &rarr;</a>
+    </div>
+
+    <div class="padtopmore padbottommore"></div>
+
+</section>

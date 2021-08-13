@@ -1,0 +1,62 @@
+<div class="row mt-2">
+  <div class="col-sm-11 py-4 mx-5"> 
+    <h2 style="font-weight: 600;" class=" orange-text"><em>{{ page.headline }}</em></h2>
+    <div class="intro schedule py-2 mb-2  px-sm-2 px-md-3 px-xl-5 orange-text">
+      <h6 class="orange-text">#CAMP50 Convergence Space</h6>
+      <p class="mb-0">The Convergence space will be the centralized hub for #CAMP50. Each day, during scheduled workshops and events up until May 31st; the Convergence space will have: </p>
+      <ul><li>Registration - For CAMP50 event information, Participant Stipend forms, etc.</li><li>Info booths and space for tabling</li><li>Healing Space - on noted dates and times</li><li>Meals - on noted dates and times</li><li>Meetings, and more</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-sm-12 px-5">
+    <div class="accordion md-accordion accordion-1 mx-3" id="accordionEx23" role="tablist">
+      {% for post in page.blog.most_recent_blog_posts reversed | limit:40 %}
+
+      {% assign img_url = nil %}
+      {% if post.attachments.size %}
+      {% for attachment in post.attachments %}
+      {% if attachment.content_type contains 'image/' %}
+      {% assign img_url = attachment.url %}
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      <div class="card " style="overflow:hidden;    background: transparent;">
+        <div class="card-header orange z-depth-0 px-sm-2 px-md-3 px-xl-5" role="tab" id="heading96">
+          <h5 class="text-uppercase mb-0 py-1 mb-0">
+            <a class="{% unless forloop.first == true %}collapsed{% endunless %} font-weight-bold" data-toggle="collapse" href="#collapse{{ forloop.index}}" {% if forloop.first == true %} aria-expanded="true" {% else %}aria-expanded="false" {% endif %}
+               aria-controls="collapse{{ forloop.index}}">
+              {% if post.name contains "5/"  %}Day {{ forloop.index}} — {% endif %} {{ post.name }} <i class="fas fa-angle-down rotate-icon fa-2x"></i>
+            </a>
+          </h5>
+        </div>
+        <div id="collapse{{ forloop.index}}" class="collapse white {% if forloop.first == true %} show{% endif %}" role="tabpanel" aria-labelledby="heading{{ forloop.index}}"
+             data-parent="#accordionEx23">
+          <div class="card-body  px-sm-2 px-md-3 px-xl-5">
+            <div class="container-fluid">
+              <div class="row my-4">
+                <div class="{% if img_url %}col-sm-8 {%else%} col-sm-12 {%endif%}">
+                  <h4 class="font-weight-bold mb-3 black-text"> {{ post.headline }}</h4>
+                  {{ post.blog_post.content }}
+                </div>
+                {% if img_url %}
+                <div class="col-md-4 mt-3 pt-2">
+                  <div class="view z-depth-1">
+                    <img src="{{ img_url }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+                {%endif%}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+    <!--Accordion wrapper-->
+
+  </div>
+</div>
